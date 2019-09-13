@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# django caching
-/webdoctor/home/__pycache__
-/webdoctor/webdoctor/__pycache__
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 
 # dependencies
 /client/node_modules
