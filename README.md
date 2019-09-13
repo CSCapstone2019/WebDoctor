@@ -43,7 +43,7 @@ You will also see any lint errors in the console.
 - **Augustina Horvala** - _Front-end & Rest API_ - [augichii](https://github.com/Augichii)
 - **TODO** - Add remaining members
 
-See the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See the list of [contributors](https://github.com/CSCapstone2019/WebDoctor/contributors) who participated in this project.
 
 ## License
 
