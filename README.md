@@ -20,6 +20,24 @@ cd webdoctor
 python manage.py runserver
 ```
 
+## Making Pull Requests
+
+If you would like to commit a change to the codebase, make sure you submit a pull request first. To do this, make your own branch (not 'master' of course) with this command:
+```
+git branch your-branch-name-here
+```
+To switch from master to your new branch:
+```
+git checkout your-branch-name-here
+```
+After making your necessary changes, you would just add and commit your changes to the new branch just like you would normally:
+```
+git add .
+git commit -m 'this is a commit message'
+git push origin your-branch-name-here
+```
+
+
 ### `npm start`
 
 Runs the client in the development mode.<br>
