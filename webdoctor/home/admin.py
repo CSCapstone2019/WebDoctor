@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Home
+from . import models
+
+myModels = [models.Patient, models.Insurance,
+            models.Appointment, models.Report]
 
 # Register your models here.
-admin.site.register(Home)
+admin.site.register(myModels)

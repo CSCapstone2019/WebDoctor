@@ -3,14 +3,6 @@ from django.db import models
 # Create your models here.
 
 
-class Home(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=50)
-    paradigm = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
 class Patient(models.Model):
     SEXES = (
         ('F', 'Female'),
@@ -30,10 +22,11 @@ class Patient(models.Model):
     new_patient_date = models.DateTimeField(auto_now_add=True)
 
     def full_name(self):
-        return '%s %s' %(self.first_name, self.last_name)
+        return '%s %s' % (self.first_name, self.last_name)
 
     def __str__(self):
         return '%s the patient' % (self.full_name)
+
 
 class Insurance(models.Model):
     insurance_id = models.AutoField(primary_key=True)
@@ -46,6 +39,7 @@ class Insurance(models.Model):
     def __str__(self):
         return '% the insurance' % (self.insurance_company)
 
+
 class Appointment(models.Model):
     appointment_id = models.AutoField(primary_key=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -55,6 +49,7 @@ class Appointment(models.Model):
 
     def __str__(self):
         return 'appointment for %s on %s at %s' % (self.patient.full_name(), self.appointment_date, self.appointment_time)
+
 
 class Report(models.Model):
     report_id = models.AutoField(primary_key=True)
@@ -69,5 +64,3 @@ class Report(models.Model):
 
     def __str__(self):
         return 'report for %s' % (self.appointment)
-
-
