@@ -4,6 +4,16 @@ This is the project for the CS Senior Project course at Kennesaw State Universit
 
 ## Getting Started
 
+First, this project assumes you have at least Python 3.6 or later and NodeJS/npm installed on your system.
+- [Python](https://www.python.org/downloads/) - I have the latest version (3.7.4)
+- [NodeJS](https://nodejs.org/en/) - I'd recommend installing the LTS version for your OS
+
+After that, run this command to install Django dependencies (in the root directory):
+
+```
+pip install -r requirements.txt
+```
+
 Once you clone the repo, you will need to install Node.js modules before running any of the front-end (React) scripts. First:
 
 ```
