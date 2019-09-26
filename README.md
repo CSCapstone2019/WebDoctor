@@ -69,7 +69,8 @@ You will also see any lint errors in the console.
 
 - **Josh Arrants** - _Front-end & Rest API_ - [joshdrumz](https://github.com/joshdrumz)
 - **Augustina Horlava** - _Front-end & Rest API_ - [augichii](https://github.com/Augichii)
-- **TODO** - Add remaining members
+- **Nawal Ahmed** - _Video Hosting_ - [NathanAllerton](https://github.com/NathanAllerton)
+- **Rachel Woodard** - _Authentication & Modeling_ - [rachelmwoordard1031](https://github.com/rachelmwoodard1031)
 
 See the list of [contributors](https://github.com/CSCapstone2019/WebDoctor/contributors) who participated in this project.
 
