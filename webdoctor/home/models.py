@@ -25,7 +25,7 @@ class Patient(models.Model):
         return '%s %s' % (self.first_name, self.last_name)
 
     def __str__(self):
-        return '%s the patient' % (self.full_name)
+        return '%s the patient' % (self.full_name())
 
 
 class Insurance(models.Model):
@@ -37,7 +37,7 @@ class Insurance(models.Model):
     insurance_id_number = models.CharField(max_length=50)
 
     def __str__(self):
-        return '% the insurance' % (self.insurance_company)
+        return '%s the insurance' % (self.insurance_company)
 
 
 class Appointment(models.Model):
