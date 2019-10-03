@@ -4,20 +4,32 @@ This is the project for the CS Senior Project course at Kennesaw State Universit
 
 ## Getting Started
 
-First, this project assumes you have at least Python 3.6 or later and NodeJS/npm installed on your system.
+This project assumes you have at least Python 3.6 or later and NodeJS/npm installed on your system.
 - [Python](https://www.python.org/downloads/) - I have the latest version (3.7.4)
 - [NodeJS](https://nodejs.org/en/) - I'd recommend installing the LTS version for your OS
+- [Python VSCode Extension](https://code.visualstudio.com/docs/languages/python) - Needed for any Python development in VSCode
 
-After that, run this command to install Django dependencies (in the root directory):
-
-```
-pip install -r requirements.txt
-```
-
-Once you clone the repo, you will need to install Node.js modules before running any of the front-end (React) scripts. First:
+Make sure you have pipenv installed globally on your machine.
 
 ```
-cd client
+pip install pipenv
+```
+
+Then, navigate to the backend directory and install dependencies:
+
+```
+cd backend
+pipenv install
+# then...
+pipenv shell
+```
+
+**NOTE:** after running `pipenv install`, you must change the Python interpreter to the new virtual environment. To do this, type `CTRL + SHIFT + P` to open the VSCode command palette. Then, type `python` and select the option that says `Python: Select Interpreter` and select the correct interpreter for your pipenv environement.
+
+Once you clone the repo, you will need to install Node.js modules before running any of the front-end (React) scripts:
+
+```
+cd frontend/gui
 # then...
 npm install
 ```
@@ -25,10 +37,12 @@ npm install
 To start the development server for the back-end (Django), type these commands:
 
 ```
-cd webdoctor
+cd backend/src
 # then...
 python manage.py runserver
 ```
+
+Upon running the Django server, navigate to `http://localhost:8000/api/patient` to view current patient REST API data.
 
 ## Making Pull Requests
 
