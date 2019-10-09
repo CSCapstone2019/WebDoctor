@@ -83,7 +83,7 @@ You will also see any lint errors in the console.
 ## Authors
 
 - **Josh Arrants** - _Front-end & Rest API_ - [joshdrumz](https://github.com/joshdrumz)
-- **Augustina Horlava** - _Medeling & Chat Implementation_ - [augichii](https://github.com/Augichii)
+- **Augustina Horlava** - _Modeling & Chat Implementation_ - [augichii](https://github.com/Augichii)
 - **Nawal Ahmed** - _Video Hosting_ - [NathanAllerton](https://github.com/NathanAllerton)
 - **Rachel Woodard** - _Authentication_ - [rachelmwoordard1031](https://github.com/rachelmwoodard1031)
 
