@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'patients',
     'chat',
     'rest_framework',
+    'channels',
     'corsheaders'
 ]
 
@@ -73,6 +74,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'webdoctor.wsgi.application'
+# Channels
+ASGI_APPLICATION = 'webdoctor.routing.application'
 
 
 # Database
