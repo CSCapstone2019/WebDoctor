@@ -36,3 +36,29 @@ class Insurance(models.Model):
 
     def __str__(self):
         return '%s the insurance' % (self.insurance_company)
+
+
+class Appointment(models.Model):
+    appointment_id = models.AutoField(primary_key=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    appointment_date = models.DateField()
+    appointment_time = models.TimeField()
+    message = models.TextField()
+
+    def __str__(self):
+        return 'appointment for %s on %s at %s' % (self.patient.full_name(), self.appointment_date, self.appointment_time)
+
+
+class Report(models.Model):
+    report_id = models.AutoField(primary_key=True)
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    physician_name = models.CharField(max_length=100)
+    visit_start_time = models.TimeField()
+    visit_end_time = models.TimeField()
+    message = models.TextField()
+    visit_total_charge = models.FloatField()
+    visit_total_paid = models.FloatField()
+    report_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return 'report for %s' % (self.appointment)

@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from .serializers import PatientSerializer, InsuranceSerializer
-from ..models import Patient, Insurance
+from .serializers import PatientSerializer, InsuranceSerializer, AppointmentSerializer, ReportSerializer
+from ..models import Patient, Insurance, Appointment, Report
 
 
 class PatientListView(ListAPIView):
@@ -21,3 +21,23 @@ class InsuranceListView(ListAPIView):
 class InsuranceDetailView(RetrieveAPIView):
     queryset = Insurance.objects.all()
     serializer_class = InsuranceSerializer
+
+
+class AppointmentListView(ListAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+
+class AppointmentDetailView(RetrieveAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+
+class ReportListView(ListAPIView):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
+
+
+class ReportDetailView(RetrieveAPIView):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
