@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'patients',
     'chat',
     'rest_framework',
+    'corsheaders',
     'channels',
-    'corsheaders'
+    'redis',
+    'channels_redis'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +78,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'webdoctor.wsgi.application'
 # Channels
 ASGI_APPLICATION = 'webdoctor.routing.application'
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
