@@ -78,13 +78,14 @@ You will also see any lint errors in the console.
 - [Fontawesome](https://fontawesome.com/) - Icons
 - [Reactstrap](https://reactstrap.github.io/) - Bootstrap turned into React components
 - [Axios](https://github.com/axios/axios) - Used for front/back end communication
+- [Redis](https://github.com/axios/axios) -  An in-memory data structure store, used as backing store for the chat 
 
 ## Authors
 
 - **Josh Arrants** - _Front-end & Rest API_ - [joshdrumz](https://github.com/joshdrumz)
-- **Augustina Horlava** - _Front-end & Rest API_ - [augichii](https://github.com/Augichii)
+- **Augustina Horlava** - _Medeling & Chat Implementation_ - [augichii](https://github.com/Augichii)
 - **Nawal Ahmed** - _Video Hosting_ - [NathanAllerton](https://github.com/NathanAllerton)
-- **Rachel Woodard** - _Authentication & Modeling_ - [rachelmwoordard1031](https://github.com/rachelmwoodard1031)
+- **Rachel Woodard** - _Authentication_ - [rachelmwoordard1031](https://github.com/rachelmwoodard1031)
 
 See the list of [contributors](https://github.com/CSCapstone2019/WebDoctor/contributors) who participated in this project.
 
