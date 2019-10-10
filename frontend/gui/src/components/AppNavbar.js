@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBriefcaseMedical } from "@fortawesome/free-solid-svg-icons";
 import {
   Collapse,
   Navbar,
@@ -13,7 +13,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem
-} from 'reactstrap';
+} from "reactstrap";
 
 class AppNavbar extends Component {
   state = {
@@ -32,7 +32,7 @@ class AppNavbar extends Component {
         <Navbar color="dark" dark expand="md">
           <FontAwesomeIcon
             icon={faBriefcaseMedical}
-            style={{ color: 'white' }}
+            style={{ color: "white" }}
             className="fa-2x pr-2"
           />
           <NavbarBrand href="/">WebDoctor</NavbarBrand>
@@ -46,9 +46,7 @@ class AppNavbar extends Component {
                 <NavLink href="/appointments/">Appointments</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  Messages
-                </NavLink>
+                <NavLink href="/chat/">Messages</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

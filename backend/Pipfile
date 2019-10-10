@@ -9,6 +9,9 @@ verify_ssl = true
 djangorestframework = "*"
 django-cors-headers = "*"
 Django = "*"
+channels = "*"
+redis = "*"
+channels-redis = "*"
 
 [requires]
 python_version = "3.7"
