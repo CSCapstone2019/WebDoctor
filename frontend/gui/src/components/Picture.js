@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import doctor from '../doctor.jpg';
 
 class Picture extends Component {
@@ -15,7 +16,7 @@ class Picture extends Component {
         </div>
         <div className="caption-btn">
           <Button className="text-center" color="primary">
-            <a href="/patients/">Tell us who you are!</a>
+            <Link to="/signup">Create an account!</Link>
           </Button>
         </div>
       </div>

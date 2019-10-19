@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AppNavbar from '../components/AppNavbar';
+import axios from 'axios';
 import {
   Card,
   Button,
@@ -19,17 +20,12 @@ class PatientList extends Component {
     patients: []
   };
 
-  async componentDidMount() {
-    try {
-      const res = await fetch('http://127.0.0.1:8000/api/patient/');
-      const patients = await res.json();
+  componentDidMount() {
+    axios.get('http://127.0.0.1:8000/api/patient/').then(res => {
       this.setState({
-        patients
+        patients: res.data
       });
-      console.log(patients);
-    } catch (err) {
-      console.log(err);
-    }
+    });
   }
 
   render() {

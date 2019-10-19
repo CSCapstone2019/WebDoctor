@@ -1,5 +1,6 @@
 import React from 'react';
 import AppNavbar from './AppNavbar';
+import Footer from './Footer';
 import {
   Jumbotron,
   Col,
@@ -142,6 +143,8 @@ const Patients = props => {
           </FormGroup>
         </Form>
       </Container>
+      <br />
+      <Footer />
     </>
   );
 };
