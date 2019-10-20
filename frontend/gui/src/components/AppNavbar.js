@@ -40,7 +40,7 @@ class AppNavbar extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/patients/">Patients</NavLink>
+                <NavLink href="/patient/">Patients</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/appointments/">Appointments</NavLink>
@@ -50,15 +50,18 @@ class AppNavbar extends Component {
                   Messages
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink href="/about-us/">About Us</NavLink>
+              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
+                  Account
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
+                  <DropdownItem>Login</DropdownItem>
+                  <DropdownItem>Logout</DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
+                  <DropdownItem>Settings</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>

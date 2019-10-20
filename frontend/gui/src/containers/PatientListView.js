@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AppNavbar from '../components/AppNavbar';
+import Patient from '../components/Patient';
 import axios from 'axios';
 import {
   Card,
@@ -9,9 +10,6 @@ import {
   CardDeck,
   CardSubtitle,
   CardBody,
-  CardImg,
-  Row,
-  Col,
   Container
 } from 'reactstrap';
 
@@ -31,12 +29,11 @@ class PatientList extends Component {
   render() {
     return (
       <>
-        <AppNavbar />
-        {this.state.patients.map(item => (
+        <Patient data={this.state.patients} />
+        {/* {this.state.patients.map(item => (
           <Container key={item.patient_id}>
             <CardDeck>
               <Card>
-                {/* <CardImg top width="100%" src="/assets/256x186.svg" alt="Card image cap" /> */}
                 <CardBody>
                   <CardTitle>
                     <strong>{`${item.first_name} ${item.last_name}`}</strong>
@@ -63,7 +60,7 @@ class PatientList extends Component {
               </Card>
             </CardDeck>
           </Container>
-        ))}
+        ))} */}
       </>
     );
   }

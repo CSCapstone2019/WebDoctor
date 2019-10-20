@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AppNavbar from './AppNavbar';
+import Footer from './Footer';
 import {
   Jumbotron,
   Col,
@@ -139,6 +140,8 @@ class Appointments extends Component {
             </FormGroup>
           </Form>
         </Container>
+        <br />
+        <Footer />
       </>
     );
   }
