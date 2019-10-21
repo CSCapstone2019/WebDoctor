@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AppNavbar from '../components/AppNavbar';
 import Footer from '../components/Footer';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
@@ -35,7 +34,6 @@ class About extends Component {
   render() {
     return (
       <>
-        {/* <AppNavbar /> */}
         <Jumbotron>
           <h1 className="display-3">About Us!</h1>
           <p className="lead">

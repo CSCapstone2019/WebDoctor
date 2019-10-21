@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AppNavbar from './AppNavbar';
 import {
   Card,
   Button,
@@ -14,7 +13,6 @@ class Patient extends Component {
   render() {
     return (
       <>
-        {/* <AppNavbar /> */}
         {this.props.data.map(item => (
           <Container key={item.patient_id}>
             <Row>

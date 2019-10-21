@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AppNavbar from './AppNavbar';
 import Footer from './Footer';
 import {
   Jumbotron,
@@ -16,7 +15,6 @@ class Patients extends Component {
   render() {
     return (
       <>
-        {/* <AppNavbar /> */}
         <Jumbotron>
           <h1 className="display-3">Patient Form</h1>
           <p className="lead">

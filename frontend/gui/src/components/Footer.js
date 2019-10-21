@@ -8,7 +8,7 @@ class Footer extends Component {
           <p className="mb-1">&copy; 2019 WebDoctor</p>
           <ul class="list-inline">
             <li class="list-inline-item">
-              <a href="/patient">Patient</a>
+              <a href="/patient">Patients</a>
             </li>
             <li class="list-inline-item">
               <a href="/appointments">Appointments</a>

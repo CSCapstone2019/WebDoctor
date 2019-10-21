@@ -52,7 +52,9 @@ class AppNavbar extends Component {
                 <NavLink href="/about-us/">About Us</NavLink>
               </NavItem>
               {this.props.isAuthenticated ? (
-                <NavItem onClick={this.props.logout}>Logout</NavItem>
+                <NavItem onClick={this.props.logout}>
+                  <NavLink href="/">Logout</NavLink>
+                </NavItem>
               ) : (
                 <NavItem>
                   <NavLink href="/login/">Login</NavLink>
