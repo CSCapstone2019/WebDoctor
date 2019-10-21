@@ -16,7 +16,7 @@ class Patients extends Component {
   render() {
     return (
       <>
-        <AppNavbar />
+        {/* <AppNavbar /> */}
         <Jumbotron>
           <h1 className="display-3">Patient Form</h1>
           <p className="lead">

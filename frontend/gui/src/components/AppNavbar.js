@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import * as actions from '../store/actions/auth';
 import {
   Collapse,
   Navbar,
@@ -8,11 +10,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavLink
 } from 'reactstrap';
 
 class AppNavbar extends Component {
@@ -53,17 +51,13 @@ class AppNavbar extends Component {
               <NavItem>
                 <NavLink href="/about-us/">About Us</NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Account
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Login</DropdownItem>
-                  <DropdownItem>Logout</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Settings</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              {this.props.isAuthenticated ? (
+                <NavItem onClick={this.props.logout}>Logout</NavItem>
+              ) : (
+                <NavItem>
+                  <NavLink href="/login/">Login</NavLink>
+                </NavItem>
+              )}
             </Nav>
           </Collapse>
         </Navbar>
@@ -72,4 +66,13 @@ class AppNavbar extends Component {
   }
 }
 
-export default AppNavbar;
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(actions.logout())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AppNavbar);

@@ -17,7 +17,7 @@ class Appointments extends Component {
   render() {
     return (
       <>
-        <AppNavbar />
+        {/* <AppNavbar /> */}
         <Jumbotron>
           <h1 className="display-3">Appointments</h1>
           <p className="lead">

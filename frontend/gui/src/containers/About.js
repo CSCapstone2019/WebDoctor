@@ -35,7 +35,7 @@ class About extends Component {
   render() {
     return (
       <>
-        <AppNavbar />
+        {/* <AppNavbar /> */}
         <Jumbotron>
           <h1 className="display-3">About Us!</h1>
           <p className="lead">

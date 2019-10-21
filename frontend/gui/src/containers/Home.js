@@ -6,7 +6,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <AppNavbar />
+        {/* <AppNavbar /> */}
         <Picture />
       </div>
     );
