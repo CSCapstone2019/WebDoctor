@@ -8,6 +8,7 @@ import PatientList from './containers/PatientListView';
 import About from './containers/About';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
+import ChatApp from './assets/ChatApp';
 
 const BaseRouter = () => (
   <div>
@@ -18,6 +19,7 @@ const BaseRouter = () => (
     <Route exact path="/about-us/" component={About} />
     <Route exact path="/login/" component={Login} />
     <Route exact path="/signup/" component={Signup} />
+    <Route exact path="/chat/" component={ChatApp} />
   </div>
 );
 

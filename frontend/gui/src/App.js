@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import BaseRouter from './routes';
 import * as actions from './store/actions/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 import AppNavbar from './components/AppNavbar';
 

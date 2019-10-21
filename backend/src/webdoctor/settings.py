@@ -30,11 +30,15 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'corsheaders',
+    'channels',
+    'channels_redis',
+    'redis',
     'rest_auth',
     'rest_auth.registration',
     'rest_framework',
     'rest_framework.authtoken',
-    'patients'
+    'patients',
+    'chat'
 ]
 
 SITE_ID = 1
@@ -69,6 +73,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'webdoctor.wsgi.application'
+
+# Channels
+ASGI_APPLICATION = 'webdoctor.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database
@@ -119,6 +134,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIR = [
+    os.path.join (BASE_DIR, 'static'),    
+]
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

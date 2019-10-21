@@ -44,9 +44,7 @@ class AppNavbar extends Component {
                 <NavLink href="/appointments/">Appointments</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  Messages
-                </NavLink>
+                <NavLink href="/chat/">Messages</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/about-us/">About Us</NavLink>

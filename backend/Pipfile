@@ -11,6 +11,9 @@ django-cors-headers = "*"
 Django = "*"
 django-rest-auth = "*"
 django-allauth = "*"
+channels = "*"
+redis = "*"
+channels-redis = "*"
 
 [requires]
 python_version = "3.7"
