@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import * as actions from '../store/actions/auth';
 import {
   Collapse,
   Navbar,
@@ -8,11 +10,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavLink
 } from 'reactstrap';
 
 class AppNavbar extends Component {
@@ -40,7 +38,7 @@ class AppNavbar extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/patients/">Patients</NavLink>
+                <NavLink href="/patient/">Patients</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/appointments/">Appointments</NavLink>
@@ -50,17 +48,18 @@ class AppNavbar extends Component {
                   Messages
                 </NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              <NavItem>
+                <NavLink href="/about-us/">About Us</NavLink>
+              </NavItem>
+              {this.props.isAuthenticated ? (
+                <NavItem onClick={this.props.logout}>
+                  <NavLink href="/">Logout</NavLink>
+                </NavItem>
+              ) : (
+                <NavItem>
+                  <NavLink href="/login/">Login</NavLink>
+                </NavItem>
+              )}
             </Nav>
           </Collapse>
         </Navbar>
@@ -69,4 +68,13 @@ class AppNavbar extends Component {
   }
 }
 
-export default AppNavbar;
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(actions.logout())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AppNavbar);
