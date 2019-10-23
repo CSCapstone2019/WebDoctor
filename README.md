@@ -60,7 +60,16 @@ git add .
 git commit -m 'this is a commit message'
 git push origin your-branch-name-here
 ```
+## Syncing Dependencies
 
+Navigate to /backend and run
+```
+pipenv install
+```
+Then navigate to /frontend/gui and run
+```
+npm install
+```
 
 ### `npm start`
 
@@ -69,6 +78,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
+
+
 
 ## Built With
 
