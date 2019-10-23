@@ -7,6 +7,7 @@ This is the project for the CS Senior Project course at Kennesaw State Universit
 This project assumes you have at least Python 3.6 or later and NodeJS/npm installed on your system.
 - [Python](https://www.python.org/downloads/) - I have the latest version (3.7.4)
 - [NodeJS](https://nodejs.org/en/) - I'd recommend installing the LTS version for your OS
+- [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/) - Virtual environment package recommended for this project
 - [Python VSCode Extension](https://code.visualstudio.com/docs/languages/python) - Needed for any Python development in VSCode
 
 Make sure you have pipenv installed globally on your machine.
@@ -24,7 +25,7 @@ pipenv install
 pipenv shell
 ```
 
-**NOTE:** after running `pipenv install`, you must change the Python interpreter to the new virtual environment. To do this, type `CTRL + SHIFT + P` to open the VSCode command palette. Then, type `python` and select the option that says `Python: Select Interpreter` and select the correct interpreter for your pipenv environement.
+**NOTE:** after running `pipenv install`, you must change the Python interpreter to the new virtual environment. To do this, type `CTRL + SHIFT + P` to open the VSCode command palette. Then, type `python` and select the option that says `Python: Select Interpreter` and select the correct interpreter for your pipenv environment.
 
 Once you clone the repo, you will need to install Node.js modules before running any of the front-end (React) scripts:
 
@@ -61,7 +62,6 @@ git commit -m 'this is a commit message'
 git push origin your-branch-name-here
 ```
 
-
 ### `npm start`
 
 Runs the client in the development mode.<br>
@@ -74,11 +74,14 @@ You will also see any lint errors in the console.
 
 - [React](https://reactjs.org/) - The front-end web framework used
 - [Django](https://www.djangoproject.com/) - The back-end framework used
+- [Redux](https://react-redux.js.org/) - State management and authentication
 - [Django Rest Framework](https://www.django-rest-framework.org/) - Used for the REST API
+- [Django-Allauth](https://django-allauth.readthedocs.io/en/latest/index.html) - Authentication
 - [Fontawesome](https://fontawesome.com/) - Icons
 - [Reactstrap](https://reactstrap.github.io/) - Bootstrap turned into React components
+- [Ant Design](https://ant.design/) - A material design framework used for the signup/login forms
 - [Axios](https://github.com/axios/axios) - Used for front/back end communication
-- [Redis](https://github.com/axios/axios) -  An in-memory data structure store, used as backing store for the chat 
+- [Redis](https://redis.io/) -  An in-memory data structure store, used as backing store for the chat 
 
 ## Authors
 
