@@ -57,6 +57,23 @@ class Chat extends React.Component {
     });
   };
 
+  renderTimestamp = timestamp => {
+    let prefix = "";
+    const timeDiff = Math.round((new Date().getTime() - new Date(timestamp).getTime()) / 60000);
+      if (timeDiff < 1) { // less than one minute ago
+        prefix = 'just now...';
+      } else if (timeDiff < 60 && timeDiff > 1) { // less than sixty minutes ago
+        prefix = `${timeDiff} minutes ago`;
+      } else if (timeDiff < 24 * 60 && timeDiff > 60) { // less than 24 hours ago
+        prefix = `${Math.round(timeDiff / 60)} hours ago`;
+      } else if (timeDiff < 31 * 24 * 60 && timeDiff > 24 * 60) { // less than 7 days ago
+        prefix = `${Math.round(timeDiff / (60 * 24))} days ago`;
+      } else {
+        prefix = `${new Date(timestamp)}`;
+      }
+      return prefix
+  }
+
   renderMessages = messages => {
     const currentUser = 'admin';
     return messages.map((message, i) => (
@@ -68,19 +85,17 @@ class Chat extends React.Component {
         <p>
           {message.content}
           <br />
-          <small
-            className={message.author === currentUser ? 'sent' : 'replies'}
-          >
-            {Math.round(
-              (new Date().getTime() - new Date(message.timestamp).getTime()) /
-                60000
-            )}{' '}
-            minutes ago
+          <small>
+            {this.renderTimestamp(message.timestamp)}
           </small>
         </p>
       </li>
     ));
   };
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
 
   render() {
     const messages = this.state.messages;
@@ -101,7 +116,15 @@ class Chat extends React.Component {
             </div>
           </div>
           <div className="messages">
-            <ul id="chat-log">{messages && this.renderMessages(messages)}</ul>
+            <ul id="chat-log">
+            {
+              messages && 
+              this.renderMessages(messages)
+            }
+            <div style={{ float: "left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
+            </div>
+            </ul>
           </div>
           <div className="message-input">
             <form onSubmit={this.sendMessageHandler}>

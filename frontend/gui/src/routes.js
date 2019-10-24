@@ -9,9 +9,10 @@ import About from './containers/About';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import ChatApp from './assets/ChatApp';
+import Hoc from './hoc/hoc';
 
 const BaseRouter = () => (
-  <div>
+  <Hoc>
     <Route exact path="/" component={Home} />
     <Route exact path="/appointments/" component={Appointments} />
     <Route exact path="/patient/" component={Patients} />
@@ -19,8 +20,8 @@ const BaseRouter = () => (
     <Route exact path="/about-us/" component={About} />
     <Route exact path="/login/" component={Login} />
     <Route exact path="/signup/" component={Signup} />
-    <Route exact path="/chat/" component={ChatApp} />
-  </div>
+    <Route exact path="/:chatID/" component={ChatApp} />
+  </Hoc>
 );
 
 export default BaseRouter;

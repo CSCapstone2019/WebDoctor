@@ -1,4 +1,5 @@
 import React from 'react';
+import Contact from './ChatSidePanelContact';
 
 const SidePanel = props => (
   <div id="sidepanel">
@@ -50,32 +51,16 @@ const SidePanel = props => (
     </div>
     <div id="contacts">
       <ul>
-        <li className="contact">
-          <div className="wrap">
-            <span className="contact-status online"></span>
-            <img
-              src="https://s3-us-west-2.amazonaws.com/snap-sale/20180324200210/no-avatar.png"
-              alt=""
-            />
-            <div className="meta">
-              <p className="name">Louis Litt</p>
-              <p className="preview">Hello Harvey.</p>
-            </div>
-          </div>
-        </li>
-        <li className="contact active">
-          <div className="wrap">
-            <span className="contact-status busy"></span>
-            <img
-              src="https://s3-us-west-2.amazonaws.com/snap-sale/20180324200210/no-avatar.png"
-              alt=""
-            />
-            <div className="meta">
-              <p className="name">Harvey Specter</p>
-              <p className="preview">Hey Louis!</p>
-            </div>
-          </div>
-        </li>
+        <Contact 
+          name ="Name"
+          status = "online"
+          imgURL = "https://s3-us-west-2.amazonaws.com/snap-sale/20180324200210/no-avatar.png"
+          chatURL = "/chatroomname"/>
+        <Contact
+          name="Name2"
+          status="online"
+          imgURL="https://s3-us-west-2.amazonaws.com/snap-sale/20180324200210/no-avatar.png"
+          chatURL="/chatroomname" />
       </ul>
     </div>
     <div id="bottom-bar">
