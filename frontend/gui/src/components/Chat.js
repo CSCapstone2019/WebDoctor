@@ -3,15 +3,25 @@ import { connect } from 'react-redux';
 import WebSocketInstance from '../websocket';
 import Hoc from '../hoc/hoc';
 
+
 class Chat extends React.Component {
+    state = { message: '' }
+
+    initialiseChat() {
+      this.waitForSocketConnection(() => {
+        WebSocketInstance.addCallbacks(this.setMessages.bind(this), this.addMessage.bind(this))
+        WebSocketInstance.fetchMessages(
+          this.props.username,
+          this.props.match.params.chatID
+        );
+      });
+
+    WebSocketInstance.connect(this.props.match.params.chatID);
+  }
+
   constructor(props) {
     super(props);
-    this.state = { message: '' }
-
-    this.waitForSocketConnection(() => {
-      WebSocketInstance.addCallbacks(this.setMessages.bind(this), this.addMessage.bind(this))
-      WebSocketInstance.fetchMessages(this.props.username);
-    });
+      this.initialiseChat();
   }
 
   waitForSocketConnection(callback) {
@@ -38,9 +48,7 @@ class Chat extends React.Component {
   }
 
   messageChangeHandler = (event) => {
-    this.setState({
-      message: event.target.value
-    })
+    this.setState({ message: event.target.value });
   }
 
   sendMessageHandler = (e) => {
@@ -50,10 +58,9 @@ class Chat extends React.Component {
       content: this.state.message,
     };
     WebSocketInstance.newChatMessage(messageObject);
-    this.setState({
-      message: ''
-    });
+    this.setState({ message: '' });
   }
+
   renderTimestamp = timestamp => {
     let prefix = '';
     const timeDiff = Math.round((new Date().getTime() - new Date(timestamp).getTime()) / 60000);
@@ -97,6 +104,11 @@ class Chat extends React.Component {
   componentDidUpdate() {
     this.scrollToBottom();
   }
+
+  componentWillReceiveProps(newProps) {
+    this.initialiseChat();
+  }
+
   render() {
     const messages = this.state.messages;
     return (
@@ -111,7 +123,6 @@ class Chat extends React.Component {
               ref={(el) => { this.messagesEnd = el; }}>
             </div>
           </ul>
-
         </div>
         <div className="message-input">
           <form onSubmit={this.sendMessageHandler}>

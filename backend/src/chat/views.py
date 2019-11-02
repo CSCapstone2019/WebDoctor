@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 def get_last_10_messages(chatId):
-    chat = get_object_or_404(Chat, id=chatId)
+    chat = get_object_or_404(Chat, chat_id=chatId)
     return chat.messages.order_by('-timestamp').all()[:10]
 
 
@@ -16,4 +16,4 @@ def get_user_contact(username):
 
 
 def get_current_chat(chatId):
-    return get_object_or_404(Chat, id=chatId)
+    return get_object_or_404(Chat, chat_id=chatId)
