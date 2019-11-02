@@ -7,5 +7,5 @@ urlpatterns = [
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('admin/', admin.site.urls),
     path('api/', include('patients.api.urls')),
-    path('chat/', include('chat.urls')),
+    path('chat/', include('chat.api.urls')),
 ]
