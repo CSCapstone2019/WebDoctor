@@ -24,11 +24,57 @@ class Appointments extends Component {
           <hr className="my-2" />
           <p>Hours are: 9am-4pm M-F</p>
           <p className="lead">
-            <Button color="primary">Learn More</Button>
+            <Button color="primary">
+              <a
+                href="/about-us/"
+                style={{ textDecoration: 'none', color: 'white' }}
+              >
+                Learn More
+              </a>
+            </Button>
           </p>
         </Jumbotron>
         <Container>
           <Form>
+            <FormGroup row>
+              <Label for="exampleFirstName" sm={2}>
+                First Name
+              </Label>
+              <Col sm={10}>
+                <Input
+                  type="text"
+                  name="firstName"
+                  id="exampleFirstName"
+                  placeholder=""
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label for="exampleLastName" sm={2}>
+                Last Name
+              </Label>
+              <Col sm={10}>
+                <Input
+                  type="text"
+                  name="lastName"
+                  id="exampleLastName"
+                  placeholder=""
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label for="exampleStreet" sm={2}>
+                Street
+              </Label>
+              <Col sm={10}>
+                <Input
+                  type="text"
+                  name="street"
+                  id="exampleStreet"
+                  placeholder=""
+                />
+              </Col>
+            </FormGroup>
             <FormGroup row>
               <Label for="exampleEmail" sm={2}>
                 Email
@@ -38,97 +84,68 @@ class Appointments extends Component {
                   type="email"
                   name="email"
                   id="exampleEmail"
-                  placeholder="with a placeholder"
+                  placeholder=""
                 />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="examplePassword" sm={2}>
-                Password
+              <Label for="exampleCity" sm={2}>
+                City
               </Label>
               <Col sm={10}>
                 <Input
-                  type="password"
-                  name="password"
-                  id="examplePassword"
-                  placeholder="password placeholder"
+                  type="text"
+                  name="city"
+                  id="exampleCity"
+                  placeholder=""
                 />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="exampleSelect" sm={2}>
-                Select
-              </Label>
-              <Col sm={10}>
-                <Input type="select" name="select" id="exampleSelect" />
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="exampleSelectMulti" sm={2}>
-                Select Multiple
+              <Label for="exampleZipcode" sm={2}>
+                Zipcode
               </Label>
               <Col sm={10}>
                 <Input
-                  type="select"
-                  name="selectMulti"
-                  id="exampleSelectMulti"
-                  multiple
+                  type="text"
+                  name="zipcode"
+                  id="exampleZipcode"
+                  pattern="[0-9]*"
+                  placeholder=""
                 />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="exampleText" sm={2}>
-                Text Area
+              <Label for="examplePhone" sm={2}>
+                Phone Number
               </Label>
               <Col sm={10}>
-                <Input type="textarea" name="text" id="exampleText" />
+                <Input
+                  type="tel"
+                  name="phone"
+                  id="examplePhone"
+                  pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}"
+                  placeholder=""
+                />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="exampleFile" sm={2}>
-                File
+              <Label for="exampleDob" sm={2}>
+                Date of birth
               </Label>
               <Col sm={10}>
-                <Input type="file" name="file" id="exampleFile" />
-                <FormText color="muted">
-                  This is some placeholder block-level help text for the above
-                  input. It's a bit lighter and easily wraps to a new line.
-                </FormText>
-              </Col>
-            </FormGroup>
-            <FormGroup tag="fieldset" row>
-              <legend className="col-form-label col-sm-2">Radio Buttons</legend>
-              <Col sm={10}>
-                <FormGroup check>
-                  <Label check>
-                    <Input type="radio" name="radio2" /> Option one is this and
-                    that—be sure to include why it's great
-                  </Label>
-                </FormGroup>
-                <FormGroup check>
-                  <Label check>
-                    <Input type="radio" name="radio2" /> Option two can be
-                    something else and selecting it will deselect option one
-                  </Label>
-                </FormGroup>
-                <FormGroup check disabled>
-                  <Label check>
-                    <Input type="radio" name="radio2" disabled /> Option three
-                    is disabled
-                  </Label>
-                </FormGroup>
+                <Input type="date" name="dob" id="exampleDob" />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label for="checkbox2" sm={2}>
-                Checkbox
+              <Label for="exampleSex" sm={2}>
+                Sex
               </Label>
-              <Col sm={{ size: 10 }}>
-                <FormGroup check>
-                  <Label check>
-                    <Input type="checkbox" id="checkbox2" /> Check me out
-                  </Label>
-                </FormGroup>
+              <Col sm={10}>
+                <Input type="select" name="sex" id="exampleSex">
+                  <option>Male</option>
+                  <option>Female</option>
+                </Input>
               </Col>
             </FormGroup>
             <FormGroup check row>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
 import {
@@ -23,6 +25,8 @@ class AppNavbar extends Component {
       isOpen: !this.state.isOpen
     });
   };
+
+  notify = () => {};
 
   render() {
     return (
@@ -51,7 +55,9 @@ class AppNavbar extends Component {
               </NavItem>
               {this.props.isAuthenticated ? (
                 <NavItem onClick={this.props.logout}>
-                  <NavLink href="/">Logout</NavLink>
+                  <NavLink onClick={this.onClick} href="/">
+                    Logout
+                  </NavLink>
                 </NavItem>
               ) : (
                 <NavItem>

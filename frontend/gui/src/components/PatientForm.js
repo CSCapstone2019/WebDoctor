@@ -23,7 +23,14 @@ class Patients extends Component {
           <hr className="my-2" />
           <p>Hours are: 9am-4pm M-F</p>
           <p className="lead">
-            <Button color="primary">Learn More</Button>
+            <Button color="primary">
+              <a
+                href="/about-us/"
+                style={{ textDecoration: 'none', color: 'white' }}
+              >
+                Learn More
+              </a>
+            </Button>
           </p>
         </Jumbotron>
         <Container>

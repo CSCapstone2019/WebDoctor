@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
 import { Form, Icon, Input, Button, Spin, Layout } from 'antd';
 import 'antd/dist/antd.css';
@@ -17,14 +17,15 @@ class NormalLoginForm extends Component {
       if (!err) {
         this.props.onAuth(values.username, values.password);
       }
+      this.props.history.push('/');
     });
-    this.props.history.push('/');
   };
 
   render() {
     let errorMessage = null;
     if (this.props.error) {
       errorMessage = <p>{this.props.error.message}</p>;
+      return <Redirect to="/login" />;
     }
 
     const { getFieldDecorator } = this.props.form;
@@ -64,7 +65,7 @@ class NormalLoginForm extends Component {
                 <Form.Item>
                   {getFieldDecorator('password', {
                     rules: [
-                      { required: true, message: 'Please input your Password!' }
+                      { required: true, message: 'Please input your password!' }
                     ]
                   })(
                     <Input

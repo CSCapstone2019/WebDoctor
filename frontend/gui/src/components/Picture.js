@@ -15,8 +15,11 @@ class Picture extends Component {
           </p>
         </div>
         <div className="caption-btn">
-          <Button className="text-center" color="primary">
+          <Button color="primary">
             <Link to="/signup">Create an account!</Link>
+          </Button>
+          <Button className="ml-3" color="primary">
+            <Link to="/login">Login!</Link>
           </Button>
         </div>
       </div>
