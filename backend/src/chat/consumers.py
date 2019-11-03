@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
-from .models import Message
+from patients.models import Message
 
 User = get_user_model()
 
@@ -43,7 +43,7 @@ class ChatConsumer(WebsocketConsumer):
             'id': message.id,
             'author': message.author.username,
             'content': message.content,
-            'timestamp': message.timestamp
+            #'timestamp': message.timestamp
         }
 
     commands = {
