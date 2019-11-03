@@ -27,20 +27,19 @@ class App extends Component {
     this.props.onTryAutoSignup();
   }
 
-  constructor(props) {
-    super(props);
-    WebSocketInstance.addCallbacks(
-      this.props.setMessages.bind(this),
-      this.props.addMessage.bind(this)
-    );
-  }
+  // constructor(props) {
+  //   super(props);
+  //   WebSocketInstance.addCallbacks(
+  //     this.props.setMessages.bind(this),
+  //     this.props.addMessage.bind(this)
+  //   );
+  // }
 
   render() {
     return (
       <div>
         <Router>
           <AppNavbar {...this.props} />
-          {/* <ChatApp {...this.props} /> */}
           <BaseRouter />
         </Router>
       </div>
@@ -48,21 +47,20 @@ class App extends Component {
   }
 }
 
-// Convert state into properties
 const mapStateToProps = state => {
   return {
-    showAddChatPopup: state.nav.showAddChatPopup,
+    // showAddChatPopup: state.nav.showAddChatPopup,
     authenticated: state.auth.token
   };
 };
 
-// 
+
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
-    closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
-    addMessage: message => dispatch(messageActions.addMessage(message)),
-    setMessages: messages => dispatch(messageActions.setMessages(messages))
+    // closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
+    // addMessage: message => dispatch(messageActions.addMessage(message)),
+    // setMessages: messages => dispatch(messageActions.setMessages(messages))
   };
 };
 

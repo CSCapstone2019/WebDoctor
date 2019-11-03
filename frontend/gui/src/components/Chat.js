@@ -2,6 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import WebSocketInstance from "../websocket";
 import Hoc from "../hoc/hoc";
+import ChatApp from '../containers/ChatApp';
+import Profile from '../components/ChatProfile';
+import Sidepanel from '../components/ChatSidePanel';
+import AddChatModal from "../components/ChatPopup";
+import BaseRouter from '../routes';
+
 
 class Chat extends React.Component {
   state = { message: "" };
