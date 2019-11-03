@@ -37,18 +37,34 @@ class AppNavbar extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/patient/">Patients</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/appointments/">Appointments</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/chat/">Messages</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/about-us/">About Us</NavLink>
-              </NavItem>
+              {this.props.isAuthenticated ? (
+                <NavItem>
+                  <NavLink href="/patient/">Patients</NavLink>
+                </NavItem>
+              ) : (
+                  <NavItem>
+                    <NavLink href=""></NavLink>
+                  </NavItem>
+                )}
+              {this.props.isAuthenticated ? (
+                <NavItem>
+                  <NavLink href="/appointments/">Appointments</NavLink>
+                </NavItem>
+              ) : (
+                  <NavItem>
+                    <NavLink href=""></NavLink>
+                  </NavItem>
+                )}
+              {this.props.isAuthenticated ? (
+                <NavItem>
+                  <NavLink href="/chat/">Messages</NavLink>
+                </NavItem>
+              ) : (
+                  <NavItem>
+                    <NavLink href="/about-us/">About Us</NavLink>
+                  </NavItem>
+              )}
+
               {this.props.isAuthenticated ? (
                 <NavItem onClick={this.props.logout}>
                   <NavLink href="/">Logout</NavLink>

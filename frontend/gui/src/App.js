@@ -7,6 +7,8 @@ import Profile from './components/ChatProfile';
 import Sidepanel from './components/ChatSidePanel';
 import AddChatModal from "./components/ChatPopup";
 import WebSocketInstance from './websocket.js';
+import ChatApp from './containers/ChatApp';
+
 
 import * as actions from './store/actions/auth';
 import * as navActions from "./store/actions/nav";
@@ -38,17 +40,7 @@ class App extends Component {
       <div>
         <Router>
           <AppNavbar {...this.props} />
-          <div id="frame">
-            <Sidepanel />
-            <div className="content">
-              <AddChatModal
-                isVisible={this.props.showAddChatPopup}
-                close={() => this.props.closeAddChatPopup()}
-              />
-              <Profile />
-              {/* <BaseRouter /> */}
-            </div>
-          </div>
+          {/* <ChatApp {...this.props} /> */}
           <BaseRouter />
         </Router>
       </div>
@@ -56,6 +48,7 @@ class App extends Component {
   }
 }
 
+// Convert state into properties
 const mapStateToProps = state => {
   return {
     showAddChatPopup: state.nav.showAddChatPopup,
@@ -63,6 +56,7 @@ const mapStateToProps = state => {
   };
 };
 
+// 
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
