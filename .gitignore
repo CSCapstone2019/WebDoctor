@@ -4,8 +4,8 @@
 .vscode
 
 # Byte-compiled / optimized / DLL files
-/backend/__pycache__/
-/backend/*.py[cod]
+backend/__pycache__/
+backend/*.py[cod]
 
 # dependencies
 frontend/node_modules
