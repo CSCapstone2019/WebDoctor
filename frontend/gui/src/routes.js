@@ -9,6 +9,7 @@ import About from './containers/About';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import ChatApp from './assets/ChatApp';
+import Reports from './containers/Reports';
 
 const BaseRouter = () => (
   <div>
@@ -20,6 +21,7 @@ const BaseRouter = () => (
     <Route exact path="/login/" component={Login} />
     <Route exact path="/signup/" component={Signup} />
     <Route exact path="/chat/" component={ChatApp} />
+    <Route exact path="/reports/" component={Reports} />
   </div>
 );
 

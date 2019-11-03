@@ -48,6 +48,9 @@ class AppNavbar extends Component {
                 <NavLink href="/appointments/">Appointments</NavLink>
               </NavItem>
               <NavItem>
+                <NavLink href="/reports/">Reports</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href="/chat/">Messages</NavLink>
               </NavItem>
               <NavItem>
