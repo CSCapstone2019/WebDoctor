@@ -1,7 +1,7 @@
-import React from 'react';
-import '../assets/ChatApp.css';
-import SidePanel from './ChatSidePanel';
-import WebSocketInstance from '../websocket.js';
+import React from "react";
+import "../assets/ChatApp.css";
+import SidePanel from "./ChatSidePanel";
+import WebSocketInstance from "../websocket.js";
 
 class Chat extends React.Component {
   constructor(props) {
@@ -21,11 +21,11 @@ class Chat extends React.Component {
     const component = this;
     setTimeout(function() {
       if (WebSocketInstance.state() === 1) {
-        console.log('Connection is made');
+        console.log("Connection is made");
         callback();
         return;
       } else {
-        console.log('wait for connection...');
+        console.log("wait for connection...");
         component.waitForSocketConnection(callback);
       }
     }, 100);
@@ -48,38 +48,57 @@ class Chat extends React.Component {
   sendMessageHandler = e => {
     e.preventDefault();
     const messageObject = {
-      from: 'admin',
+      from: "admin",
       content: this.state.message
     };
     WebSocketInstance.newChatMessage(messageObject);
     this.setState({
-      message: ''
+      message: ""
     });
   };
 
+  renderTimestamp = timestamp => {
+    let prefix = "";
+    const timeDiff = Math.round(
+      (new Date().getTime() - new Date(timestamp).getTime()) / 60000
+    );
+    if (timeDiff < 1) {
+      // less than one minute ago
+      prefix = "just now...";
+    } else if (timeDiff < 60 && timeDiff > 1) {
+      // less than sixty minutes ago
+      prefix = `${timeDiff} minutes ago`;
+    } else if (timeDiff < 24 * 60 && timeDiff > 60) {
+      // less than 24 hours ago
+      prefix = `${Math.round(timeDiff / 60)} hours ago`;
+    } else if (timeDiff < 31 * 24 * 60 && timeDiff > 24 * 60) {
+      // less than 7 days ago
+      prefix = `${Math.round(timeDiff / (60 * 24))} days ago`;
+    } else {
+      prefix = `${new Date(timestamp)}`;
+    }
+    return prefix;
+  };
+
   renderMessages = messages => {
-    const currentUser = 'admin';
+    const currentUser = "admin";
     return messages.map((message, i) => (
       <li
         key={message.id}
-        className={message.author === currentUser ? 'sent' : 'replies'}
+        className={message.author === currentUser ? "sent" : "replies"}
       >
         <img src="https://s3-us-west-2.amazonaws.com/snap-sale/20180324200210/no-avatar.png" />
         <p>
           {message.content}
           <br />
-          <small
-            className={message.author === currentUser ? 'sent' : 'replies'}
-          >
-            {Math.round(
-              (new Date().getTime() - new Date(message.timestamp).getTime()) /
-                60000
-            )}{' '}
-            minutes ago
-          </small>
+          <small>{this.renderTimestamp(message.timestamp)}</small>
         </p>
       </li>
     ));
+  };
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
   render() {
@@ -101,7 +120,15 @@ class Chat extends React.Component {
             </div>
           </div>
           <div className="messages">
-            <ul id="chat-log">{messages && this.renderMessages(messages)}</ul>
+            <ul id="chat-log">
+              {messages && this.renderMessages(messages)}
+              <div
+                style={{ float: "left", clear: "both" }}
+                ref={el => {
+                  this.messagesEnd = el;
+                }}
+              ></div>
+            </ul>
           </div>
           <div className="message-input">
             <form onSubmit={this.sendMessageHandler}>
