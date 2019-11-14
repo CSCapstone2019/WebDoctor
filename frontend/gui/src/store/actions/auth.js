@@ -1,5 +1,5 @@
-import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import * as actionTypes from "./actionTypes";
+import axios from "axios";
 
 export const authStart = () => {
   return {
@@ -22,8 +22,8 @@ export const authFail = error => {
 };
 
 export const logout = () => {
-  localStorage.removeItem('user');
-  localStorage.removeItem('expirationDate');
+  localStorage.removeItem("user");
+  localStorage.removeItem("expirationDate");
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -41,15 +41,15 @@ export const authLogin = (username, password) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post('http://127.0.0.1:8000/rest-auth/login/', {
+      .post("http://127.0.0.1:8000/rest-auth/login/", {
         username: username,
         password: password
       })
       .then(res => {
         const token = res.data.key;
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem('token', token);
-        localStorage.setItem('expirationDate', expirationDate);
+        localStorage.setItem("token", token);
+        localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(token));
         dispatch(checkAuthTimeout(3600));
       })
@@ -63,7 +63,7 @@ export const authSignup = (username, email, password1, password2) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post('http://127.0.0.1:8000/rest-auth/registration/', {
+      .post("http://127.0.0.1:8000/rest-auth/registration/", {
         username: username,
         email: email,
         password1: password1,
@@ -72,9 +72,9 @@ export const authSignup = (username, email, password1, password2) => {
       .then(res => {
         const token = res.data.key;
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem('token', token);
-        localStorage.setItem('expirationDate', expirationDate);
-        dispatch(authSuccess(token));
+        localStorage.setItem("token", token);
+        localStorage.setItem("expirationDate", expirationDate);
+        dispatch(authSuccess(username, token));
         dispatch(checkAuthTimeout(3600));
       })
       .catch(err => {
@@ -85,15 +85,16 @@ export const authSignup = (username, email, password1, password2) => {
 
 export const authCheckState = () => {
   return dispatch => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
     if (token === undefined) {
       dispatch(logout());
     } else {
-      const expirationDate = new Date(localStorage.getItem('expirationDate'));
+      const expirationDate = new Date(localStorage.getItem("expirationDate"));
       if (expirationDate <= new Date()) {
         dispatch(logout());
       } else {
-        dispatch(authSuccess(token));
+        dispatch(authSuccess(username, token));
         dispatch(
           checkAuthTimeout(
             expirationDate.getTime() - new Date().getTime() / 1000

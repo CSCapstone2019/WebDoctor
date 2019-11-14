@@ -1,20 +1,33 @@
 import React from "react";
-import "../assets/ChatApp.css";
-import SidePanel from "./ChatSidePanel";
-import WebSocketInstance from "../websocket.js";
+import { connect } from "react-redux";
+import WebSocketInstance from "../websocket";
+import Hoc from "../hoc/hoc";
+import ChatApp from "../containers/ChatApp";
+import Profile from "../components/ChatProfile";
+import Sidepanel from "../components/ChatSidePanel";
+import AddChatModal from "../components/ChatPopup";
+import BaseRouter from "../routes";
 
 class Chat extends React.Component {
+  state = { message: "" };
+
+  initialiseChat() {
+    this.waitForSocketConnection(() => {
+      // WebSocketInstance.addCallbacks(
+      //   this.props.setMessages.bind(this),
+      //   this.props.addMessage.bind(this)
+      // );
+      WebSocketInstance.fetchMessages(
+        this.props.username,
+        this.props.match.params.chatID
+      );
+    });
+    WebSocketInstance.connect(this.props.match.params.chatID);
+  }
+
   constructor(props) {
     super(props);
-    this.state = {};
-
-    this.waitForSocketConnection(() => {
-      WebSocketInstance.addCallbacks(
-        this.setMessages.bind(this),
-        this.addMessage.bind(this)
-      );
-      WebSocketInstance.fetchMessages(this.props.currentUser);
-    });
+    this.initialiseChat();
   }
 
   waitForSocketConnection(callback) {
@@ -31,30 +44,27 @@ class Chat extends React.Component {
     }, 100);
   }
 
-  addMessage(message) {
-    this.setState({ messages: [...this.state.messages, message] });
-  }
+  // addMessage(message) {
+  //   this.setState({ messages: [...this.state.messages, message] });
+  // }
 
-  setMessages(messages) {
-    this.setState({ messages: messages.reverse() });
-  }
+  // setMessages(messages) {
+  //   this.setState({ messages: messages.reverse() });
+  // }
 
   messageChangeHandler = event => {
-    this.setState({
-      message: event.target.value
-    });
+    this.setState({ message: event.target.value });
   };
 
   sendMessageHandler = e => {
     e.preventDefault();
     const messageObject = {
-      from: "admin",
-      content: this.state.message
+      from: this.props.username,
+      content: this.state.message,
+      chatId: this.props.match.params.chatID
     };
     WebSocketInstance.newChatMessage(messageObject);
-    this.setState({
-      message: ""
-    });
+    this.setState({ message: "" });
   };
 
   renderTimestamp = timestamp => {
@@ -81,13 +91,14 @@ class Chat extends React.Component {
   };
 
   renderMessages = messages => {
-    const currentUser = "admin";
-    return messages.map((message, i) => (
+    const currentUser = this.props.username;
+    return messages.map((message, i, arr) => (
       <li
         key={message.id}
+        style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
         className={message.author === currentUser ? "sent" : "replies"}
       >
-        <img src="https://s3-us-west-2.amazonaws.com/snap-sale/20180324200210/no-avatar.png" />
+        <img src="http://emilcarlsson.se/assets/mikeross.png" />
         <p>
           {message.content}
           <br />
@@ -101,60 +112,70 @@ class Chat extends React.Component {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.match.params.chatID !== newProps.match.params.chatID) {
+      WebSocketInstance.disconnect();
+      this.waitForSocketConnection(() => {
+        WebSocketInstance.fetchMessages(
+          this.props.username,
+          newProps.match.params.chatID
+        );
+      });
+      WebSocketInstance.connect(newProps.match.params.chatID);
+    }
+  }
+
   render() {
     const messages = this.state.messages;
     return (
-      <div id="frame">
-        <SidePanel />
-        <div className="content">
-          <div className="contact-profile">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/snap-sale/20180324200210/no-avatar.png"
-              alt=""
+      <Hoc>
+        <div className="messages">
+          <ul id="chat-log">
+            {this.props.messages && this.renderMessages(this.props.messages)}
+            <div
+              style={{ float: "left", clear: "both" }}
+              ref={el => {
+                this.messagesEnd = el;
+              }}
             />
-            <p>username</p>
-            <div className="social-media">
-              <i className="fa fa-facebook" aria-hidden="true"></i>
-              <i className="fa fa-twitter" aria-hidden="true"></i>
-              <i className="fa fa-instagram" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div className="messages">
-            <ul id="chat-log">
-              {messages && this.renderMessages(messages)}
-              <div
-                style={{ float: "left", clear: "both" }}
-                ref={el => {
-                  this.messagesEnd = el;
-                }}
-              ></div>
-            </ul>
-          </div>
-          <div className="message-input">
-            <form onSubmit={this.sendMessageHandler}>
-              <div className="wrap">
-                <input
-                  onChange={this.messageChangeHandler}
-                  value={this.state.message}
-                  required
-                  id="chat-message-input"
-                  type="text"
-                  placeholder="Write your message..."
-                />
-                <i
-                  className="fa fa-paperclip attachment"
-                  aria-hidden="true"
-                ></i>
-                <button id="chat-message-submit" className="submit">
-                  <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                </button>
-              </div>
-            </form>
-          </div>
+          </ul>
         </div>
-      </div>
+        <div className="message-input">
+          <form onSubmit={this.sendMessageHandler}>
+            <div className="wrap">
+              <input
+                onChange={this.messageChangeHandler}
+                value={this.state.message}
+                required
+                id="chat-message-input"
+                type="text"
+                placeholder="Write your message..."
+              />
+              <i className="fa fa-paperclip attachment" aria-hidden="true" />
+              <button id="chat-message-submit" className="submit">
+                <i className="fa fa-paper-plane" aria-hidden="true" />
+              </button>
+            </div>
+          </form>
+        </div>
+      </Hoc>
     );
   }
 }
 
-export default Chat;
+const mapStateToProps = state => {
+  return {
+    username: state.auth.username,
+    messages: state.message.messages
+  };
+};
+
+export default connect(mapStateToProps)(Chat);

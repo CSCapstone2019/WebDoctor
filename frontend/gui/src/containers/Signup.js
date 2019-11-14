@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Layout } from 'antd';
-import { NavLink } from 'react-router-dom';
-import Footer from '../components/Footer';
-import * as actions from '../store/actions/auth';
-import { connect } from 'react-redux';
-import 'antd/dist/antd.css';
+import React, { Component } from "react";
+import { Form, Input, Icon, Button, Layout } from "antd";
+import { NavLink } from "react-router-dom";
+import Footer from "../components/Footer";
+import * as actions from "../store/actions/auth";
+import { connect } from "react-redux";
+import "antd/dist/antd.css";
 
 const { Content } = Layout;
 
@@ -24,7 +24,7 @@ class RegistrationForm extends Component {
           values.confirm
         );
       }
-      this.props.history.push('/');
+      this.props.history.push("/");
     });
   };
 
@@ -35,8 +35,8 @@ class RegistrationForm extends Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const { form } = this.props;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Must match the above password!');
+    if (value && value !== form.getFieldValue("password")) {
+      callback("Must match the above password!");
     } else {
       callback();
     }
@@ -45,7 +45,7 @@ class RegistrationForm extends Component {
   validateToNextPassword = (rule, value, callback) => {
     const { form } = this.props;
     if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
+      form.validateFields(["confirm"], { force: true });
     }
     callback();
   };
@@ -57,18 +57,18 @@ class RegistrationForm extends Component {
       <>
         <Layout className="layout">
           <Content
-            style={{ padding: '0 50px', marginTop: '30px', width: '30%' }}
+            style={{ padding: "0 50px", marginTop: "30px", width: "30%" }}
           >
             <Form onSubmit={this.handleSubmit}>
               <Form.Item>
-                {getFieldDecorator('username', {
+                {getFieldDecorator("username", {
                   rules: [
-                    { required: true, message: 'Please input your username!' }
+                    { required: true, message: "Please input your username!" }
                   ]
                 })(
                   <Input
                     prefix={
-                      <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
                     placeholder="Username"
                   />
@@ -76,21 +76,21 @@ class RegistrationForm extends Component {
               </Form.Item>
 
               <Form.Item>
-                {getFieldDecorator('email', {
+                {getFieldDecorator("email", {
                   rules: [
                     {
-                      type: 'email',
-                      message: 'The input is not valid E-mail!'
+                      type: "email",
+                      message: "The input is not valid E-mail!"
                     },
                     {
                       required: true,
-                      message: 'Please input your E-mail!'
+                      message: "Please input your E-mail!"
                     }
                   ]
                 })(
                   <Input
                     prefix={
-                      <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
+                      <Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
                     placeholder="Email"
                   />
@@ -98,11 +98,11 @@ class RegistrationForm extends Component {
               </Form.Item>
 
               <Form.Item hasFeedback>
-                {getFieldDecorator('password', {
+                {getFieldDecorator("password", {
                   rules: [
                     {
                       required: true,
-                      message: 'Please input your password!'
+                      message: "Please input your password!"
                     },
                     {
                       validator: this.validateToNextPassword
@@ -111,7 +111,7 @@ class RegistrationForm extends Component {
                 })(
                   <Input.Password
                     prefix={
-                      <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
                     type="password"
                     placeholder="Password"
@@ -120,11 +120,11 @@ class RegistrationForm extends Component {
               </Form.Item>
 
               <Form.Item hasFeedback>
-                {getFieldDecorator('confirm', {
+                {getFieldDecorator("confirm", {
                   rules: [
                     {
                       required: true,
-                      message: 'Please confirm your password!'
+                      message: "Please confirm your password!"
                     },
                     {
                       validator: this.compareToFirstPassword
@@ -134,7 +134,7 @@ class RegistrationForm extends Component {
                   <Input.Password
                     onBlur={this.handleConfirmBlur}
                     prefix={
-                      <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
                     type="password"
                     placeholder="Confirm password"
@@ -146,14 +146,14 @@ class RegistrationForm extends Component {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  style={{ marginRight: '10px' }}
+                  style={{ marginRight: "10px" }}
                 >
                   Signup
                 </Button>
                 Or
-                <NavLink style={{ marginRight: '10px' }} to="/login/">
-                  {' '}
-                  login
+                <NavLink style={{ marginRight: "10px" }} to="/login/">
+                  {" "}
+                  Login
                 </NavLink>
               </Form.Item>
             </Form>
@@ -165,7 +165,7 @@ class RegistrationForm extends Component {
   }
 }
 
-const WrappedRegistrationForm = Form.create({ name: 'register' })(
+const WrappedRegistrationForm = Form.create({ name: "register" })(
   RegistrationForm
 );
 

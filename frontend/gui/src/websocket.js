@@ -13,36 +13,26 @@ class WebSocketService {
     this.socketRef = null;
   }
 
-  // Connect to the websocket
-  connect() {
-    const path = 'ws://127.0.0.1:8000/ws/chat/test/';
+  connect(chatUrl) {
+    const path = `ws://127.0.0.1:8000/ws/chat/${chatUrl}/`;
     this.socketRef = new WebSocket(path);
-
-    // On Open
     this.socketRef.onopen = () => {
-      console.log('WebSocket open...');
+      console.log("WebSocket open");
     };
-    this.socketNewMessage(
-      JSON.stringify({
-        command: 'fetch_messages'
-      })
-    );
-
-    // On Message
     this.socketRef.onmessage = e => {
       this.socketNewMessage(e.data);
     };
-
-    // On Error
     this.socketRef.onerror = e => {
       console.log(e.message);
     };
-
-    // On Close
     this.socketRef.onclose = () => {
-      console.log("WebSocket closed let's reopen...");
+      console.log("WebSocket closed let's reopen");
       this.connect();
     };
+  }
+
+  disconnect() {
+    this.socketRef.close();
   }
 
   socketNewMessage(data) {
@@ -51,32 +41,34 @@ class WebSocketService {
     if (Object.keys(this.callbacks).length === 0) {
       return;
     }
-    // Handle list of messages
-    if (command === 'messages') {
+    if (command === "messages") {
       this.callbacks[command](parsedData.messages);
     }
-    // Handle one message
-    if (command === 'new_message') {
+    if (command === "new_message") {
       this.callbacks[command](parsedData.message);
     }
   }
 
-  fetchMessages(username) {
-    this.sendMessage({ command: 'fetch_messages', username: username });
+  fetchMessages(username, chatId) {
+    this.sendMessage({
+      command: "fetch_messages",
+      username: username,
+      chatId: chatId
+    });
   }
 
   newChatMessage(message) {
     this.sendMessage({
-      command: 'new_message',
+      command: "new_message",
       from: message.from,
-      message: message.content
+      message: message.content,
+      chatId: message.chatId
     });
   }
 
-  // Adding callbacks in the dictionary
   addCallbacks(messagesCallback, newMessageCallback) {
-    this.callbacks['messages'] = messagesCallback;
-    this.callbacks['new_message'] = newMessageCallback;
+    this.callbacks["messages"] = messagesCallback;
+    this.callbacks["new_message"] = newMessageCallback;
   }
 
   sendMessage(data) {
