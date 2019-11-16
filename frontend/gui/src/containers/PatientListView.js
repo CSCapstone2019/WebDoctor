@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import AppNavbar from '../components/AppNavbar';
+// import AppNavbar from '../components/AppNavbar';
 import Patient from '../components/Patient';
 import axios from 'axios';
-import {
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  CardDeck,
-  CardSubtitle,
-  CardBody,
-  Container
-} from 'reactstrap';
+// import {
+//   Card,
+//   Button,
+//   CardTitle,
+//   CardText,
+//   CardDeck,
+//   CardSubtitle,
+//   CardBody,
+//   Container
+// } from 'reactstrap';
 
 class PatientList extends Component {
   state = {

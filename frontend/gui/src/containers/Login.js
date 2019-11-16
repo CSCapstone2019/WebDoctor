@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import Footer from "../components/Footer";
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import * as actions from "../store/actions/auth";
-import { Form, Icon, Input, Button, Spin, Layout } from "antd";
-import "antd/dist/antd.css";
+import React, { Component } from 'react';
+import Footer from '../components/layout/Footer';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import * as actions from '../store/actions/auth';
+import { Form, Icon, Input, Button, Spin, Layout } from 'antd';
+import 'antd/dist/antd.css';
 
 const { Content } = Layout;
 
@@ -18,7 +18,7 @@ class NormalLoginForm extends Component {
         this.props.onAuth(values.username, values.password);
       }
     });
-    this.props.history.push("/");
+    this.props.history.push('/');
   };
 
   render() {
@@ -37,23 +37,23 @@ class NormalLoginForm extends Component {
           <Layout className="layout">
             <Content
               style={{
-                padding: "0 50px",
-                marginTop: "30px",
-                width: "30%"
+                padding: '0 50px',
+                marginTop: '30px',
+                width: '30%'
               }}
             >
               <Form onSubmit={this.handleSubmit} className="login-form">
                 <Form.Item>
-                  {getFieldDecorator("username", {
+                  {getFieldDecorator('username', {
                     rules: [
-                      { required: true, message: "Please input your username!" }
+                      { required: true, message: 'Please input your username!' }
                     ]
                   })(
                     <Input
                       prefix={
                         <Icon
                           type="user"
-                          style={{ color: "rgba(0,0,0,.25)" }}
+                          style={{ color: 'rgba(0,0,0,.25)' }}
                         />
                       }
                       placeholder="Username"
@@ -62,16 +62,16 @@ class NormalLoginForm extends Component {
                 </Form.Item>
 
                 <Form.Item>
-                  {getFieldDecorator("password", {
+                  {getFieldDecorator('password', {
                     rules: [
-                      { required: true, message: "Please input your Password!" }
+                      { required: true, message: 'Please input your Password!' }
                     ]
                   })(
                     <Input
                       prefix={
                         <Icon
                           type="lock"
-                          style={{ color: "rgba(0,0,0,.25)" }}
+                          style={{ color: 'rgba(0,0,0,.25)' }}
                         />
                       }
                       type="password"
@@ -84,13 +84,13 @@ class NormalLoginForm extends Component {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    style={{ marginRight: "10px" }}
+                    style={{ marginRight: '10px' }}
                   >
                     Login
                   </Button>
                   Or
-                  <NavLink style={{ marginRight: "10px" }} to="/signup/">
-                    {" "}
+                  <NavLink style={{ marginRight: '10px' }} to="/signup/">
+                    {' '}
                     Signup
                   </NavLink>
                 </Form.Item>
@@ -104,7 +104,7 @@ class NormalLoginForm extends Component {
   }
 }
 
-const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(
   NormalLoginForm
 );
 

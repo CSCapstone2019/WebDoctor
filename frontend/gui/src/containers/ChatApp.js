@@ -1,14 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
-import BaseRouter from "../routes";
-import Sidepanel from "../components/ChatSidePanel";
-import Profile from "../components/ChatProfile";
-import AddChatModal from "../components/ChatPopup";
-import * as actions from "../store/actions/auth";
-import * as navActions from "../store/actions/nav";
-import * as messageActions from "../store/actions/message";
-import WebSocketInstance from "../websocket";
+import React from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import BaseRouter from '../routes';
+import Sidepanel from '../components/chat/ChatSidePanel';
+import Profile from '../components/chat/ChatProfile';
+import AddChatModal from '../components/chat/ChatPopup';
+import * as actions from '../store/actions/auth';
+import * as navActions from '../store/actions/nav';
+import * as messageActions from '../store/actions/message';
+import WebSocketInstance from '../websocket';
 
 class ChatApp extends React.Component {
   // componentDidMount() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import BaseRouter from './routes';
-import AppNavbar from './components/AppNavbar';
+import AppNavbar from './components/layout/AppNavbar';
 // import Profile from "./components/ChatProfile";
 // import Sidepanel from "./components/ChatSidePanel";
 // import AddChatModal from "./components/ChatPopup";

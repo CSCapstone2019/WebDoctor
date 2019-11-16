@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Footer from '../components/Footer';
+import Footer from '../components/layout/Footer';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { Jumbotron } from 'reactstrap';

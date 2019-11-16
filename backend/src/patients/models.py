@@ -14,7 +14,7 @@ class Patient(models.Model):
     street = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=5)
-    email = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=50, unique=True)
     phone = models.CharField(max_length=10)
     dob = models.DateField()
     sex = models.CharField(max_length=1, choices=SEXES)

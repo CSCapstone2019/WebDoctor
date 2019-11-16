@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBriefcaseMedical } from "@fortawesome/free-solid-svg-icons";
-import { connect } from "react-redux";
-import * as actions from "../store/actions/auth";
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/auth';
 import {
   Collapse,
   Navbar,
@@ -11,7 +11,7 @@ import {
   Nav,
   NavItem,
   NavLink
-} from "reactstrap";
+} from 'reactstrap';
 
 class AppNavbar extends Component {
   state = {
@@ -30,7 +30,7 @@ class AppNavbar extends Component {
         <Navbar color="dark" dark expand="md">
           <FontAwesomeIcon
             icon={faBriefcaseMedical}
-            style={{ color: "white" }}
+            style={{ color: 'white' }}
             className="fa-2x pr-2"
           />
           <NavbarBrand href="/">WebDoctor</NavbarBrand>

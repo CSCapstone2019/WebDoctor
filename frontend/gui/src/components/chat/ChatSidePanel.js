@@ -1,10 +1,10 @@
-import React from "react";
-import { Spin, Icon } from "antd";
-import { connect } from "react-redux";
-import * as actions from "../store/actions/auth";
-import * as navActions from "../store/actions/nav";
-import * as messageActions from "../store/actions/message";
-import Contact from "./ChatContact";
+import React from 'react';
+import { Spin, Icon } from 'antd';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/auth';
+import * as navActions from '../../store/actions/nav';
+import * as messageActions from '../../store/actions/message';
+import Contact from './ChatContact';
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
@@ -26,7 +26,7 @@ class Sidepanel extends React.Component {
         );
         return;
       } else {
-        console.log("waiting for authentication details...");
+        console.log('waiting for authentication details...');
         component.waitForAuthDetails();
       }
     }, 100);

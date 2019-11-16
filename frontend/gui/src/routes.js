@@ -1,16 +1,16 @@
-import React from "react";
-import { Route } from "react-router-dom";
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-import Home from "./containers/Home";
-import Appointments from "./components/Appointments";
-import Patients from "./components/PatientForm";
-import PatientList from "./containers/PatientListView";
-import About from "./containers/About";
-import Login from "./containers/Login";
-import Signup from "./containers/Signup";
-import Chat from "./components/Chat";
-import ChatApp from "./containers/ChatApp";
-import Hoc from "./hoc/hoc";
+import Home from './containers/Home';
+import Appointments from './components/Appointments';
+import Patients from './components/PatientForm';
+import PatientList from './containers/PatientListView';
+import About from './containers/About';
+import Login from './containers/Login';
+import Signup from './containers/Signup';
+import Chat from './components/chat/Chat';
+import ChatApp from './containers/ChatApp';
+import Hoc from './hoc/hoc';
 
 const BaseRouter = () => (
   <div>
