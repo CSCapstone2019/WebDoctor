@@ -9,11 +9,10 @@ verify_ssl = true
 djangorestframework = "*"
 django-cors-headers = "*"
 Django = "*"
-django-rest-auth = "*"
-django-allauth = "*"
 channels = "*"
 redis = "*"
 channels-redis = "*"
+django-rest-knox = "*"
 
 [requires]
 python_version = "3.7"

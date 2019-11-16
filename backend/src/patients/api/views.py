@@ -1,12 +1,19 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 # from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .serializers import PatientSerializer, InsuranceSerializer, AppointmentSerializer, ReportSerializer
 from ..models import Patient, Insurance, Appointment, Report
 
 class PatientViewSet(viewsets.ModelViewSet):
-    queryset = Patient.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
     serializer_class = PatientSerializer
 
+    def get_queryset(self):
+        return self.request.user.patients.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class InsuranceViewSet(viewsets.ModelViewSet):
     queryset = Insurance.objects.all()
