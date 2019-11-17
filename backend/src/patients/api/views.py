@@ -3,17 +3,17 @@ from .serializers import PatientSerializer, InsuranceSerializer, AppointmentSeri
 from ..models import Patient, Insurance, Appointment, Report
 
 class PatientViewSet(viewsets.ModelViewSet):
-    queryset = Patient.objects.all()
+    # queryset = Patient.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated,
     ]
     serializer_class = PatientSerializer
 
-    # def get_queryset(self):
-    #     return self.request.user.patients.all()
+    def get_queryset(self):
+        return self.request.user.patients.all()
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class InsuranceViewSet(viewsets.ModelViewSet):
     queryset = Insurance.objects.all()

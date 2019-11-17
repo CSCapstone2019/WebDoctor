@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'patients',
     'chat',
-    'knox'
+    'knox',
+    'accounts'
 ]
 
 SITE_ID = 1
@@ -135,9 +136,6 @@ STATICFILES_DIR = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'
-    ]
 }
 
 CORS_ORIGIN_WHITELIST = (

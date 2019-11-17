@@ -18,7 +18,7 @@ class Patient(models.Model):
     phone = models.CharField(max_length=10)
     dob = models.DateField()
     sex = models.CharField(max_length=1, choices=SEXES)
-    # owner = models.ForeignKey(User, related_name="patients", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, related_name="patients", on_delete=models.CASCADE, null=True)
     new_patient_date = models.DateTimeField(auto_now_add=True)
 
     def full_name(self):
