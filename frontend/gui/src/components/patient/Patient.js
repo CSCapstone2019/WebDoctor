@@ -22,7 +22,7 @@ class Patients extends Component {
           <h2 className="text-center">
             <u>Patients</u>
           </h2>
-          <Table dark hover striped>
+          <Table dark hover responsive>
             <thead>
               <tr>
                 <th>#</th>

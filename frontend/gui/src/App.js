@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import BaseRouter from './routes';
 import Header from './components/layout/Header';
+import Alerts from './components/layout/Alerts';
 // import Profile from "./components/ChatProfile";
 // import Sidepanel from "./components/ChatSidePanel";
 // import AddChatModal from "./components/ChatPopup";
@@ -35,6 +36,7 @@ class App extends Component {
       <div>
         <Router>
           <Header {...this.props} />
+          <Alerts />
           <BaseRouter />
         </Router>
       </div>

@@ -36,22 +36,22 @@ class PatientsForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     const {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       street,
       city,
-      zip,
+      zipcode,
       email,
       phone,
       dob,
       sex
     } = this.state;
     const patient = {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       street,
       city,
-      zip,
+      zipcode,
       email,
       phone,
       dob,
@@ -59,11 +59,11 @@ class PatientsForm extends Component {
     };
     this.props.addPatient(patient);
     this.setState({
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       street: '',
       city: '',
-      zip: '',
+      zipcode: '',
       email: '',
       phone: '',
       dob: '',
@@ -73,11 +73,11 @@ class PatientsForm extends Component {
 
   render() {
     const {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       street,
       city,
-      zip,
+      zipcode,
       email,
       phone,
       dob,
@@ -115,10 +115,10 @@ class PatientsForm extends Component {
                     <Label>First Name</Label>
                     <Input
                       type="text"
-                      name="firstName"
+                      name="first_name"
                       placeholder="Enter your first name"
                       onChange={this.onChange}
-                      value={firstName}
+                      value={first_name}
                     />
                   </FormGroup>
                 </Col>
@@ -127,10 +127,10 @@ class PatientsForm extends Component {
                     <Label>Last Name</Label>
                     <Input
                       type="text"
-                      name="lastName"
+                      name="last_name"
                       placeholder="Enter your last name"
                       onChange={this.onChange}
-                      value={lastName}
+                      value={last_name}
                     />
                   </FormGroup>
                 </Col>
@@ -169,8 +169,8 @@ class PatientsForm extends Component {
                       onChange={this.onChange}
                       value={sex}
                     >
-                      <option>Female</option>
-                      <option>Male</option>
+                      <option>F</option>
+                      <option>M</option>
                     </Input>
                   </FormGroup>
                 </Col>
@@ -205,10 +205,10 @@ class PatientsForm extends Component {
                     <Label>Zip</Label>
                     <Input
                       type="number"
-                      name="zip"
+                      name="zipcode"
                       placeholder="30152"
                       onChange={this.onChange}
-                      value={zip}
+                      value={zipcode}
                     />
                   </FormGroup>
                 </Col>
