@@ -93,13 +93,13 @@ You will also see any lint errors in the console.
 - [Ant Design](https://ant.design/) - A material design framework used for the signup/login forms
 - [Axios](https://github.com/axios/axios) - Used for front/back end communication
 - [Redis](https://redis.io/) -  An in-memory data structure store, used as backing store for the chat 
+- [Syncfusion Schedule Component](https://ej2.syncfusion.com/demos/#/bootstrap/schedule/recurrence-editor-generate-rule.html)
 
 ## Authors
 
 - **Josh Arrants** - _Front-end & Rest API_ - [joshdrumz](https://github.com/joshdrumz)
 - **Augustina Horlava** - _Modeling & Chat Implementation_ - [augichii](https://github.com/Augichii)
-- **Nawal Ahmed** - _Video Hosting_ - [NathanAllerton](https://github.com/NathanAllerton)
-- **Rachel Woodard** - _Authentication_ - [rachelmwoordard1031](https://github.com/rachelmwoodard1031)
+
 
 See the list of [contributors](https://github.com/CSCapstone2019/WebDoctor/contributors) who participated in this project.
 
