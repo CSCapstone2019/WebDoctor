@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import BaseRouter from './routes';
 import Header from './components/layout/Header';
 import Alerts from './components/layout/Alerts';
+import { loadUser } from './store/actions/auth';
+import store from './store';
 // import Profile from "./components/ChatProfile";
 // import Sidepanel from "./components/ChatSidePanel";
 // import AddChatModal from "./components/ChatPopup";
@@ -19,6 +21,10 @@ import './App.css';
 import './assets/ChatApp.css';
 
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(loadUser());
+  }
+
   // componentDidMount() {
   //   this.props.onTryAutoSignup();
   // }
@@ -37,7 +43,9 @@ class App extends Component {
         <Router>
           <Header {...this.props} />
           <Alerts />
-          <BaseRouter />
+          <Switch>
+            <BaseRouter />
+          </Switch>
         </Router>
       </div>
     );

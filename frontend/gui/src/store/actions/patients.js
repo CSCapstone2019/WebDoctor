@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { createMessage } from './errorMsg';
+import { createMessage, returnErrors } from './errorMsg';
 
-import { GET_PATIENTS, DELETE_PATIENT, ADD_PATIENT, GET_ERRORS } from './types';
+import { GET_PATIENTS, DELETE_PATIENT, ADD_PATIENT } from './types';
 
 // GET PATIENTS
 export const getPatients = () => dispatch => {
@@ -13,7 +13,9 @@ export const getPatients = () => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // DELETE PATIENT
@@ -41,14 +43,7 @@ export const addPatient = patient => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => {
-      const errors = {
-        msg: err.response.data,
-        status: err.response.status
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors
-      });
-    });
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
