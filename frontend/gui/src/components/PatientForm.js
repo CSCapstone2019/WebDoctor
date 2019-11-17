@@ -11,7 +11,7 @@ import {
   Input
 } from 'reactstrap';
 
-class Patients extends Component {
+class PatientsForm extends Component {
   render() {
     return (
       <>
@@ -161,4 +161,4 @@ class Patients extends Component {
   }
 }
 
-export default Patients;
+export default PatientsForm;

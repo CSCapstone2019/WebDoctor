@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
-import auth from './auth';
-import errors from './errors';
-import errorMessages from './errorMessages';
+import patients from './patients';
 import message from './message';
 import nav from './nav';
+import auth from './auth';
 
 export default combineReducers({
-  auth,
-  errors,
-  errorMessages,
+  patients,
   message,
-  nav
+  nav,
+  auth
 });

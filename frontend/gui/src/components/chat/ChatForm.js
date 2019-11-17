@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Button, Select } from 'antd';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class HorizontalAddChatForm extends React.Component {
+class HorizontalAddChatForm extends Component {
   state = {
     usernames: [],
     error: null

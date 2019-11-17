@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -13,4 +12,3 @@ const app = (
 );
 
 ReactDOM.render(app, document.getElementById('root'));
-// serviceWorker.unregister();
