@@ -9,6 +9,7 @@ import About from "./containers/About";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import Chat from "./components/Chat";
+import Report from "./containers/Reports";
 import ChatApp from "./containers/ChatApp";
 import Hoc from "./hoc/hoc";
 
@@ -23,6 +24,7 @@ const BaseRouter = () => (
     <Route exact path="/signup/" component={Signup} />
     <Route exact path="/chat/" component={ChatApp} />
     <Route exact path="/chat/:chatID/" component={Chat} />
+    <Route exact path="/reports/" component={Report} />
   </div>
 );
 

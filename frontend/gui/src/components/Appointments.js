@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Footer from './Footer';
+import ScheduleComponent from './ScheduleComponent.js'
 import {
   Jumbotron,
   Col,
@@ -155,7 +156,10 @@ class Appointments extends Component {
             </FormGroup>
           </Form>
         </Container>
+
+
         <br />
+        <ScheduleComponent />
         <Footer />
       </>
     );
