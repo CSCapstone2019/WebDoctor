@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getPatients, deletePatient } from '../store/actions/patients';
+import { getPatients, deletePatient } from '../../store/actions/patients';
 import { Button, Container, Table } from 'reactstrap';
 
 class Patients extends Component {
   static propTypes = {
-    patients: PropTypes.array.isRequired
+    patients: PropTypes.array.isRequired,
+    getPatients: PropTypes.func.isRequired,
+    deletePatient: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -17,14 +19,18 @@ class Patients extends Component {
     return (
       <>
         <Container>
-          <h2 className="text-center">Patients</h2>
-          <Table dark hover>
+          <h2 className="text-center">
+            <u>Patients</u>
+          </h2>
+          <Table dark hover striped>
             <thead>
               <tr>
                 <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Phone</th>
                 <th>Sex</th>
+                <th>City</th>
                 <th>New Patient Date</th>
                 <th />
               </tr>
@@ -37,7 +43,9 @@ class Patients extends Component {
                     {p.first_name} {p.last_name}
                   </td>
                   <td>{p.email}</td>
+                  <td>{p.phone}</td>
                   <td>{p.sex}</td>
+                  <td>{p.city}</td>
                   <td>{p.new_patient_date.slice(0, 10)}</td>
                   <td>
                     <Button
