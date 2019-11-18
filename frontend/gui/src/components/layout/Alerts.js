@@ -22,11 +22,15 @@ export class Alerts extends Component {
       if (error.msg.sex) alert.error(error.msg.sex.join());
       if (error.msg.phone)
         alert.error('Phone may not be blank or is in the incorrect format.');
+      if (error.msg.non_field_errors)
+        alert.error(error.msg.non_field_errors.join());
+      if (error.msg.username) alert.error(error.msg.username.join());
     }
 
     if (message !== prevProps.message) {
       if (message.deletePatient) alert.success(message.deletePatient);
       if (message.addPatient) alert.success(message.addPatient);
+      if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
     }
   }
 

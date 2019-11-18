@@ -51,42 +51,42 @@ class About extends Component {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/simple-line-icons@2.4.1/css/simple-line-icons.css"
           integrity="sha256-q5+FXlQok94jx7fkiX65EGbJ27/qobH6c6gmhngztLE="
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></link>
-        <section class="features-icons bg-white text-center">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                  <div class="features-icons-icon d-flex">
-                    <i class="icon-screen-smartphone m-auto text-primary"></i>
+        <section className="features-icons bg-white text-center">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-4">
+                <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                  <div className="features-icons-icon d-flex">
+                    <i className="icon-screen-smartphone m-auto text-primary"></i>
                   </div>
                   <h3>Approachable</h3>
-                  <p class="lead mb-0">
+                  <p className="lead mb-0">
                     We are available through phone calls and email. Contact
                     hours are between 9am-4pm M-F.
                   </p>
                 </div>
               </div>
-              <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                  <div class="features-icons-icon d-flex">
-                    <i class="icon-people m-auto text-primary"></i>
+              <div className="col-lg-4">
+                <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                  <div className="features-icons-icon d-flex">
+                    <i className="icon-people m-auto text-primary"></i>
                   </div>
                   <h3>Customer Service</h3>
-                  <p class="lead mb-0">
+                  <p className="lead mb-0">
                     What matters to WebDoctor? Our customer's health and
                     well-being is our first, most important priority.
                   </p>
                 </div>
               </div>
-              <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                  <div class="features-icons-icon d-flex">
-                    <i class="icon-check m-auto text-primary"></i>
+              <div className="col-lg-4">
+                <div className="features-icons-item mx-auto mb-0 mb-lg-3">
+                  <div className="features-icons-icon d-flex">
+                    <i className="icon-check m-auto text-primary"></i>
                   </div>
                   <h3>Great Location</h3>
-                  <p class="lead mb-0">
+                  <p className="lead mb-0">
                     Located in the center of Marietta. Check out the interactive
                     map below!
                   </p>
