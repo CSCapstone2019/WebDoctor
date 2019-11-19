@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import WebSocketInstance from "../websocket";
-import Hoc from "../hoc/hoc";
-import ChatApp from "../containers/ChatApp";
-import Profile from "../components/ChatProfile";
-import Sidepanel from "../components/ChatSidePanel";
-import AddChatModal from "../components/ChatPopup";
-import BaseRouter from "../routes";
+import React from 'react';
+import { connect } from 'react-redux';
+import WebSocketInstance from '../../websocket';
+import Hoc from '../../hoc/hoc';
+// import ChatApp from '../../containers/ChatApp';
+// import Profile from './ChatProfile';
+// import Sidepanel from './ChatSidePanel';
+// import AddChatModal from './ChatPopup';
+// import BaseRouter from '../../routes';
 
 class Chat extends React.Component {
-  state = { message: "" };
+  state = { message: '' };
 
   initialiseChat() {
     this.waitForSocketConnection(() => {
@@ -34,11 +34,11 @@ class Chat extends React.Component {
     const component = this;
     setTimeout(function() {
       if (WebSocketInstance.state() === 1) {
-        console.log("Connection is made");
+        console.log('Connection is made');
         callback();
         return;
       } else {
-        console.log("wait for connection...");
+        console.log('wait for connection...');
         component.waitForSocketConnection(callback);
       }
     }, 100);
@@ -64,17 +64,17 @@ class Chat extends React.Component {
       chatId: this.props.match.params.chatID
     };
     WebSocketInstance.newChatMessage(messageObject);
-    this.setState({ message: "" });
+    this.setState({ message: '' });
   };
 
   renderTimestamp = timestamp => {
-    let prefix = "";
+    let prefix = '';
     const timeDiff = Math.round(
       (new Date().getTime() - new Date(timestamp).getTime()) / 60000
     );
     if (timeDiff < 1) {
       // less than one minute ago
-      prefix = "just now...";
+      prefix = 'just now...';
     } else if (timeDiff < 60 && timeDiff > 1) {
       // less than sixty minutes ago
       prefix = `${timeDiff} minutes ago`;
@@ -95,8 +95,8 @@ class Chat extends React.Component {
     return messages.map((message, i, arr) => (
       <li
         key={message.id}
-        style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
-        className={message.author === currentUser ? "sent" : "replies"}
+        style={{ marginBottom: arr.length - 1 === i ? '300px' : '15px' }}
+        className={message.author === currentUser ? 'sent' : 'replies'}
       >
         <img src="http://emilcarlsson.se/assets/mikeross.png" />
         <p>
@@ -109,7 +109,7 @@ class Chat extends React.Component {
   };
 
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
   };
 
   componentDidMount() {
@@ -141,7 +141,7 @@ class Chat extends React.Component {
           <ul id="chat-log">
             {this.props.messages && this.renderMessages(this.props.messages)}
             <div
-              style={{ float: "left", clear: "both" }}
+              style={{ float: 'left', clear: 'both' }}
               ref={el => {
                 this.messagesEnd = el;
               }}

@@ -1,54 +1,57 @@
-import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import {
+  USER_LOADED,
+  USER_LOADING,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT_SUCCESS,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS
+} from '../actions/types';
 
 const initialState = {
-  token: null,
-  error: null,
-  loading: false
+  token: localStorage.getItem('token'),
+  isAuthenticated: null,
+  isLoading: false,
+  user: null
 };
 
-const authStart = (state, action) => {
-  return updateObject(state, {
-    error: null,
-    loading: true
-  });
-};
-
-const authSuccess = (state, action) => {
-  return updateObject(state, {
-    token: action.token,
-    error: null,
-    loading: false
-  });
-};
-
-const authFail = (state, action) => {
-  return updateObject(state, {
-    error: action.error,
-    loading: false
-  });
-};
-
-const authLogout = (state, action) => {
-  return updateObject(state, {
-    token: null,
-    username: null
-  });
-};
-
-const reducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.AUTH_START:
-      return authStart(state, action);
-    case actionTypes.AUTH_SUCCESS:
-      return authSuccess(state, action);
-    case actionTypes.AUTH_FAIL:
-      return authFail(state, action);
-    case actionTypes.AUTH_LOGOUT:
-      return authLogout(state, action);
+    case USER_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        user: action.payload
+      };
+    case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        isLoading: false
+      };
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT_SUCCESS:
+    case REGISTER_FAIL:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: null,
+        user: null,
+        isAuthenticated: false,
+        isLoading: false
+      };
     default:
       return state;
   }
-};
-
-export default reducer;
+}

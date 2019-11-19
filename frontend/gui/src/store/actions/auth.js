@@ -1,106 +1,122 @@
-import * as actionTypes from "./actionTypes";
-import axios from "axios";
+import axios from 'axios';
+import { returnErrors } from './errorMsg';
 
-export const authStart = () => {
-  return {
-    type: actionTypes.AUTH_START
-  };
-};
+import {
+  USER_LOADED,
+  USER_LOADING,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL
+} from './types';
 
-export const authSuccess = token => {
-  return {
-    type: actionTypes.AUTH_SUCCESS,
-    token: token
-  };
-};
+// Check token & load user
+export const loadUser = () => (dispatch, getState) => {
+  // User loading
+  dispatch({ type: USER_LOADING });
 
-export const authFail = error => {
-  return {
-    type: actionTypes.AUTH_FAIL,
-    error: error
-  };
-};
-
-export const logout = () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("expirationDate");
-  return {
-    type: actionTypes.AUTH_LOGOUT
-  };
-};
-
-export const checkAuthTimeout = expirationTime => {
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime * 1000);
-  };
-};
-
-export const authLogin = (username, password) => {
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .post("http://127.0.0.1:8000/rest-auth/login/", {
-        username: username,
-        password: password
-      })
-      .then(res => {
-        const token = res.data.key;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem("token", token);
-        localStorage.setItem("expirationDate", expirationDate);
-        dispatch(authSuccess(token));
-        dispatch(checkAuthTimeout(3600));
-      })
-      .catch(err => {
-        dispatch(authFail(err));
+  axios
+    .get('http://localhost:8000/api/auth/user', tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
       });
-  };
-};
-
-export const authSignup = (username, email, password1, password2) => {
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .post("http://127.0.0.1:8000/rest-auth/registration/", {
-        username: username,
-        email: email,
-        password1: password1,
-        password2: password2
-      })
-      .then(res => {
-        const token = res.data.key;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem("token", token);
-        localStorage.setItem("expirationDate", expirationDate);
-        dispatch(authSuccess(username, token));
-        dispatch(checkAuthTimeout(3600));
-      })
-      .catch(err => {
-        dispatch(authFail(err));
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: AUTH_ERROR
       });
-  };
+    });
 };
 
-export const authCheckState = () => {
-  return dispatch => {
-    const token = localStorage.getItem("token");
-    const username = localStorage.getItem("username");
-    if (token === undefined) {
-      dispatch(logout());
-    } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
-        dispatch(logout());
-      } else {
-        dispatch(authSuccess(username, token));
-        dispatch(
-          checkAuthTimeout(
-            expirationDate.getTime() - new Date().getTime() / 1000
-          )
-        );
-      }
+// LOGIN USER
+export const login = (username, password) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
     }
   };
+
+  // Request body
+  const body = JSON.stringify({ username, password });
+
+  axios
+    .post('http://localhost:8000/api/auth/login', body, config)
+    .then(res => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: LOGIN_FAIL
+      });
+    });
+};
+
+// REGISTER USER
+export const register = ({ username, password, email }) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  // Request body
+  const body = JSON.stringify({ username, password, email });
+
+  axios
+    .post('http://localhost:8000/api/auth/register', body, config)
+    .then(res => {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: REGISTER_FAIL
+      });
+    });
+};
+
+// LOGOUT USER
+export const logout = () => (dispatch, getState) => {
+  axios
+    .post('http://localhost:8000/api/auth/logout', null, tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: LOGOUT_SUCCESS
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
+};
+
+// Setup config with token - helper function
+export const tokenConfig = getState => {
+  // Get token from state
+  const token = getState().auth.token;
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  // If token exists, add to headers config
+  if (token) {
+    config.headers['Authorization'] = `Token ${token}`;
+  }
+
+  return config;
 };

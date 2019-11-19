@@ -1,10 +1,10 @@
-import React from "react";
-import { Form, Button, Select } from "antd";
-import axios from "axios";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import * as navActions from "../store/actions/nav";
-import * as messageActions from "../store/actions/message";
+import React, { Component } from 'react';
+import { Form, Button, Select } from 'antd';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as navActions from '../../store/actions/nav';
+import * as messageActions from '../../store/actions/message';
 
 const FormItem = Form.Item;
 
@@ -12,7 +12,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class HorizontalAddChatForm extends React.Component {
+class HorizontalAddChatForm extends Component {
   state = {
     usernames: [],
     error: null
@@ -36,11 +36,11 @@ class HorizontalAddChatForm extends React.Component {
         const combined = [...usernames, this.props.username];
         console.log(combined);
         axios.defaults.headers = {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Token ${this.props.token}`
         };
         axios
-          .post("http://127.0.0.1:8000/chat/create/", {
+          .post('http://127.0.0.1:8000/chat/create/', {
             messages: [],
             participants: combined
           })
@@ -68,26 +68,26 @@ class HorizontalAddChatForm extends React.Component {
     } = this.props.form;
 
     const userNameError =
-      isFieldTouched("userName") && getFieldError("userName");
+      isFieldTouched('userName') && getFieldError('userName');
     return (
       <Form layout="inline" onSubmit={this.handleSubmit}>
         {this.state.error ? `${this.state.error}` : null}
         <FormItem
-          validateStatus={userNameError ? "error" : ""}
-          help={userNameError || ""}
+          validateStatus={userNameError ? 'error' : ''}
+          help={userNameError || ''}
         >
-          {getFieldDecorator("userName", {
+          {getFieldDecorator('userName', {
             rules: [
               {
                 required: true,
                 message:
-                  "Please input the username of the person you want to chat with"
+                  'Please input the username of the person you want to chat with'
               }
             ]
           })(
             <Select
               mode="tags"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               placeholder="Tags Mode"
               onChange={this.handleChange}
             >

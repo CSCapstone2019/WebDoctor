@@ -1,5 +1,5 @@
-import axios from "axios";
-import * as actionTypes from "./actionTypes";
+import axios from 'axios';
+import * as actionTypes from './types';
 
 export const addMessage = message => {
   return {
@@ -25,7 +25,7 @@ const getUserChatsSuccess = chats => {
 export const getUserChats = (username, token) => {
   return dispatch => {
     axios.defaults.headers = {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Token ${token}`
     };
     axios

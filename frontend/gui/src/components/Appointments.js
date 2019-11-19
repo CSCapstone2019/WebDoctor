@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Footer from './Footer';
+import Footer from './layout/Footer';
 import {
   Jumbotron,
   Col,
@@ -8,8 +8,7 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText
+  Input
 } from 'reactstrap';
 
 class Appointments extends Component {

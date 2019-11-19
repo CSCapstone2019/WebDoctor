@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-
+from django.contrib.auth.models import User
 
 
 class Patient(models.Model):
@@ -15,10 +14,11 @@ class Patient(models.Model):
     street = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=5)
-    email = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=50, unique=True)
     phone = models.CharField(max_length=10)
     dob = models.DateField()
     sex = models.CharField(max_length=1, choices=SEXES)
+    owner = models.ForeignKey(User, related_name="patients", on_delete=models.CASCADE, null=True)
     new_patient_date = models.DateTimeField(auto_now_add=True)
 
     def full_name(self):
@@ -67,11 +67,10 @@ class Report(models.Model):
 
 
 # CHAT MODELS
-User = get_user_model()
 
 class Contact(models.Model):
     contact_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, related_name='doctors', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='doctors', on_delete=models.CASCADE, default=1)
     doctor = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
