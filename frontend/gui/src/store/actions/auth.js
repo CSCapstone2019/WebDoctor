@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { returnErrors } from './errorMsg';
+import { createMessage, returnErrors } from './errorMsg';
 
 import {
   USER_LOADED,
@@ -48,6 +48,7 @@ export const login = (username, password) => dispatch => {
   axios
     .post('http://localhost:8000/api/auth/login', body, config)
     .then(res => {
+      dispatch(createMessage({ patientLogin: 'Login successful!' }));
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
@@ -76,6 +77,7 @@ export const register = ({ username, password, email }) => dispatch => {
   axios
     .post('http://localhost:8000/api/auth/register', body, config)
     .then(res => {
+      dispatch(createMessage({ patientRegister: 'Registration successful!' }));
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data
@@ -94,6 +96,7 @@ export const logout = () => (dispatch, getState) => {
   axios
     .post('http://localhost:8000/api/auth/logout', null, tokenConfig(getState))
     .then(res => {
+      dispatch(createMessage({ patientLogout: 'Logout successful!' }));
       dispatch({
         type: LOGOUT_SUCCESS
       });

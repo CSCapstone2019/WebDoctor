@@ -63,15 +63,6 @@ class Header extends Component {
     const guestLinks = (
       <Nav className="ml-auto" navbar>
         <NavItem>
-          <NavLink href="/patient/">Patients</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/appointments/">Appointments</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/chat/">Messages</NavLink>
-        </NavItem>
-        <NavItem>
           <NavLink href="/about-us/">About Us</NavLink>
         </NavItem>
         <NavItem>
