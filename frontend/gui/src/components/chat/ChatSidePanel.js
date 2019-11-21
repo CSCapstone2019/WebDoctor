@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin, Icon } from 'antd';
 import { connect } from 'react-redux';
-// import * as actions from '../../store/actions/auth';
+import * as actions from '../../store/actions/auth';
 import * as navActions from '../../store/actions/nav';
 import * as messageActions from '../../store/actions/message';
 import Contact from './ChatContact';
@@ -178,27 +178,27 @@ class Sidepanel extends React.Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: state.auth.token !== null,
-//     loading: state.auth.loading,
-//     token: state.auth.token,
-//     username: state.auth.username,
-//     chats: state.message.chats
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    loading: state.auth.loading,
+    token: state.auth.token,
+    username: state.auth.username,
+    chats: state.message.chats
+  };
+};
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     login: (userName, password) =>
-//       dispatch(actions.authLogin(userName, password)),
-//     logout: () => dispatch(actions.logout()),
-//     signup: (username, email, password1, password2) =>
-//       dispatch(actions.authSignup(username, email, password1, password2)),
-//     addChat: () => dispatch(navActions.openAddChatPopup()),
-//     getUserChats: (username, token) =>
-//       dispatch(messageActions.getUserChats(username, token))
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (userName, password) =>
+      dispatch(actions.login(userName, password)),
+    logout: () => dispatch(actions.logout()),
+    signup: (username, email, password1, password2) =>
+      dispatch(actions.register(username, email, password1, password2)),
+    addChat: () => dispatch(navActions.openAddChatPopup()),
+    getUserChats: (username, token) =>
+      dispatch(messageActions.getUserChats(username, token))
+  };
+};
 
-export default Sidepanel;
+export default connect(mapStateToProps, mapDispatchToProps)(Sidepanel);
