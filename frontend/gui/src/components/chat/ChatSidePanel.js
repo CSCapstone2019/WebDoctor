@@ -190,11 +190,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (userName, password) =>
-      dispatch(actions.login(userName, password)),
-    logout: () => dispatch(actions.logout()),
-    signup: (username, email, password1, password2) =>
-      dispatch(actions.register(username, email, password1, password2)),
+    // login: (userName, password) =>
+    //   dispatch(actions.login(userName, password)),
+    // logout: () => dispatch(actions.logout()),
+    // signup: (username, email, password1, password2) =>
+    //   dispatch(actions.register(username, email, password1, password2)),
     addChat: () => dispatch(navActions.openAddChatPopup()),
     getUserChats: (username, token) =>
       dispatch(messageActions.getUserChats(username, token))
