@@ -87,10 +87,8 @@ You will also see any lint errors in the console.
 - [Django](https://www.djangoproject.com/) - The back-end framework used
 - [Redux](https://react-redux.js.org/) - State management and authentication
 - [Django Rest Framework](https://www.django-rest-framework.org/) - Used for the REST API
-- [Django-Allauth](https://django-allauth.readthedocs.io/en/latest/index.html) - Authentication
 - [Fontawesome](https://fontawesome.com/) - Icons
 - [Reactstrap](https://reactstrap.github.io/) - Bootstrap turned into React components
-- [Ant Design](https://ant.design/) - A material design framework used for the signup/login forms
 - [Axios](https://github.com/axios/axios) - Used for front/back end communication
 - [Redis](https://redis.io/) -  An in-memory data structure store, used as backing store for the chat 
 
