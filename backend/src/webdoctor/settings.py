@@ -26,17 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'corsheaders',
     'channels',
     'channels_redis',
     'redis',
-    'rest_auth',
-    'rest_auth.registration',
     'rest_framework',
-    'rest_framework.authtoken',
     'patients',
     'chat'
 ]
@@ -149,7 +143,3 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
-
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = False
