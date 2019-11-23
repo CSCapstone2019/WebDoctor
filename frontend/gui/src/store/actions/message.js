@@ -39,10 +39,10 @@ const getUserChatsSuccess = chats => {
 
 // GET CHATS
 export const getUserChats = () => (dispatch, getState) => {
-         axios
-           .get(
-             `http://127.0.0.1:8000/chat/`,
-             tokenConfig(getState)
-           )
-           .then(res => dispatch(getUserChatsSuccess(res.data)));
-       };
+      axios
+        .get(
+          `http://127.0.0.1:8000/chat/?username=test`,
+          tokenConfig(getState)
+        )
+        .then(res => dispatch(getUserChatsSuccess(res.data)));
+    };

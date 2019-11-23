@@ -15,21 +15,10 @@ class Sidepanel extends React.Component {
 
   waitForAuthDetails() {
     const component = this;
-    setTimeout(function() {
-      if (
-        component.props.token !== null &&
-        component.props.token !== undefined
-      ) {
-        component.props.getUserChats(
-          component.props.username,
-          component.props.token
-        );
-        return;
-      } else {
-        console.log('waiting for authentication details...');
-        component.waitForAuthDetails();
-      }
-    }, 100);
+    // component.props.getUserChats(component.props.username,component.props.token)
+    component.props.getUserChats()
+
+      
   }
 
   componentDidMount() {
@@ -40,33 +29,18 @@ class Sidepanel extends React.Component {
     this.props.addChat();
   }
 
-  changeForm = () => {
-    this.setState({ loginForm: !this.state.loginForm });
-  };
 
-  authenticate = e => {
-    e.preventDefault();
-    if (this.state.loginForm) {
-      this.props.login(e.target.username.value, e.target.password.value);
-    } else {
-      this.props.signup(
-        e.target.username.value,
-        e.target.email.value,
-        e.target.password.value,
-        e.target.password2.value
-      );
-    }
-  };
 
   render() {
     let activeChats = this.props.chats.map(c => {
       return (
         <Contact
           key={c.id}
-          name="Harvey Specter"
+          name={`${c.id}`}
           picURL="http://emilcarlsson.se/assets/louislitt.png"
           status="busy"
-          chatURL={`/${c.id}`}
+          // chatURL={`/chat/${c.id}`}
+          chatURL={`/chat/1`}
         />
       );
     });
@@ -197,7 +171,7 @@ const mapDispatchToProps = dispatch => {
     //   dispatch(actions.register(username, email, password1, password2)),
     addChat: () => dispatch(navActions.openAddChatPopup()),
     getUserChats: (username, token) =>
-      dispatch(messageActions.getUserChats(username, token))
+    dispatch(messageActions.getUserChats(username, token))
   };
 };
 

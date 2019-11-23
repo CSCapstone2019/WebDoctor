@@ -24,17 +24,7 @@ class App extends Component {
     store.dispatch(loadUser());
   }
 
-  // componentDidMount() {
-  //   this.props.onTryAutoSignup();
-  // }
 
-  // constructor(props) {
-  //   super(props);
-  //   WebSocketInstance.addCallbacks(
-  //     this.props.setMessages.bind(this),
-  //     this.props.addMessage.bind(this)
-  //   );
-  // }
 
   render() {
     return (
@@ -51,20 +41,5 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     // showAddChatPopup: state.nav.showAddChatPopup,
-//     authenticated: state.auth.token
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onTryAutoSignup: () => dispatch(actions.authCheckState())
-//     // closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
-//     // addMessage: message => dispatch(messageActions.addMessage(message)),
-//     // setMessages: messages => dispatch(messageActions.setMessages(messages))
-//   };
-// };
 
 export default App;

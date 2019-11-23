@@ -13,11 +13,13 @@ import Login from './components/accounts/Login';
 import Register from './components/accounts/Register';
 import Chat from './components/chat/Chat';
 import ChatApp from './containers/ChatApp';
+import Hoc from './hoc/hoc';
+
 
 import PrivateRoute from './components/common/PrivateRoute';
 
 const BaseRouter = () => (
-  <div>
+  <Hoc>
     <Route exact path="/" component={Home} />
     <Route exact path="/appointments/" component={Appointments} />
     <PrivateRoute exact path="/patient/" component={DocDashboard} />
@@ -27,7 +29,8 @@ const BaseRouter = () => (
     <Route exact path="/register/" component={Register} />
     <Route exact path="/chat/" component={ChatApp} />
     <Route exact path="/chat/:chatID/" component={Chat} />
-  </div>
+   
+  </Hoc>
 );
 
 export default BaseRouter;
