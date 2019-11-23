@@ -12,6 +12,11 @@ export const ADD_PATIENT = 'ADD_PATIENT';
 export const GET_ERRORS = 'GET_ERRORS';
 export const CREATE_MESSAGE = 'CREATE_MESSAGE';
 
+// appointments
+export const GET_APPOINTMENTS = 'GET_APPOINTMENTS';
+export const DELETE_APPOINTMENT = 'DELETE_APPOINTMENT';
+export const ADD_APPOINTMENT = 'ADD_APPOINTMENT';
+
 // new auth
 export const USER_LOADING = 'USER_LOADING';
 export const USER_LOADED = 'USER_LOADED';
