@@ -23,6 +23,7 @@ class Sidepanel extends React.Component {
 
   componentDidMount() {
     this.waitForAuthDetails();
+
   }
 
   openAddChatPopup() {
