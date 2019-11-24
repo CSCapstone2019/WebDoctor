@@ -24,27 +24,23 @@ const getUserChatsSuccess = chats => {
   };
 };
 
-// export const getUserChats = (username, token) => {
-//   return dispatch => {
-//     axios.defaults.headers = {
-//       'Content-Type': 'application/json',
-//       Authorization: `Token ${token}`
-//     };
-//     axios
-//       .get(`http://127.0.0.1:8000/chat/?username=${username}`)
-//       .then(res => dispatch(getUserChatsSuccess(res.data)));
+export const getUserChats = (username) => {
+  return dispatch => {
+    axios
+      .get(`http://127.0.0.1:8000/chat/?username=${username}`)
+      .then(res => dispatch(getUserChatsSuccess(res.data)));
         
-//   };
-// };
+  };
+};
 
-// GET CHATS
-export const getUserChats = () => (dispatch, getState) => {
-  const username = getState().auth.user;
-      axios
-        .get(
-          `http://127.0.0.1:8000/chat/?username=${username}`)
-        .then(res => dispatch(getUserChatsSuccess(res.data)));
-    };
+// // GET CHATS
+// export const getUserChats = () => (dispatch, getState) => {
+//   const username = getState().auth.user;
+//       axios
+//         .get(
+//           `http://127.0.0.1:8000/chat/?username=test`)
+//         .then(res => dispatch(getUserChatsSuccess(res.data)));
+//     };
 
 
 

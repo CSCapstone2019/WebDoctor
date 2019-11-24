@@ -16,15 +16,32 @@ class Sidepanel extends React.Component {
   };
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
+    getUserChats: PropTypes.func.isRequired,
   };
 
+  waitForAuthDetails() {
+    const component = this;
+    setTimeout(function () {
+      if (!(component.props.loading)) {
+        component.props.getUserChats(component.props.auth.user.username);
+        return;
+      } else {
+        console.log("waiting for authentication details...");
+        this.waitForAuthDetails();
+      }
+    }, 100);
+  }
 
   componentDidMount() {
-    let username = this.props.username;
-    // const { user } = this.props.auth;
-    // this.props.getUserChats(this.props.auth.user.username);
-    this.props.getUserChats();
+    this.waitForAuthDetails();
   }
+
+  // componentDidMount() {
+  //   // const { user } = this.props.auth;
+  //   // this.props.getUserChats(this.props.auth.user.username);
+  //   this.props.getUserChats();
+  // }
 
   openAddChatPopup() {
     this.props.addChat();
@@ -32,6 +49,7 @@ class Sidepanel extends React.Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
+
     let activeChats = this.props.chats.map(c => {
       return (
         <Contact
@@ -39,8 +57,8 @@ class Sidepanel extends React.Component {
           name={`${c.id}`}
           picURL="http://emilcarlsson.se/assets/louislitt.png"
           status="busy"
-          // chatURL={`/chat/${c.id}`}
-          chatURL={`/chat/1`}
+          chatURL={`/chat/${c.id}`}
+          // chatURL={`/chat/1`}
         />
       );
     });
@@ -55,7 +73,7 @@ class Sidepanel extends React.Component {
               className="online"
               alt=""
             />
-            <strong> {user ? ` ${this.props.username}` : ""} </strong>
+            <strong> {user ? ` ${user.username}` : ""} </strong>
             <i
               className="fa fa-chevron-down expand-button"
               aria-hidden="true"
@@ -76,64 +94,7 @@ class Sidepanel extends React.Component {
                 </li>
               </ul>
             </div>
-            <div id="expanded">
-              {this.props.loading ? (
-                <Spin indicator={antIcon} />
-              ) : this.props.isAuthenticated ? (
-                <button onClick={() => this.props.logout()} className="authBtn">
-                  <span>Logout</span>
-                </button>
-              ) : (
-                <div>
-                  <form method="POST" onSubmit={this.authenticate}>
-                    {this.state.loginForm ? (
-                      <div>
-                        <input
-                          name="username"
-                          type="text"
-                          placeholder="username"
-                        />
-                        <input
-                          name="password"
-                          type="password"
-                          placeholder="password"
-                        />
-                      </div>
-                    ) : (
-                      <div>
-                        <input
-                          name="username"
-                          type="text"
-                          placeholder="username"
-                        />
-                        <input name="email" type="email" placeholder="email" />
-                        <input
-                          name="password"
-                          type="password"
-                          placeholder="password"
-                        />
-                        <input
-                          name="password2"
-                          type="password"
-                          placeholder="password confirm"
-                        />
-                      </div>
-                    )}
-
-                    <button type="submit">Authenticate</button>
-                  </form>
-
-                  <button onClick={this.changeForm}>Switch</button>
-                </div>
-              )}
-            </div>
           </div>
-        </div>
-        <div id="search">
-          <label htmlFor="">
-            <i className="fa fa-search" aria-hidden="true" />
-          </label>
-          <input type="text" placeholder="Search Chats..." />
         </div>
         <div id="contacts">
           <ul>{activeChats}</ul>
@@ -142,10 +103,6 @@ class Sidepanel extends React.Component {
           <button id="addChat" onClick={() => this.openAddChatPopup()}>
             <i className="fa fa-user-plus fa-fw" aria-hidden="true" />
             <span>Create chat</span>
-          </button>
-          <button id="settings">
-            <i className="fa fa-cog fa-fw" aria-hidden="true" />
-            <span>Settings</span>
           </button>
         </div>
       </div>
@@ -156,6 +113,7 @@ class Sidepanel extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    loading: state.loading,
     chats: state.message.chats
   };
 };
@@ -163,8 +121,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addChat: () => dispatch(navActions.openAddChatPopup()),
-    // getUserChats: username => dispatch(messageActions.getUserChats(username))
-    getUserChats: () => dispatch(messageActions.getUserChats())
+    getUserChats: (username) => dispatch(messageActions.getUserChats(username))
+    // getUserChats: () => dispatch(messageActions.getUserChats())
   };
 };
 

@@ -40,6 +40,7 @@ class ChatApp extends React.Component {
               close={() => this.props.closeAddChatPopup()}
             />
             <Profile />
+
           </div>
         </div>
       </Router>

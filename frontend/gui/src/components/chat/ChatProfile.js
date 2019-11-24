@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 class Profile extends React.Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
+
   };
 
 

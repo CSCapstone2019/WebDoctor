@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import WebSocketInstance from '../../websocket';
 import Hoc from '../../hoc/hoc';
+import ChatSidePanel from './ChatSidePanel';
+import PropTypes from "prop-types";
 // import ChatApp from '../../containers/ChatApp';
 // import Profile from './ChatProfile';
 // import Sidepanel from './ChatSidePanel';
@@ -9,15 +11,20 @@ import Hoc from '../../hoc/hoc';
 // import BaseRouter from '../../routes';
 
 class Chat extends React.Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+  }
+
   componentDidMount() {
     WebSocketInstance.connect();
   }
   state = { message: "" };
 
   initialiseChat() {
+    const component = this;
     this.waitForSocketConnection(() => {
       WebSocketInstance.fetchMessages(
-        this.props.username,
+        component.props.auth.user.username,
         this.props.match.params.chatID
       );
     });
@@ -112,6 +119,7 @@ class Chat extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    console.log(newProps)
     if (this.props.match.params.chatID !== newProps.match.params.chatID) {
       WebSocketInstance.disconnect();
       this.waitForSocketConnection(() => {
@@ -164,7 +172,7 @@ class Chat extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    username: state.auth.username,
+    auth: state.auth,
     messages: state.message.messages
   };
 };

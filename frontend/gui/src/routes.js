@@ -29,7 +29,6 @@ const BaseRouter = () => (
     <Route exact path="/register/" component={Register} />
     <Route exact path="/chat/" component={ChatApp} />
     <Route exact path="/chat/:chatID/" component={Chat} />
-   
   </Hoc>
 );
 
