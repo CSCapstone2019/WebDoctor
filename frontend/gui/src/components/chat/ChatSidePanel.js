@@ -48,7 +48,7 @@ class Sidepanel extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { user } = this.props.auth;
     
     let activeChats = this.props.chats.map(c => {
       return (

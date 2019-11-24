@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
 import Chat from '../components/chat/Chat';
 import BaseRouter from '../routes';
 import Hoc from '../hoc/hoc';
+import '../assets/ChatApp.css';
+
 
 
 
@@ -30,8 +32,7 @@ class ChatApp extends React.Component {
   render() {
     const { isAuthenticated, user } = this.props.auth;
     return (
-      <Hoc>
-      <Router>
+      <>
         <div id="frame">
           <Sidepanel />
           <div className="content">
@@ -40,11 +41,9 @@ class ChatApp extends React.Component {
               close={() => this.props.closeAddChatPopup()}
             />
             <Profile />
-
           </div>
         </div>
-      </Router>
-      </Hoc>
+      </>
     );
   }
 }

@@ -32,9 +32,7 @@ export const getUserChats = (username) => {
         console.log(res.data);
         dispatch(getUserChatsSuccess(res.data));
       })
-        
-    
-        
+              
   };
 };
 

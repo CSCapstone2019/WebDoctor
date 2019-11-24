@@ -4,6 +4,8 @@ import WebSocketInstance from '../../websocket';
 import Hoc from '../../hoc/hoc';
 import ChatSidePanel from './ChatSidePanel';
 import PropTypes from "prop-types";
+import '../../assets/ChatApp.css';
+
 // import ChatApp from '../../containers/ChatApp';
 // import Profile from './ChatProfile';
 // import Sidepanel from './ChatSidePanel';
@@ -15,9 +17,6 @@ class Chat extends React.Component {
     auth: PropTypes.object.isRequired,
   }
 
-  componentDidMount() {
-    WebSocketInstance.connect();
-  }
   state = { message: "" };
 
   initialiseChat() {
@@ -112,6 +111,7 @@ class Chat extends React.Component {
 
   componentDidMount() {
     this.scrollToBottom();
+    WebSocketInstance.connect();
   }
 
   componentDidUpdate() {
