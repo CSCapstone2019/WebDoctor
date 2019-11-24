@@ -5,6 +5,7 @@ import Hoc from '../../hoc/hoc';
 import ChatSidePanel from './ChatSidePanel';
 import PropTypes from "prop-types";
 import '../../assets/ChatApp.css';
+import ChatApp from '../../containers/ChatApp';
 
 // import ChatApp from '../../containers/ChatApp';
 // import Profile from './ChatProfile';
@@ -120,12 +121,13 @@ class Chat extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps)
+    console.log(newProps);
+    const component = this;
     if (this.props.match.params.chatID !== newProps.match.params.chatID) {
       WebSocketInstance.disconnect();
       this.waitForSocketConnection(() => {
         WebSocketInstance.fetchMessages(
-          this.props.username,
+          component.props.auth.user.username,
           newProps.match.params.chatID
         );
       });
@@ -136,7 +138,7 @@ class Chat extends React.Component {
   render() {
     const messages = this.state.messages;
     return (
-      <Hoc>
+      <ChatApp>
         <div className="messages">
           <ul id="chat-log">
             {this.props.messages && this.renderMessages(this.props.messages)}
@@ -166,7 +168,7 @@ class Chat extends React.Component {
             </div>
           </form>
         </div>
-      </Hoc>
+      </ChatApp>
     );
   }
 }
