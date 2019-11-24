@@ -55,8 +55,8 @@ class Sidepanel extends React.Component {
         <Contact
           key={c.chat_id}
           name={`${c.chat_id}`}
-          picURL="http://emilcarlsson.se/assets/louislitt.png"
-          status="busy"
+          picURL="https://pngimage.net/wp-content/uploads/2018/06/no-avatar-png-8.png"
+          status="online"
           chatURL={`/chat/${c.chat_id}`}
           // chatURL={`/chat/1`}
         />
@@ -69,30 +69,18 @@ class Sidepanel extends React.Component {
       <div id="sidepanel">
         <div id="profile">
           <div className="wrap">
-            <img
+            <i className="fa fa-book-medical fa-fw"/>
+            <i className="fa fa-user-plus fa-fw" aria-hidden="true" />
+
+            {/* <img
               id="profile-img"
-              src="http://emilcarlsson.se/assets/mikeross.png"
+              src="https://assets.currencycloud.com/wp-content/uploads/2018/01/profile-placeholder.gif"
               className="online"
               alt=""
-            />
-            <strong> {user ? ` ${user.username}` : ""} </strong>
-            
-            {/* <div id="status-options">
-              <ul>
-                <li id="status-online" className="active">
-                  <span className="status-circle" /> <p>Online</p>
-                </li>
-                <li id="status-away">
-                  <span className="status-circle" /> <p>Away</p>
-                </li>
-                <li id="status-busy">
-                  <span className="status-circle" /> <p>Busy</p>
-                </li>
-                <li id="status-offline">
-                  <span className="status-circle" /> <p>Offline</p>
-                </li>
-              </ul>
-            </div> */}
+            /> */}
+            {/* <p> {user ? ` ${user.username}'s Chats` : ""} </p> */}
+            <p> All Chatrooms </p>
+
           </div>
         </div>
         <div id="contacts">
@@ -101,7 +89,7 @@ class Sidepanel extends React.Component {
         <div id="bottom-bar">
           <button id="addChat" onClick={() => this.openAddChatPopup()}>
             <i className="fa fa-user-plus fa-fw" aria-hidden="true" />
-            <span>Create chat</span>
+            <span> Start a new chat ...</span>
           </button>
         </div>
       </div>

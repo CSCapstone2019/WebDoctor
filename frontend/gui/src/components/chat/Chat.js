@@ -17,9 +17,13 @@ class Chat extends React.Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
   }
-
   state = { message: "" };
 
+  constructor(props) {
+    super(props);
+    this.initialiseChat();
+  }
+  
   initialiseChat() {
     const component = this;
     this.waitForSocketConnection(() => {
@@ -31,10 +35,7 @@ class Chat extends React.Component {
     WebSocketInstance.connect(this.props.match.params.chatID);
   }
 
-  constructor(props) {
-    super(props);
-    this.initialiseChat();
-  }
+ 
 
   waitForSocketConnection(callback) {
     const component = this;
