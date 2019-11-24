@@ -1,19 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import BaseRouter from '../routes';
 import Sidepanel from '../components/chat/ChatSidePanel';
 import Profile from '../components/chat/ChatProfile';
 import AddChatModal from '../components/chat/ChatPopup';
-import * as actions from '../store/actions/auth';
 import * as navActions from '../store/actions/nav';
 import * as messageActions from '../store/actions/message';
 import WebSocketInstance from '../websocket';
+import PropTypes from 'prop-types';
+import Chat from '../components/chat/Chat';
+import BaseRouter from '../routes';
+import Hoc from '../hoc/hoc';
+import '../assets/ChatApp.css';
+
+
+
 
 class ChatApp extends React.Component {
-  // componentDidMount() {
-  //   this.props.onTryAutoSignup();
-  // }
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -24,8 +30,9 @@ class ChatApp extends React.Component {
   }
 
   render() {
+    const { isAuthenticated, user } = this.props.auth;
     return (
-      <Router>
+      <>
         <div id="frame">
           <Sidepanel />
           <div className="content">
@@ -34,23 +41,23 @@ class ChatApp extends React.Component {
               close={() => this.props.closeAddChatPopup()}
             />
             <Profile />
+            {this.props.children}
           </div>
         </div>
-      </Router>
+      </>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    showAddChatPopup: state.nav.showAddChatPopup
-    // authenticated: state.auth.token
+    showAddChatPopup: state.nav.showAddChatPopup,
+    auth: state.auth  
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // onTryAutoSignup: () => dispatch(actions.authCheckState()),
     closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
     addMessage: message => dispatch(messageActions.addMessage(message)),
     setMessages: messages => dispatch(messageActions.setMessages(messages))

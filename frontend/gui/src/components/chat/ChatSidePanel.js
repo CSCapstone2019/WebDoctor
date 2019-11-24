@@ -1,33 +1,37 @@
 import React from 'react';
 import { Spin, Icon } from 'antd';
 import { connect } from 'react-redux';
-// import * as actions from '../../store/actions/auth';
+import * as actions from '../../store/actions/auth';
 import * as navActions from '../../store/actions/nav';
 import * as messageActions from '../../store/actions/message';
 import Contact from './ChatContact';
+import PropTypes from "prop-types";
+
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 class Sidepanel extends React.Component {
+  
+
+
   state = {
     loginForm: true
+  };
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
+    getUserChats: PropTypes.func.isRequired,
   };
 
   waitForAuthDetails() {
     const component = this;
-    setTimeout(function() {
-      if (
-        component.props.token !== null &&
-        component.props.token !== undefined
-      ) {
-        component.props.getUserChats(
-          component.props.username,
-          component.props.token
-        );
+    setTimeout(function () {
+      if (!(component.props.loading)) {
+        component.props.getUserChats(component.props.auth.user.username);
         return;
       } else {
-        console.log('waiting for authentication details...');
-        component.waitForAuthDetails();
+        console.log("waiting for authentication details...");
+        this.waitForAuthDetails();
       }
     }, 100);
   }
@@ -36,129 +40,50 @@ class Sidepanel extends React.Component {
     this.waitForAuthDetails();
   }
 
+  // componentDidMount() {
+  //   // const { user } = this.props.auth;
+  //   // this.props.getUserChats(this.props.auth.user.username);
+  //   this.props.getUserChats();
+  // }
+
   openAddChatPopup() {
     this.props.addChat();
   }
 
-  changeForm = () => {
-    this.setState({ loginForm: !this.state.loginForm });
-  };
-
-  authenticate = e => {
-    e.preventDefault();
-    if (this.state.loginForm) {
-      this.props.login(e.target.username.value, e.target.password.value);
-    } else {
-      this.props.signup(
-        e.target.username.value,
-        e.target.email.value,
-        e.target.password.value,
-        e.target.password2.value
-      );
-    }
-  };
-
   render() {
+    const { user } = this.props.auth; 
     let activeChats = this.props.chats.map(c => {
       return (
         <Contact
-          key={c.id}
-          name="Harvey Specter"
-          picURL="http://emilcarlsson.se/assets/louislitt.png"
-          status="busy"
-          chatURL={`/${c.id}`}
+          key={c.chat_id}
+          name={`${c.chat_id}. ${c.participants}`}
+          picURL="https://pngimage.net/wp-content/uploads/2018/06/no-avatar-png-8.png"
+          status="online"
+          chatURL={`/chat/${c.chat_id}`}
+          // chatURL={`/chat/1`}
         />
       );
     });
+
+    console.log("CHATS ", activeChats);
+
     return (
       <div id="sidepanel">
         <div id="profile">
           <div className="wrap">
-            <img
+            <i className="fa fa-book-medical fa-fw"/>
+            <i className="fa fa-user-plus fa-fw" aria-hidden="true" />
+
+            {/* <img
               id="profile-img"
-              src="http://emilcarlsson.se/assets/mikeross.png"
+              src="https://assets.currencycloud.com/wp-content/uploads/2018/01/profile-placeholder.gif"
               className="online"
               alt=""
-            />
-            <p>Mike Ross</p>
-            <i
-              className="fa fa-chevron-down expand-button"
-              aria-hidden="true"
-            />
-            <div id="status-options">
-              <ul>
-                <li id="status-online" className="active">
-                  <span className="status-circle" /> <p>Online</p>
-                </li>
-                <li id="status-away">
-                  <span className="status-circle" /> <p>Away</p>
-                </li>
-                <li id="status-busy">
-                  <span className="status-circle" /> <p>Busy</p>
-                </li>
-                <li id="status-offline">
-                  <span className="status-circle" /> <p>Offline</p>
-                </li>
-              </ul>
-            </div>
-            <div id="expanded">
-              {this.props.loading ? (
-                <Spin indicator={antIcon} />
-              ) : this.props.isAuthenticated ? (
-                <button onClick={() => this.props.logout()} className="authBtn">
-                  <span>Logout</span>
-                </button>
-              ) : (
-                <div>
-                  <form method="POST" onSubmit={this.authenticate}>
-                    {this.state.loginForm ? (
-                      <div>
-                        <input
-                          name="username"
-                          type="text"
-                          placeholder="username"
-                        />
-                        <input
-                          name="password"
-                          type="password"
-                          placeholder="password"
-                        />
-                      </div>
-                    ) : (
-                      <div>
-                        <input
-                          name="username"
-                          type="text"
-                          placeholder="username"
-                        />
-                        <input name="email" type="email" placeholder="email" />
-                        <input
-                          name="password"
-                          type="password"
-                          placeholder="password"
-                        />
-                        <input
-                          name="password2"
-                          type="password"
-                          placeholder="password confirm"
-                        />
-                      </div>
-                    )}
+            /> */}
+            {/* <p> {user ? ` ${user.username}'s Chats` : ""} </p> */}
+            <p> All Chatrooms </p>
 
-                    <button type="submit">Authenticate</button>
-                  </form>
-
-                  <button onClick={this.changeForm}>Switch</button>
-                </div>
-              )}
-            </div>
           </div>
-        </div>
-        <div id="search">
-          <label htmlFor="">
-            <i className="fa fa-search" aria-hidden="true" />
-          </label>
-          <input type="text" placeholder="Search Chats..." />
         </div>
         <div id="contacts">
           <ul>{activeChats}</ul>
@@ -166,11 +91,7 @@ class Sidepanel extends React.Component {
         <div id="bottom-bar">
           <button id="addChat" onClick={() => this.openAddChatPopup()}>
             <i className="fa fa-user-plus fa-fw" aria-hidden="true" />
-            <span>Create chat</span>
-          </button>
-          <button id="settings">
-            <i className="fa fa-cog fa-fw" aria-hidden="true" />
-            <span>Settings</span>
+            <span> Start a new chat ...</span>
           </button>
         </div>
       </div>
@@ -178,27 +99,20 @@ class Sidepanel extends React.Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: state.auth.token !== null,
-//     loading: state.auth.loading,
-//     token: state.auth.token,
-//     username: state.auth.username,
-//     chats: state.message.chats
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    loading: state.loading,
+    chats: state.message.chats
+  };
+};
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     login: (userName, password) =>
-//       dispatch(actions.authLogin(userName, password)),
-//     logout: () => dispatch(actions.logout()),
-//     signup: (username, email, password1, password2) =>
-//       dispatch(actions.authSignup(username, email, password1, password2)),
-//     addChat: () => dispatch(navActions.openAddChatPopup()),
-//     getUserChats: (username, token) =>
-//       dispatch(messageActions.getUserChats(username, token))
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    addChat: () => dispatch(navActions.openAddChatPopup()),
+    getUserChats: (username) => dispatch(messageActions.getUserChats(username))
+    // getUserChats: () => dispatch(messageActions.getUserChats())
+  };
+};
 
-export default Sidepanel;
+export default connect(mapStateToProps, mapDispatchToProps)(Sidepanel);

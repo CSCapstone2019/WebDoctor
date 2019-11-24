@@ -2,9 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Hoc from '../../hoc/hoc';
+import PropTypes from 'prop-types';
+
 
 class Profile extends React.Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+
+  };
+
+
   render() {
+
+    const { isAuthenticated, user } = this.props.auth;
+
     if (this.props.token === null) {
       return <Redirect to="/" />;
     }
@@ -13,12 +24,7 @@ class Profile extends React.Component {
         {this.props.username !== null ? (
           <Hoc>
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-            <p>{this.props.username}</p>
-            <div className="social-media">
-              <i className="fa fa-facebook" aria-hidden="true" />
-              <i className="fa fa-twitter" aria-hidden="true" />
-              <i className="fa fa-instagram" aria-hidden="true" />
-            </div>
+            <strong>{user ? `${user.username}` : ''}</strong>
           </Hoc>
         ) : null}
       </div>
@@ -26,11 +32,8 @@ class Profile extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    username: state.auth.username,
-    token: state.auth.token
-  };
-};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
 export default connect(mapStateToProps)(Profile);
