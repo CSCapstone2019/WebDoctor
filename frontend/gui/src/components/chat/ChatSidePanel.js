@@ -5,6 +5,8 @@ import * as actions from '../../store/actions/auth';
 import * as navActions from '../../store/actions/nav';
 import * as messageActions from '../../store/actions/message';
 import Contact from './ChatContact';
+import PropTypes from "prop-types";
+
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
@@ -12,27 +14,24 @@ class Sidepanel extends React.Component {
   state = {
     loginForm: true
   };
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+  };
 
-  waitForAuthDetails() {
-    const component = this;
-    // component.props.getUserChats(component.props.username,component.props.token)
-    component.props.getUserChats()
-
-      
-  }
 
   componentDidMount() {
-    this.waitForAuthDetails();
-
+    let username = this.props.username;
+    // const { user } = this.props.auth;
+    // this.props.getUserChats(this.props.auth.user.username);
+    this.props.getUserChats();
   }
 
   openAddChatPopup() {
     this.props.addChat();
   }
 
-
-
   render() {
+    const { isAuthenticated, user } = this.props.auth;
     let activeChats = this.props.chats.map(c => {
       return (
         <Contact
@@ -45,6 +44,7 @@ class Sidepanel extends React.Component {
         />
       );
     });
+
     return (
       <div id="sidepanel">
         <div id="profile">
@@ -55,7 +55,7 @@ class Sidepanel extends React.Component {
               className="online"
               alt=""
             />
-            <p>Mike Ross</p>
+            <strong> {user ? ` ${this.props.username}` : ""} </strong>
             <i
               className="fa fa-chevron-down expand-button"
               aria-hidden="true"
@@ -155,24 +155,16 @@ class Sidepanel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null,
-    loading: state.auth.loading,
-    token: state.auth.token,
-    username: state.auth.username,
+    auth: state.auth,
     chats: state.message.chats
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // login: (userName, password) =>
-    //   dispatch(actions.login(userName, password)),
-    // logout: () => dispatch(actions.logout()),
-    // signup: (username, email, password1, password2) =>
-    //   dispatch(actions.register(username, email, password1, password2)),
     addChat: () => dispatch(navActions.openAddChatPopup()),
-    getUserChats: (username, token) =>
-    dispatch(messageActions.getUserChats(username, token))
+    // getUserChats: username => dispatch(messageActions.getUserChats(username))
+    getUserChats: () => dispatch(messageActions.getUserChats())
   };
 };
 
