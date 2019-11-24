@@ -11,6 +11,9 @@ import PropTypes from "prop-types";
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 class Sidepanel extends React.Component {
+  
+
+
   state = {
     loginForm: true
   };
@@ -48,13 +51,12 @@ class Sidepanel extends React.Component {
   }
 
   render() {
-    const { user } = this.props.auth;
-    
+    const { user } = this.props.auth; 
     let activeChats = this.props.chats.map(c => {
       return (
         <Contact
           key={c.chat_id}
-          name={`${c.chat_id}`}
+          name={`${c.chat_id}. ${c.participants}`}
           picURL="https://pngimage.net/wp-content/uploads/2018/06/no-avatar-png-8.png"
           status="online"
           chatURL={`/chat/${c.chat_id}`}

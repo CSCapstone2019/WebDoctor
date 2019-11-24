@@ -27,6 +27,7 @@ class HorizontalAddChatForm extends Component {
     error: null
   };
 
+  // Value is patient_id
   handleChange = value => {
     this.setState({
       usernames: value
@@ -46,7 +47,7 @@ class HorizontalAddChatForm extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const combined = [...usernames, component.props.auth.user.username];
-        console.log(combined);
+        console.log("COMBINED", combined);
         axios.defaults.headers = {
           "Content-Type": "application/json",
           Authorization: `Token ${this.props.auth.token}`
