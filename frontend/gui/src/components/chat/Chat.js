@@ -90,12 +90,13 @@ class Chat extends React.Component {
   };
 
   renderMessages = messages => {
-    const currentUser = this.props.username;
+    const component = this;
+    const currentUser = component.props.auth.user.username;
     return messages.map((message, i, arr) => (
       <li
         key={message.id}
         style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
-        className={message.author === currentUser ? "sent" : "replies"}
+        className={message.author === currentUser ? "replies" : "sent"}
       >
         <img src="http://emilcarlsson.se/assets/mikeross.png" />
         <p>
