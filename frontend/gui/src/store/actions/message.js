@@ -28,7 +28,12 @@ export const getUserChats = (username) => {
   return dispatch => {
     axios
       .get(`http://127.0.0.1:8000/chat/?username=${username}`)
-      .then(res => dispatch(getUserChatsSuccess(res.data)));
+      .then(res => {
+        console.log(res.data);
+        dispatch(getUserChatsSuccess(res.data));
+      })
+        
+    
         
   };
 };

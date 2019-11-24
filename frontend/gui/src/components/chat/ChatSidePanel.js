@@ -49,19 +49,21 @@ class Sidepanel extends React.Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
-
+    
     let activeChats = this.props.chats.map(c => {
       return (
         <Contact
-          key={c.id}
-          name={`${c.id}`}
+          key={c.chat_id}
+          name={`${c.chat_id}`}
           picURL="http://emilcarlsson.se/assets/louislitt.png"
           status="busy"
-          chatURL={`/chat/${c.id}`}
+          chatURL={`/chat/${c.chat_id}`}
           // chatURL={`/chat/1`}
         />
       );
     });
+
+    console.log("CHATS ", activeChats);
 
     return (
       <div id="sidepanel">
@@ -74,11 +76,8 @@ class Sidepanel extends React.Component {
               alt=""
             />
             <strong> {user ? ` ${user.username}` : ""} </strong>
-            <i
-              className="fa fa-chevron-down expand-button"
-              aria-hidden="true"
-            />
-            <div id="status-options">
+            
+            {/* <div id="status-options">
               <ul>
                 <li id="status-online" className="active">
                   <span className="status-circle" /> <p>Online</p>
@@ -93,7 +92,7 @@ class Sidepanel extends React.Component {
                   <span className="status-circle" /> <p>Offline</p>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
         <div id="contacts">
