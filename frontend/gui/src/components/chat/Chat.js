@@ -54,9 +54,10 @@ class Chat extends React.Component {
   };
 
   sendMessageHandler = e => {
+    const component = this;
     e.preventDefault();
     const messageObject = {
-      from: this.props.username,
+      from: component.props.auth.user.username,
       content: this.state.message,
       chatId: this.props.match.params.chatID
     };
@@ -111,7 +112,7 @@ class Chat extends React.Component {
 
   componentDidMount() {
     this.scrollToBottom();
-    WebSocketInstance.connect();
+    // WebSocketInstance.connect();
   }
 
   componentDidUpdate() {
