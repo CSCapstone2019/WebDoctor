@@ -16,8 +16,8 @@ import {
 
 class PatientsForm extends Component {
   state = {
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     street: '',
     city: '',
     zip: '',

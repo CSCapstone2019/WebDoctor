@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Select, TimePicker  } from 'antd';
+import { Select, TimePicker } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getPatients, deletePatient } from '../../store/actions/patients';
@@ -13,40 +13,39 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
+  Input
 } from 'reactstrap';
 
 const { Option } = Select;
 
 class AppointmentForm extends Component {
-
   state = {
-    patient_id: '',
-    appDate: '',
-    appTime: '',
+    patient: '',
+    appointment_date: '',
+    appointment_time: '',
     message: ''
   };
 
   static propTypes = {
     addAppointment: PropTypes.func.isRequired,
     patients: PropTypes.array.isRequired,
-    getPatients: PropTypes.func.isRequired,
+    getPatients: PropTypes.func.isRequired
   };
 
   componentDidMount() {
     this.props.getPatients();
   }
 
-  onChange = e => 
-    this.setState({ 
-    [e.target.name]: e.target.value 
-  });
+  onChange = e =>
+    this.setState({
+      [e.target.name]: e.target.value
+    });
 
   // PATIENT SELECT
   onPatientChange = value => {
     console.log(value);
     this.setState({
-      patient_id: value
+      patient: value
     });
   };
 
@@ -55,31 +54,31 @@ class AppointmentForm extends Component {
   //   console.log(time, timeString);
   //   this.setState({
   //     appTime: time
-  //   }); 
+  //   });
   // }
 
   onSubmit = e => {
     e.preventDefault();
-    const { patient_id, appDate, appTime, message } = this.state;
+    const { patient, appointment_date, appointment_time, message } = this.state;
 
     const appointment = {
-      patient_id,
-      appDate,
-      appTime,
+      patient,
+      appointment_date,
+      appointment_time,
       message
     };
 
     this.props.addAppointment(appointment);
     this.setState({
-      patient_id: '',
-      appDate: '',
-      appTime: '',
+      patient: '',
+      appointment_date: '',
+      appointment_time: '',
       message: ''
     });
   };
 
   render() {
-    const { patient_id, appDate, appTime, message } = this.state;
+    const { patient, appointment_date, appointment_time, message } = this.state;
     return (
       <>
         <Jumbotron>
@@ -125,16 +124,17 @@ class AppointmentForm extends Component {
                       optionFilterProp="children"
                       onChange={this.onPatientChange}
                       filterOption={(input, option) =>
-                        option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        option.props.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
                       }
                     >
                       {this.props.patients.map(p => (
-                        <Option value={p.patient_id}>{p.first_name} {p.last_name}</Option>
+                        <Option value={p.patient_id}>
+                          {p.first_name} {p.last_name}
+                        </Option>
                       ))}
-                      
                     </Select>
-
-
                   </FormGroup>
                 </Col>
                 <Col md={6}>
@@ -142,9 +142,9 @@ class AppointmentForm extends Component {
                     <Label>Appointment Date</Label>
                     <Input
                       type="date"
-                      name="appDate"
+                      name="appointment_date"
                       onChange={this.onChange}
-                      value={appDate}
+                      value={appointment_date}
                     />
                   </FormGroup>
                 </Col>
@@ -152,13 +152,12 @@ class AppointmentForm extends Component {
               <Row form>
                 <Col md={6}>
                   <FormGroup>
-
                     <Label>Appointment Time</Label>
                     <Input
                       type="time"
-                      name="appTime"
+                      name="appointment_time"
                       onChange={this.onChange}
-                      value={appTime}
+                      value={appointment_time}
                     />
 
                     {/* <TimePicker 
@@ -168,7 +167,6 @@ class AppointmentForm extends Component {
                       value = {appTime}
                       name = "appTime"
                       onChange={this.onTimeChange} /> */}
-
                   </FormGroup>
                 </Col>
                 <Col md={6}>
@@ -197,4 +195,6 @@ class AppointmentForm extends Component {
 const mapStateToProps = state => ({
   patients: state.patients.patients
 });
-export default connect(mapStateToProps, { getPatients, addAppointment })(AppointmentForm);
+export default connect(mapStateToProps, { getPatients, addAppointment })(
+  AppointmentForm
+);

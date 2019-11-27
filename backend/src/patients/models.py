@@ -26,7 +26,7 @@ class Patient(models.Model):
         return '%s %s' % (self.first_name, self.last_name)
 
     def __str__(self):
-        return '%s the patient' % (self.full_name())
+        return '%s' % (self.full_name())
 
 
 class Insurance(models.Model):
