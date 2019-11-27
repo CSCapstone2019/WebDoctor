@@ -94,10 +94,9 @@ You will also see any lint errors in the console.
 
 ## Authors
 
-- **Josh Arrants** - _Front-end & Rest API_ - [joshdrumz](https://github.com/joshdrumz)
-- **Augustina Horlava** - _Modeling & Chat Implementation_ - [augichii](https://github.com/Augichii)
-- **Nawal Ahmed** - _Video Hosting_ - [NathanAllerton](https://github.com/NathanAllerton)
-- **Rachel Woodard** - _Authentication_ - [rachelmwoordard1031](https://github.com/rachelmwoodard1031)
+- **Josh Arrants** - _Front-end/Back-end & Authentication_ - [joshdrumz](https://github.com/joshdrumz)
+- **Augustina Horlava** - _Front-end/Back-end & Chat Implementation_ - [augichii](https://github.com/Augichii)
+
 
 See the list of [contributors](https://github.com/CSCapstone2019/WebDoctor/contributors) who participated in this project.
 

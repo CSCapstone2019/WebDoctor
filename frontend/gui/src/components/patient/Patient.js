@@ -69,6 +69,7 @@ class Patients extends Component {
   }
 }
 
+// Gets patients from the state from patients reducer
 const mapStateToProps = state => ({
   patients: state.patients.patients
 });

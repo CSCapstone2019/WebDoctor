@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 class Patient(models.Model):
@@ -67,10 +68,10 @@ class Report(models.Model):
 
 
 # CHAT MODELS
-
+User = get_user_model()
 class Contact(models.Model):
     contact_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, related_name='doctors', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, related_name='doctors', on_delete=models.CASCADE)
     doctor = models.ManyToManyField('self', blank=True)
 
     def __str__(self):

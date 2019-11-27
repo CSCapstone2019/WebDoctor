@@ -1,5 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from './types';
+import { tokenConfig } from "./auth";
+
 
 export const addMessage = message => {
   return {
@@ -22,14 +24,42 @@ const getUserChatsSuccess = chats => {
   };
 };
 
-export const getUserChats = (username, token) => {
+export const getUserChats = (username) => {
   return dispatch => {
-    axios.defaults.headers = {
-      'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
-    };
     axios
       .get(`http://127.0.0.1:8000/chat/?username=${username}`)
-      .then(res => dispatch(getUserChatsSuccess(res.data)));
+      .then(res => {
+        console.log(res.data);
+        dispatch(getUserChatsSuccess(res.data));
+      })
+              
   };
 };
+
+// // GET CHATS
+// export const getUserChats = () => (dispatch, getState) => {
+//   const username = getState().auth.user;
+//       axios
+//         .get(
+//           `http://127.0.0.1:8000/chat/?username=test`)
+//         .then(res => dispatch(getUserChatsSuccess(res.data)));
+//     };
+
+
+
+// // GET CHATS
+// export const getUserChats = (username) => dispatch => {
+//   // Headers
+//   const config = {
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   };
+//   // Request body
+//   const body = JSON.stringify({ username });
+
+//   axios
+//     .get(`http://127.0.0.1:8000/chat/?username=${username}`)
+//     .then(res => dispatch(getUserChatsSuccess(res.data)));
+    
+// };

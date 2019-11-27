@@ -9,21 +9,16 @@ from rest_framework.generics import (
     UpdateAPIView
 )
 from patients.models import Chat, Contact
+from chat.views import get_user_contact
 from .serializers import ChatSerializer
 
 User = get_user_model()
-
-def get_user_contact(username):
-    user = get_object_or_404(User, username=username)
-    contact = get_object_or_404(Contact, user=user)
-    return contact
 
 
 class ChatListView(ListAPIView):
     serializer_class = ChatSerializer
     permission_classes = (permissions.AllowAny, )
 
-    #
     def get_queryset(self):
         queryset = Chat.objects.all()
         username = self.request.query_params.get('username', None)
@@ -54,4 +49,4 @@ class ChatUpdateView(UpdateAPIView):
 class ChatDeleteView(DestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.IsAuthenticated, ) 
+    permission_classes = (permissions.IsAuthenticated, )
