@@ -25,11 +25,17 @@ export class Alerts extends Component {
       if (error.msg.non_field_errors)
         alert.error(error.msg.non_field_errors.join());
       if (error.msg.username) alert.error(error.msg.username.join());
+      if (error.msg.appointment_date)
+        alert.error(error.msg.appointment_date.join());
+      if (error.msg.appointment_time)
+        alert.error(error.msg.appointment_time.join());
     }
 
     if (message !== prevProps.message) {
       if (message.deletePatient) alert.success(message.deletePatient);
       if (message.addPatient) alert.success(message.addPatient);
+      if (message.deleteAppointment) alert.success(message.deleteAppointment);
+      if (message.addAppointment) alert.success(message.addAppointment);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
       if (message.patientLogin) alert.success(message.patientLogin);
       if (message.patientRegister) alert.success(message.patientRegister);
