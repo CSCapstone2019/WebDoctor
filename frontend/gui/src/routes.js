@@ -5,12 +5,12 @@ import Home from './containers/Home';
 import AppointmentDashboard from './components/appointment/AppointmentDashboard';
 import DocDashboard from './components/patient/DocDashboard';
 import About from './containers/About';
+import Report from './containers/Reports';
 import Login from './components/accounts/Login';
 import Register from './components/accounts/Register';
 import Chat from './components/chat/Chat';
 import ChatApp from './containers/ChatApp';
 import Hoc from './hoc/hoc';
-
 
 import PrivateRoute from './components/common/PrivateRoute';
 
@@ -25,6 +25,7 @@ const BaseRouter = () => (
     <Route exact path="/register/" component={Register} />
     <Route exact path="/chat/" component={ChatApp} />
     <Route exact path="/chat/:chatID/" component={Chat} />
+    <Route exact path="/reports/" component={Report} />
   </Hoc>
 );
 

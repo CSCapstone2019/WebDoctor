@@ -18,7 +18,7 @@ import {
 
 class Header extends Component {
   state = {
-    isOpen: false,
+    isOpen: false
   };
 
   static propTypes = {
@@ -32,11 +32,9 @@ class Header extends Component {
     });
   };
 
- 
-
   render() {
     const { isAuthenticated, isStaff, user } = this.props.auth;
-    console.log("USER --------------", user);
+    console.log('USER --------------', user);
 
     const authLinks = (
       <Nav className="ml-auto" navbar>
@@ -45,6 +43,9 @@ class Header extends Component {
         </NavItem>
         <NavItem>
           <NavLink href="/appointments/">Appointments</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/reports/">Reports</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/chat/">Messages</NavLink>
@@ -60,9 +61,9 @@ class Header extends Component {
         <span className="navbar-text ml-3">
           <strong>Welcome </strong>
           <strong>{isStaff ? `Doctor ` : ''}</strong>
-          <strong
-            style ={{textTransform:"capitalize"}}
-          >{user ? ` ${user.username}` : ''}</strong>
+          <strong style={{ textTransform: 'capitalize' }}>
+            {user ? ` ${user.username}` : ''}
+          </strong>
         </span>
       </Nav>
     );
