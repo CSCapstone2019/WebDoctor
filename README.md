@@ -1,6 +1,6 @@
 # CSCapstone2019 - WebDoctor
 
-This is the project for the CS Senior Project course at Kennesaw State University. It serves as a project for a local physician. The project builds a web portal that can store messages/chat, reports, requests for appts, and host video recordings. A list of project members and contributors can be found below.
+This is the project for the CS Senior Project course at Kennesaw State University. It serves as a project for a local physician. The project builds a web portal that can store messages/chat, reports, and requests for appts. A list of project members and contributors can be found below.
 
 ## Getting Started
 
