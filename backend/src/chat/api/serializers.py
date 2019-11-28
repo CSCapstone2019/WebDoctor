@@ -1,7 +1,10 @@
 from rest_framework import serializers
-
 from patients.models import Chat
 from chat.views import get_user_contact
+
+
+
+
 
 # Handling many to many relationship
 class ContactSerializer(serializers.StringRelatedField):

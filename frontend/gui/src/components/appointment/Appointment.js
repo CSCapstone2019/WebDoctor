@@ -11,7 +11,8 @@ class Appointment extends Component {
   static propTypes = {
     appointments: PropTypes.array.isRequired,
     getAppointments: PropTypes.func.isRequired,
-    deleteAppointment: PropTypes.func.isRequired
+    deleteAppointment: PropTypes.func.isRequired,
+    
   };
 
   componentDidMount() {
@@ -23,8 +24,9 @@ class Appointment extends Component {
       <>
         <Container>
           <h2 className="text-center">
-            <u>Appointments</u>
+            <strong>Appointments</strong>
           </h2>
+          <br/>
           <Table dark hover responsive>
             <thead>
               <tr>

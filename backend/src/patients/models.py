@@ -43,10 +43,12 @@ class Insurance(models.Model):
 
 class Appointment(models.Model):
     appointment_id = models.AutoField(primary_key=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, related_name="patient_appointment", on_delete=models.CASCADE)
     appointment_date = models.DateField()
     appointment_time = models.TimeField()
     message = models.TextField()
+    owner = models.ForeignKey(User, related_name="doctor", on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return 'appointment for %s on %s at %s' % (self.patient.full_name(), self.appointment_date, self.appointment_time)

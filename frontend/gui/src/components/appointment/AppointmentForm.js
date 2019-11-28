@@ -102,8 +102,9 @@ class AppointmentForm extends Component {
         <Container>
           <div className="card card-body mt-4 mb-4">
             <h2 className="text-center">
-              <u>Schedule Appointment</u>
+              <strong>Schedule an Appointment</strong>
             </h2>
+            <br/>
             <Form onSubmit={this.onSubmit}>
               <Row form>
                 <Col md={6}>

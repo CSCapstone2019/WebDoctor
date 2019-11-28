@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
+from rest_framework import viewsets
+
 from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView,
@@ -50,3 +52,6 @@ class ChatDeleteView(DestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     permission_classes = (permissions.IsAuthenticated, )
+
+
+    

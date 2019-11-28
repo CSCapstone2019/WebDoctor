@@ -68,6 +68,38 @@ class Header extends Component {
       </Nav>
     );
 
+    const patientLinks = (
+      <Nav className="ml-auto" navbar>
+        {/* <NavItem>
+          <NavLink href="/patient/">Patients</NavLink>
+        </NavItem> */}
+        <NavItem>
+          <NavLink href="/appointments/">Appointments</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/reports/">Reports</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/chat/">Messages</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/about-us/">About Us</NavLink>
+        </NavItem>
+        <NavItem className="pl-2">
+          <Button onClick={this.props.logout} color="info" size="md">
+            Logout
+          </Button>
+        </NavItem>
+        <span className="navbar-text ml-3">
+          <strong>Welcome </strong>
+          <strong>{isStaff ? `Doctor ` : ""}</strong>
+          <strong style={{ textTransform: "capitalize" }}>
+            {user ? ` ${user.username}` : ""}
+          </strong>
+        </span>
+      </Nav>
+    );
+
     const guestLinks = (
       <Nav className="ml-auto" navbar>
         <NavItem>
@@ -87,13 +119,15 @@ class Header extends Component {
           <Container>
             <FontAwesomeIcon
               icon={faBriefcaseMedical}
-              style={{ color: 'white' }}
+              style={{ color: "white" }}
               className="fa-2x pr-2"
             />
-            <NavbarBrand href="/">WebDoctor</NavbarBrand>
+            <NavbarBrand href={isAuthenticated ? "/dashboard" : "/"}>
+              WebDoctor
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
-              {isAuthenticated ? authLinks : guestLinks}
+              {isAuthenticated && isStaff ? authLinks : guestLinks || isAuthenticated ? patientLinks : guestLinks}
             </Collapse>
           </Container>
         </Navbar>
