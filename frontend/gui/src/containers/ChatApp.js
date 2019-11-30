@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Sidepanel from '../components/chat/ChatSidePanel';
 import Profile from '../components/chat/ChatProfile';

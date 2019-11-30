@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, withRouter } from 'react-router-dom';
 import BaseRouter from './routes';
 import Header from './components/layout/Header';
 import Alerts from './components/layout/Alerts';
@@ -42,4 +42,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default (App);

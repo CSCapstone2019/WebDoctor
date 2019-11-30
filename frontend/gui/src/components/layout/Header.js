@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
@@ -17,6 +18,13 @@ import {
 } from 'reactstrap';
 
 class Header extends Component {
+
+ 
+
+  // constuctor() {
+  //   this.routeChange = this.routeChange.bind(this);
+  // }
+
   state = {
     isOpen: false
   };
@@ -31,6 +39,12 @@ class Header extends Component {
       isOpen: !this.state.isOpen
     });
   };
+
+  handleLogout() {
+    console.log("LOGOUT");
+    this.props.logout();
+    this.props.history.push("/");
+  }
 
   render() {
     const { isAuthenticated, isStaff, user } = this.props.auth;
@@ -56,7 +70,7 @@ class Header extends Component {
           <NavLink href="/about-us/">About Us</NavLink>
         </NavItem>
         <NavItem className="pl-2">
-          <Button onClick={this.props.logout} color="info" size="md">
+          <Button onClick={this.handleLogout.bind(this)}  color="light" size="md">
             Logout
           </Button>
         </NavItem>
@@ -142,4 +156,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logout })(Header);
+export default withRouter(
+  connect(mapStateToProps, { logout })(Header)
+);
