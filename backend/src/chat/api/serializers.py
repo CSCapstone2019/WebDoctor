@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from patients.models import Chat
+from patients.models import Chat, Schedule
 from chat.views import get_user_contact
 
 
@@ -31,7 +31,24 @@ class ChatSerializer(serializers.ModelSerializer):
         chat.save()
         return chat
 
+class ScheduleSerializer(serializers.ModelSerializer):
+    participants = ContactSerializer(many=True)
 
+    class Meta:
+        model = Schedule
+        fields = ('schedule_id', 'appointment_date', 'appointment_time','message','participants')
+        read_only = ('schedule_id')
+
+    def create(self, validated_data):
+        print("---SERIALIZER -> SCHEDULE SERIALIZER - VALIDATED DATA: ",validated_data)
+        participants = validated_data.pop('participants')
+        schedule = Schedule()
+        schedule.save()
+        for username in participants:
+            contact = get_user_contact(username)
+            schedule.participants.add(contact)
+        schedule.save()
+        return schedule
         
 # do in python shell to see how to serialize data
 

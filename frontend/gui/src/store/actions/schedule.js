@@ -3,36 +3,29 @@ import * as actionTypes from './types';
 import { tokenConfig } from "./auth";
 
 
-export const addMessage = message => {
+// export const addSchedule = schedule => {
+//   return {
+//     type: actionTypes.ADD_SCHEDULE,
+//     schedule: schedule
+//   };
+// };
+
+const getUserScheduleSuccess = schedules => {
   return {
-    type: actionTypes.ADD_MESSAGE,
-    message: message
+    type: actionTypes.GET_SCHEDULE_SUCCESS,
+    schedules: schedules
   };
 };
 
-export const setMessages = messages => {
-  return {
-    type: actionTypes.SET_MESSAGES,
-    messages: messages
-  };
-};
-
-const getUserChatsSuccess = chats => {
-  return {
-    type: actionTypes.GET_CHATS_SUCCESS,
-    chats: chats
-  };
-};
-
-export const getUserChats = (username) => {
+export const getUserSchedule = (username) => {
   return dispatch => {
     axios
-      .get(`http://127.0.0.1:8000/chat/?username=${username}`)
+      .get(`http://127.0.0.1:8000/chat/schedule/?username=${username}`)
       .then(res => {
-        console.log("GETUSERCHATS:::",res.data);
-        dispatch(getUserChatsSuccess(res.data));
+        console.log("GET SCHEDULES:::", res.data);
+        dispatch(getUserScheduleSuccess(res.data));
       })
-              
+
   };
 };
 
@@ -61,5 +54,5 @@ export const getUserChats = (username) => {
 //   axios
 //     .get(`http://127.0.0.1:8000/chat/?username=${username}`)
 //     .then(res => dispatch(getUserChatsSuccess(res.data)));
-    
+
 // };

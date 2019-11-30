@@ -6,6 +6,8 @@ import errorMsg from './errorMsg';
 import auth from './auth';
 import message from './message';
 import nav from './nav';
+import schedule from './schedule';
+
 
 export default combineReducers({
   patients,
@@ -14,5 +16,6 @@ export default combineReducers({
   errorMsg,
   auth,
   message,
-  nav
+  nav,
+  schedule,
 });

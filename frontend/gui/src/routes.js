@@ -3,6 +3,9 @@ import { Route } from 'react-router-dom';
 
 import Home from './containers/Home';
 import AppointmentDashboard from './components/appointment/AppointmentDashboard';
+
+import ScheduleDashboard from './components/appointment/ScheduleDashboard';
+
 import PatientDashboard from './components/patient/PatientDashboard';
 import DocDashboard from './components/patient/DocDashboard';
 import About from './containers/About';
@@ -19,7 +22,7 @@ const BaseRouter = () => (
   <Hoc>
     <Route exact path="/" component={Home} />
     <Route exact path="/patient/" component={DocDashboard} />
-    <Route exact path="/appointments/" component={AppointmentDashboard} />
+    <Route exact path="/appointments/" component={ScheduleDashboard} />
     {/* <Route exact path="/patientslist/" component={Patient} /> */}
     <Route exact path="/dashboard/" component={PatientDashboard} />
     <Route exact path="/about-us/" component={About} />

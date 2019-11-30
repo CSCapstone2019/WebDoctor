@@ -21,14 +21,19 @@ class HorizontalAddChatForm extends Component {
     auth: PropTypes.object.isRequired,
     patients: PropTypes.array.isRequired,
     getPatients: PropTypes.func.isRequired,
+    getStaff: PropTypes.func.isRequired,
+    staff: PropTypes.array.isRequired,
+    getAllPatients: PropTypes.func.isRequired,
+    all_patients: PropTypes.array.isRequired,
   }
   state = {
     usernames: [],
-    error: null
+    error: null,
   };
 
   // Value is patient_id
   handleChange = value => {
+    console.log("CHAT FORM VALUE CHANGE: ", value);
     this.setState({
       usernames: value
     });
@@ -37,16 +42,19 @@ class HorizontalAddChatForm extends Component {
   componentDidMount() {
     this.props.form.validateFields();
     this.props.getPatients();
+    this.props.getStaff();
+    this.props.getAllPatients();
   }
 
   handleSubmit = e => {
     const component = this;
     const { user } = this.props.auth;
     const { usernames } = this.state;
+    console.log("SUBMIT CHAT USERNAMES: ", usernames);
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const combined = [...usernames, component.props.auth.user.username];
+        const combined = [usernames, component.props.auth.user.username];
         console.log("COMBINED", combined);
         axios.defaults.headers = {
           "Content-Type": "application/json",
@@ -58,7 +66,7 @@ class HorizontalAddChatForm extends Component {
             participants: combined
           })
           .then(res => {
-            console.log(res.data);
+            console.log("DATA ON SUBMIT: ", res.data);
             this.props.history.push(`/chat/${res.data.chat_id}`);
             this.props.closeAddChatPopup();
             this.props.getUserChats(component.props.auth.user.username);
@@ -74,6 +82,24 @@ class HorizontalAddChatForm extends Component {
   };
 
   render() {
+    const { isAuthenticated, isStaff, user } = this.props.auth;
+    const { usernames, appointment_date, appointment_time, message } = this.state;
+    let patientOptions = this.props.staff.map(p => {
+      return (
+        <Option value={p.username}>
+          {p.username}
+        </Option>
+      );
+    });
+
+    let doctorOptions = this.props.all_patients.map(p => {
+      return (
+        <Option value={p.username}>
+          {p.username}
+        </Option>
+      );
+    });
+
     const {
       getFieldDecorator,
       getFieldsError,
@@ -87,13 +113,13 @@ class HorizontalAddChatForm extends Component {
     return (
       <Form className="login-form" onSubmit={this.handleSubmit}>
         {/* {this.state.error ? `${this.state.error}` : null} */}
-        {this.state.error ? ' The user does not exist. Please check that you input a correct username.' : null}
+        {this.state.error ? 'The user selected is not authorized as a Contact yet. Please select another user.' : null}
 
         <FormItem
-          validateStatus={userNameError ? 'error' : ''}
-          help={userNameError || ''}
+          // validateStatus={userNameError ? 'error' : ''}
+          // help={userNameError || ''}
         >
-          {getFieldDecorator('userName', {
+          {/* {getFieldDecorator('userName', {
             rules: [
               {
                 required: true,
@@ -127,7 +153,37 @@ class HorizontalAddChatForm extends Component {
               ))}
             </Select>
 
-          )}
+          )} */}
+
+          {isStaff ? <Select
+            showSearch
+            style={{ width: '100%' }}
+            placeholder="Select a patient"
+            optionFilterProp="children"
+            onChange={this.handleChange}
+            filterOption={(input, option) =>
+              option.props.children
+                .toLowerCase()
+                .indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {doctorOptions}
+          </Select> : <Select
+            showSearch
+            style={{ width: '100%' }}
+            placeholder="Select a doctor"
+            optionFilterProp="children"
+            onChange={this.handleChange}
+            filterOption={(input, option) =>
+              option.props.children
+                .toLowerCase()
+                .indexOf(input.toLowerCase()) >= 0
+            }
+          >
+              {patientOptions}
+            </Select>}
+
+
         </FormItem>
         <FormItem>
           <Button
@@ -148,7 +204,9 @@ const AddChatForm = Form.create()(HorizontalAddChatForm);
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    patients: state.patients.patients
+    patients: state.patients.patients,
+    staff: state.patients.staff,
+    all_patients: state.patients.all_patients,
   };
 };
 
@@ -156,7 +214,9 @@ const mapDispatchToProps = dispatch => {
   return {
     closeAddChatPopup: () => dispatch(navActions.closeAddChatPopup()),
     getUserChats: (username) =>dispatch(messageActions.getUserChats(username)),
-    getPatients: () => dispatch(patientActions.getPatients())
+    getPatients: () => dispatch(patientActions.getPatients()),
+    getAllPatients: () => dispatch(patientActions.getAllPatients()),
+    getStaff: () => dispatch(patientActions.getStaff()),
   };
 };
 

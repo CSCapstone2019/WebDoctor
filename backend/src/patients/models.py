@@ -97,3 +97,14 @@ class Chat(models.Model):
 
     def __str__(self):
         return "{}".format(self.pk)
+
+
+class Schedule(models.Model):
+    schedule_id = models.AutoField(primary_key=True)
+    participants = models.ManyToManyField(Contact, related_name='schedule', blank=True)
+    appointment_date = models.DateField()
+    appointment_time = models.TimeField()
+    message = models.TextField()
+
+    def __str__(self):
+        return "{}".format(self.pk)

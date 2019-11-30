@@ -5,6 +5,10 @@ export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const GET_CHATS_SUCCESS = 'GET_CHATS_SUCCESS';
 
+// schedule
+export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
+export const ADD_SCHEDULE = 'ADD_SCHEDULE';
+
 // patients
 export const GET_PATIENTS = 'GET_PATIENTS';
 export const DELETE_PATIENT = 'DELETE_PATIENT';
