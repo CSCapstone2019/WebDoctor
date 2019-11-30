@@ -28,7 +28,7 @@ class PatientViewSet(viewsets.ModelViewSet):
 
 
 class AppointmentViewSet(viewsets.ModelViewSet):
-    queryset = Appointment.objects.all()
+    # queryset = Appointment.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]

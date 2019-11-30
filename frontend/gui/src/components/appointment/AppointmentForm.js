@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Select, TimePicker } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getPatients, deletePatient } from '../../store/actions/patients';
+import { getAllPatients,getStaff, getPatients, deletePatient } from '../../store/actions/patients';
 import { addAppointment } from '../../store/actions/appointments';
 import {
   Jumbotron,
@@ -27,13 +27,21 @@ class AppointmentForm extends Component {
   };
 
   static propTypes = {
+    auth: PropTypes.object.isRequired,
     addAppointment: PropTypes.func.isRequired,
     patients: PropTypes.array.isRequired,
-    getPatients: PropTypes.func.isRequired
+    getPatients: PropTypes.func.isRequired,
+    getStaff: PropTypes.func.isRequired,
+    staff: PropTypes.array.isRequired,
+    getAllPatients: PropTypes.func.isRequired,
+    all_patients: PropTypes.array.isRequired,
   };
 
   componentDidMount() {
     this.props.getPatients();
+    this.props.getStaff();
+    this.props.getAllPatients();
+
   }
 
   onChange = e =>
@@ -67,7 +75,7 @@ class AppointmentForm extends Component {
       appointment_time,
       message
     };
-
+    console.log("PATIENT", this.state.patient)
     this.props.addAppointment(appointment);
     this.setState({
       patient: '',
@@ -78,7 +86,24 @@ class AppointmentForm extends Component {
   };
 
   render() {
+    const { isAuthenticated, isStaff, user } = this.props.auth;
     const { patient, appointment_date, appointment_time, message } = this.state;
+    let patientOptions = this.props.staff.map(p => {
+      return (
+        <Option value={p.id}>
+          {p.username}
+        </Option>
+      );
+    });
+
+    let doctorOptions = this.props.all_patients.map(p => {
+      return (
+        <Option value={p.id}>
+          {p.username}
+        </Option>
+      );
+    });
+
     return (
       <>
         <Jumbotron>
@@ -109,7 +134,7 @@ class AppointmentForm extends Component {
               <Row form>
                 <Col md={6}>
                   <FormGroup>
-                    <Label>Patient</Label>
+                    {isStaff ? <Label>Patient</Label> : <Label>Doctor</Label>}
                     {/* <Input
                       type="text"
                       name="patient"
@@ -118,7 +143,7 @@ class AppointmentForm extends Component {
                       value={patient}
                     /> */}
 
-                    <Select
+                    {isStaff ? <Select
                       showSearch
                       style={{ width: '100%' }}
                       placeholder="Select a patient"
@@ -130,12 +155,22 @@ class AppointmentForm extends Component {
                           .indexOf(input.toLowerCase()) >= 0
                       }
                     >
-                      {this.props.patients.map(p => (
-                        <Option value={p.patient_id}>
-                          {p.first_name} {p.last_name}
-                        </Option>
-                      ))}
-                    </Select>
+                      {doctorOptions}
+                    </Select> : <Select
+                      showSearch
+                      style={{ width: '100%' }}
+                      placeholder="Select a doctor"
+                      optionFilterProp="children"
+                      onChange={this.onPatientChange}
+                      filterOption={(input, option) =>
+                        option.props.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      {patientOptions}
+                    </Select>}
+                    
                   </FormGroup>
                 </Col>
                 <Col md={6}>
@@ -194,8 +229,11 @@ class AppointmentForm extends Component {
   }
 }
 const mapStateToProps = state => ({
-  patients: state.patients.patients
+  patients: state.patients.patients,
+  staff: state.patients.staff,
+  all_patients: state.patients.all_patients,
+  auth: state.auth
 });
-export default connect(mapStateToProps, { getPatients, addAppointment })(
+export default connect(mapStateToProps, { getAllPatients ,getStaff, getPatients, addAppointment })(
   AppointmentForm
 );

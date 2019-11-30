@@ -12,6 +12,10 @@ export const ADD_PATIENT = 'ADD_PATIENT';
 export const GET_ERRORS = 'GET_ERRORS';
 export const CREATE_MESSAGE = 'CREATE_MESSAGE';
 
+export const GET_STAFF = 'GET_STAFF';
+export const GET_ALL_PATIENTS = 'GET_ALL_PATIENTS';
+
+
 // appointments
 export const GET_APPOINTMENTS = 'GET_APPOINTMENTS';
 export const DELETE_APPOINTMENT = 'DELETE_APPOINTMENT';

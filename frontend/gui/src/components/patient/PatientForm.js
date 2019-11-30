@@ -28,10 +28,19 @@ class PatientsForm extends Component {
   };
 
   static propTypes = {
-    addPatient: PropTypes.func.isRequired
+    addPatient: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  // Email
+  onEmailSumbit = value => {
+    console.log(value);
+    this.setState({
+      email: this.props.auth.a_email
+    });
+  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -83,6 +92,9 @@ class PatientsForm extends Component {
       dob,
       sex
     } = this.state;
+
+    const { isLoading, user, a_email, a_username, a_first_name, a_last_name } = this.props.auth; 
+
     return (
       <>
         <Jumbotron>
@@ -103,11 +115,13 @@ class PatientsForm extends Component {
             </Button>
           </p>
         </Jumbotron>
+
         <Container>
           <div className="card card-body mt-4 mb-4">
             <h2 className="text-center">
               <u>Add Patient</u>
             </h2>
+
             <Form onSubmit={this.onSubmit}>
               <Row form>
                 <Col md={6}>
@@ -148,6 +162,20 @@ class PatientsForm extends Component {
                     />
                   </FormGroup>
                 </Col>
+
+                {/* <Col md={4}>
+                  <FormGroup>
+                    <Label>Email</Label>
+                    <Label
+                      type="email"
+                      name="email"
+                      placeholder="admin@example.com"
+                      value={this.onEmailSumbit} >
+                      {a_email}
+                    </Label>
+                  </FormGroup>
+                </Col> */}
+
                 <Col md={4}>
                   <FormGroup>
                     <Label>Phone</Label>
@@ -224,7 +252,7 @@ class PatientsForm extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Button color="primary">Submit</Button>
+                {isLoading ? '' : <Button color="primary">Submit</Button>}
               </FormGroup>
             </Form>
           </div>
@@ -233,5 +261,9 @@ class PatientsForm extends Component {
     );
   }
 }
-
-export default connect(null, { addPatient })(PatientsForm);
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
+export default connect(mapStateToProps, { addPatient })(PatientsForm);
