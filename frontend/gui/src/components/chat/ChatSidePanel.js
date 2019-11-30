@@ -28,7 +28,7 @@ class Sidepanel extends React.Component {
         return;
       } else {
         console.log("waiting for authentication details...");
-        this.waitForAuthDetails();
+        component.waitForAuthDetails();
       }
     }, 100);
   }
@@ -99,7 +99,7 @@ class Sidepanel extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    // loading: state.loading,
+    loading: state.loading,
     isLoading: state.auth.isLoading,
     chats: state.message.chats
   };

@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from patients.models import Chat, Schedule
-from chat.views import get_user_contact
+from patients.models import Chat, Schedule, Scheduler
+from chat.views import get_user_contact, get_user_scheduler
 
 
 
@@ -11,6 +11,10 @@ class ContactSerializer(serializers.StringRelatedField):
     def to_internal_value(self, value):
         return value
 
+# Handling many to many relationship
+class SchedulerSerializer(serializers.StringRelatedField):
+    def to_internal_value(self, value):
+        return value
 
 class ChatSerializer(serializers.ModelSerializer):
     participants = ContactSerializer(many=True)
@@ -32,7 +36,7 @@ class ChatSerializer(serializers.ModelSerializer):
         return chat
 
 class ScheduleSerializer(serializers.ModelSerializer):
-    participants = ContactSerializer(many=True)
+    participants = SchedulerSerializer(many=True)
 
     class Meta:
         model = Schedule
@@ -42,11 +46,19 @@ class ScheduleSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         print("---SERIALIZER -> SCHEDULE SERIALIZER - VALIDATED DATA: ",validated_data)
         participants = validated_data.pop('participants')
+        date = validated_data.pop('appointment_date')
+        time = validated_data.pop('appointment_time')
+        message = validated_data.pop('message')
+
         schedule = Schedule()
         schedule.save()
+        schedule.appointment_date = date
+        schedule.appointment_time = time
+        schedule.message = message
+        schedule.save()
         for username in participants:
-            contact = get_user_contact(username)
-            schedule.participants.add(contact)
+            scheduler = get_user_scheduler(username)
+            schedule.participants.add(scheduler)
         schedule.save()
         return schedule
         

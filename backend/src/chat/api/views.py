@@ -10,8 +10,8 @@ from rest_framework.generics import (
     DestroyAPIView,
     UpdateAPIView
 )
-from patients.models import Chat, Contact, Schedule
-from chat.views import get_user_contact
+from patients.models import Chat, Contact, Schedule, Scheduler
+from chat.views import get_user_contact, get_user_scheduler
 from .serializers import ChatSerializer, ScheduleSerializer
 
 User = get_user_model()
@@ -63,8 +63,8 @@ class ScheduleListView(ListAPIView):
         queryset = Schedule.objects.all()
         username = self.request.query_params.get('username', None)
         if username is not None:
-            contact = get_user_contact(username)
-            queryset = contact.schedule.all()
+            scheduler = get_user_scheduler(username)
+            queryset = scheduler.schedule.all()
         return queryset
 
 

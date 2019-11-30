@@ -5,63 +5,51 @@ import * as scheduleActions from '../../store/actions/schedule';
 import { Button, Container, Table } from 'reactstrap';
 import Contact from '../chat/ChatContact';
 
-class Schedule extends Component {
+class Schedule extends React.Component {
 
-  state = {
-    all_schedules: [],
-    activeSchedule: null,
-  }
+  // state = {
+  //   all_schedules: [],
+  //   activeSchedule: null,
+  // }
   static propTypes = {
     auth: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
     getUserSchedule: PropTypes.func.isRequired,
   };
 
   
-  waitForAuthDetails() {
+  waitForDetail() {
     const component = this;
-  
+    console.log("-------------IS LOADING SHCEUDLE: ", component.props.isLoading)
     setTimeout(function () {
       if (!(component.props.isLoading)) {
-        component.props.getUserSchedule("doc"); //component.props.auth.user.username
+        console.log("-------------USER: ", component.props.auth.user.username)
+        component.props.getUserSchedule(component.props.auth.user.username); //component.props.auth.user.username
         return;
       } else {
         console.log("waiting for authentication details...");
-        this.waitForAuthDetails();
+        component.waitForDetail();
       }
     }, 100);
   }
 
 
   componentDidMount() {
-    this.waitForAuthDetails();
-    console.log("SCHEDULE MOUNTED");
+    this.waitForDetail();
   }
 
   render() {
     let activeSchedule = this.props.schedules.map(c => {
       return (
-        <Table dark hover responsive>
-          <thead>
-            <tr>
-              <th>Participants</th>
-              <th>Appointment Date</th>
-              <th>Appointment Time</th>
-              <th>Reason</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
               <tr key={c.schedule_id}>
-              {/* <td>{c.participants.map(a => (
-                a.id))}</td> */}
+                <td>{c.schedule_id}</td>
                 <td>{c.participants.toString()}</td>
                 <td>{c.appointment_date}</td>
                 <td>{c.appointment_time}</td>
                 <td>{c.message}</td>
               </tr>
-          </tbody>
-          </Table>
+          
       );
     });
 
@@ -71,11 +59,22 @@ class Schedule extends Component {
       
       <>
       <Container>
-          <div>
-            <ul>{activeSchedule}</ul>
-          </div>
+          <Table dark hover responsive>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Participants</th>
+                <th>Appointment Date</th>
+                <th>Appointment Time</th>
+                <th>Reason</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {activeSchedule}
+            </tbody>
+          </Table>
       </Container>
-     
       </>
       // <>
       //   <Container>
@@ -126,7 +125,8 @@ class Schedule extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  auth: state.auth.isLoading,
+  isLoading: state.auth.isLoading,
+  loading: state.loading, 
   schedules: state.schedule.schedules
 });
 

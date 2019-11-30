@@ -23,6 +23,7 @@ const BaseRouter = () => (
     <Route exact path="/" component={Home} />
     <Route exact path="/patient/" component={DocDashboard} />
     <Route exact path="/appointments/" component={ScheduleDashboard} />
+    <Route exact path="/appointments/:appointmentID/" component={ScheduleDashboard} />
     {/* <Route exact path="/patientslist/" component={Patient} /> */}
     <Route exact path="/dashboard/" component={PatientDashboard} />
     <Route exact path="/about-us/" component={About} />

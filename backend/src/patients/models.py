@@ -98,13 +98,23 @@ class Chat(models.Model):
     def __str__(self):
         return "{}".format(self.pk)
 
+class Scheduler(models.Model):
+    scheduler_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, related_name='scheduler', on_delete=models.CASCADE)
+    scheduler = models.ManyToManyField('self', blank=True)
 
+    def __str__(self):
+        return self.user.username
+        
 class Schedule(models.Model):
     schedule_id = models.AutoField(primary_key=True)
-    participants = models.ManyToManyField(Contact, related_name='schedule', blank=True)
-    appointment_date = models.DateField()
-    appointment_time = models.TimeField()
+    participants = models.ManyToManyField(Scheduler, related_name='schedule', blank=True)
+    appointment_date = models.TextField()
+    appointment_time = models.TextField()
     message = models.TextField()
 
     def __str__(self):
         return "{}".format(self.pk)
+
+
+
