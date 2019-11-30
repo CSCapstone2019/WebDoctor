@@ -7,6 +7,8 @@ import AppointmentDashboard from './components/appointment/AppointmentDashboard'
 import ScheduleDashboard from './components/appointment/ScheduleDashboard';
 
 import PatientDashboard from './components/patient/PatientDashboard';
+import ProfileDashboard from './components/patient/ProfileDashboard';
+
 import DocDashboard from './components/patient/DocDashboard';
 import About from './containers/About';
 import Report from './containers/Reports';
@@ -25,7 +27,7 @@ const BaseRouter = () => (
     <Route exact path="/appointments/" component={ScheduleDashboard} />
     {/* <Route exact path="/appointments/:appointmentID/" component={ScheduleDashboard} /> */}
     {/* <Route exact path="/patientslist/" component={Patient} /> */}
-    <Route exact path="/dashboard/" component={PatientDashboard} />
+    <Route exact path="/dashboard/" component={ProfileDashboard} />
     <Route exact path="/about-us/" component={About} />
     <Route exact path="/login/" component={Login} />
     <Route exact path="/register/" component={Register} />
