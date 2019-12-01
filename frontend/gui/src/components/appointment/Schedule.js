@@ -10,7 +10,15 @@ import moment from "moment";
 
 class Schedule extends React.Component {
   state = {
-    listDate: []
+    listDate: [],
+    scheduleList: [
+      {
+        date: '',
+        time: '',
+        message: '',
+        participants: '',
+      },
+    ],
   };
   static propTypes = {
     auth: PropTypes.object.isRequired,
@@ -43,39 +51,82 @@ class Schedule extends React.Component {
 
   // CALENDAR
   getListData = value => {
-    console.log("GET LIST DATA VALUE: ", value);
+    // console.log("GET LIST DATA VALUE.MONTH(): ", value.format("YYYY-MM-DD"));
+    const component = this;
+    const { scheduleList } = component.state;
     let listData;
-    switch (value.date()) {
-      case 8:
+    // console.log("SCHEDULE LIST IN GET LIST------------", scheduleList);
+    scheduleList.map(c => {
+      if (((value.format("YYYY-MM-DD")).localeCompare(c.date)) == 0) {
         listData = [
-          { type: "warning", content: "This is warning event." },
-          { type: "success", content: "This is usual event." }
+          { type: "success", content: `${c.time} between ${c.participants}.` },
+          // { type: "", content: `Reason: ${c.message}` },
         ];
-        break;
-      case 10:
-        listData = [
-          { type: "warning", content: "This is warning event." },
-          { type: "success", content: "This is usual event." },
-          { type: "error", content: "This is error event." }
-        ];
-        break;
-      case 15:
-        listData = [
-          { type: "warning", content: "This is warning event" },
-          { type: "success", content: "This is very long usual event。。...." },
-          { type: "error", content: "This is error event 1." },
-          { type: "error", content: "This is error event 2." },
-          { type: "error", content: "This is error event 3." },
-          { type: "error", content: "This is error event 4." }
-        ];
-        break;
-      default:
-    }
-    return listData || [];
+      } 
+      
+    });
+    
+      //value.format("YYYY-MM-DD")  GIVES -> 2020-01-08
+      //value._d GIVES ALL DAYS BUT IN Sat Dec 28 2019 11:27:44 GMT-0500 (Eastern Standard Time) format
+      //value.date() GIVES ALL DAYS EXPOSED ON THE CHARACTER COMPONENT
+      // switch (value.format("YYYY-MM-DD")) {
+      //   case (scheduleList.date):
+      //     listData = [
+      //       { type: "warning", content: "This is warning event." },
+      //       { type: "success", content: "This is usual event." }
+      //     ];
+      //     break;
+      //   case 10:
+      //     listData = [
+      //       { type: "warning", content: "This is warning event." },
+      //       { type: "success", content: "This is usual event." },
+      //       { type: "error", content: "This is error event." }
+      //     ];
+      //     break;
+      //   case 15:
+      //     listData = [
+      //       { type: "warning", content: "This is warning event" },
+      //       { type: "success", content: "This is very long usual event。。...." },
+      //       { type: "error", content: "This is error event 1." },
+      //       { type: "error", content: "This is error event 2." },
+      //       { type: "error", content: "This is error event 3." },
+      //       { type: "error", content: "This is error event 4." }
+      //     ];
+      //     break;
+      //   default:
+      // }
+
+      // switch (value.date()) {
+      //   case 8:
+      //     listData = [
+      //       { type: "warning", content: "This is warning event." },
+      //       { type: "success", content: "This is usual event." }
+      //     ];
+      //     break;
+      //   case 10:
+      //     listData = [
+      //       { type: "warning", content: "This is warning event." },
+      //       { type: "success", content: "This is usual event." },
+      //       { type: "error", content: "This is error event." }
+      //     ];
+      //     break;
+      //   case 15:
+      //     listData = [
+      //       { type: "warning", content: "This is warning event" },
+      //       { type: "success", content: "This is very long usual event。。...." },
+      //       { type: "error", content: "This is error event 1." },
+      //       { type: "error", content: "This is error event 2." },
+      //       { type: "error", content: "This is error event 3." },
+      //       { type: "error", content: "This is error event 4." }
+      //     ];
+      //     break;
+      //   default:
+      // }
+      return listData || [];
   };
 
   dateCellRender = value => {
-    console.log("DATE CELL RENDER VALUE:", value);
+    // console.log("DATE CELL RENDER VALUE:", value);
     const listData = this.getListData(value);
     return (
       <ul className="events">
@@ -111,8 +162,15 @@ class Schedule extends React.Component {
 
 
   render() {
-    // const { value, selectedValue } = this.state;
+    const { scheduleList } = this.state;
     let activeSchedule = this.props.schedules.map(c => {
+      scheduleList.push({
+        date: c.appointment_date,
+        time: c.appointment_time,
+        message: c.message,
+        participants: c.participants.toString(),
+      });
+      
       return (
         <tr key={c.schedule_id}>
           <td>{c.schedule_id}</td>
@@ -125,6 +183,7 @@ class Schedule extends React.Component {
     });
 
     console.log("SCHEDULE ", this.props.schedules);
+    console.log("SCHEDULE LIST ", scheduleList);
 
     return (
       <>

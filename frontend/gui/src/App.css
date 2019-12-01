@@ -8,7 +8,7 @@
   padding: 0;
 }
 .events .ant-badge-status {
-  overflow: hidden;
+  overflow: visible;
   white-space: nowrap;
   width: 100%;
   text-overflow: ellipsis;
