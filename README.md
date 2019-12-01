@@ -92,20 +92,22 @@ You will also see any lint errors in the console.
 
 ## Built With
 
-- [React](https://reactjs.org/) - The front-end web framework used
-- [Django](https://www.djangoproject.com/) - The back-end framework used
-- [Redux](https://react-redux.js.org/) - State management and authentication
-- [Django Rest Framework](https://www.django-rest-framework.org/) - Used for the REST API
-- [Fontawesome](https://fontawesome.com/) - Icons
-- [Reactstrap](https://reactstrap.github.io/) - Bootstrap turned into React components
-- [Axios](https://github.com/axios/axios) - Used for front/back end communication
-- [Redis](https://redis.io/) - An in-memory data structure store, used as backing store for the chat
-- [Syncfusion Schedule Component](https://ej2.syncfusion.com/demos/#/bootstrap/schedule/recurrence-editor-generate-rule.html)
+- [React](https://reactjs.org/) - The front-end web framework used.
+- [Django](https://www.djangoproject.com/) - The back-end framework used.
+- [Redux](https://react-redux.js.org/) - State management and authentication.
+- [Django Rest Framework](https://www.django-rest-framework.org/) - Used for the REST API.
+- [Fontawesome](https://fontawesome.com/) - Icons.
+- [Reactstrap](https://reactstrap.github.io/) - Bootstrap turned into React components.
+- [Axios](https://github.com/axios/axios) - Used for front/back end communication.
+- [Redis](https://redis.io/) - An in-memory data structure store, used as backing store for the chat.
+- [Ant Design](https://ant.design/docs/react/introduce) - React UI library used for a lot of frontend components.
+- [Just Django](https://www.youtube.com/channel/UCRM1gWNTDx0SHIqUJygD-kQ) - [Traversy Media](https://www.youtube.com/user/TechGuyWeb) - Web development learning resources used.
 
 ## Authors
 
 - **Josh Arrants** - _Front-end/Back-end & Authentication_ - [joshdrumz](https://github.com/joshdrumz)
-- **Augustina Horlava** - _Front-end/Back-end & Chat Implementation_ - [augichii](https://github.com/Augichii)
+
+- **Augustina Horlava** - _Front-end/Back-end of Chat, Appointment, and Report Upload Implementation. User Dashboard separation and backend models._ - [augichii](https://github.com/Augichii)
 
 See the list of [contributors](https://github.com/CSCapstone2019/WebDoctor/contributors) who participated in this project.
 

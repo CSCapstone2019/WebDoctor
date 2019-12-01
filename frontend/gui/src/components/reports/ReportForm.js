@@ -366,7 +366,7 @@ class ReportForm extends Component {
         <Jumbotron>
           <h1 className="display-3">Reports</h1>
           <p className="lead">
-            See your reports.
+            See all your uploaded reports below.
           </p>
           <hr className="my-2" />
         </Jumbotron>
