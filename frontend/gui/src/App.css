@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 @import url('https://cdn.syncfusion.com/ej2/material.css');
 
+/* CALENDAR */
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.events .ant-badge-status {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.notes-month {
+  text-align: center;
+  font-size: 28px;
+}
+.notes-month section {
+  font-size: 28px;
+}
+
+/* CALENDAR END */
 .thumb {
   object-position: center;
   width: 100%;
