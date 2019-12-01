@@ -25,7 +25,7 @@ function hasErrors(fieldsError) {
 
 class ReportForm extends Component {
   state = {
-    file: [],
+    fileUpload: null,
     fileList: [],
     fileName: '',
     uploading: false,
@@ -68,6 +68,8 @@ class ReportForm extends Component {
     });
   };
 
+
+  // Not Used -do not delete
   handleSubmit = e => {
     const getCsrfToken = () => {
       const csrf = document.cookie.match('(^|;)\\s*csrftoken\\s*=\\s*([^;]+)');
@@ -75,20 +77,16 @@ class ReportForm extends Component {
     };
     const csrf_cookie = getCsrfToken();
     console.log("CSRF COOKIE:", csrf_cookie)
-
-
     const component = this;
     let formData = new FormData();
     formData.append('file', this.file);
     console.log('>> formData >> ', formData);
-
     const { user } = this.props.auth;
     // const { usernames, appointment_date, appointment_time, message } = component.state;
     const { usernames } = component.state;
     const combined = [usernames, component.props.auth.user.username];
     console.log("COMBINED", combined);
     e.preventDefault();
-
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
         this.handleUpload();
@@ -105,17 +103,15 @@ class ReportForm extends Component {
           Authorization: `Token ${this.props.auth.token}`
         };
 
-
-        
-        axios.post('http://127.0.0.1:8000/chat/upload/',
-          formData, {
+        axios
+          .post("http://127.0.0.1:8000/chat/upload/", formData, {
             headers: {
-              'Content-Type': 'multipart/form-data',
+              "Content-Type": "multipart/form-data",
               Authorization: `Token ${this.props.auth.token}`,
-              "X-CSRFToken": `${csrf_cookie}` 
+              "X-CSRFToken": `${csrf_cookie}`,
             }
-          }
-          ).then(res => {
+          })
+          .then(res => {
             console.log("DATA ONS SCHEDULE SUBMIT: ", res.data);
             // this.props.history.push(`/appointments/`);
             this.props.getUserSchedule(component.props.auth.user.username);
@@ -233,33 +229,48 @@ class ReportForm extends Component {
 
 
 
-
+  // UPLOAD 
 
   handleUpload = () => {
+    const getCsrfToken = () => {
+      const csrf = document.cookie.match('(^|;)\\s*csrftoken\\s*=\\s*([^;]+)');
+      return csrf ? csrf.pop() : '';
+    };
+
+    const csrf_cookie = getCsrfToken();
+    let headers = new Headers();
+    headers.append("X-CSRFToken", `${csrf_cookie}`);
+
+    const { fileList } = this.state;
+    const formData = new FormData();
+    fileList.forEach(file => {
+      formData.append("files[]", file);
+    });
+
     this.setState({
       uploading: true,
     });
 
-    // // You can use any AJAX library you like
-    // request({
-    //   url: 'http://localhost:8000/media/reports/pds/reports/pdfs/',
-    //   method: 'post',
-    //   processData: false,
-    //   data: formData,
-    //   success: () => {
-    //     this.setState({
-    //       fileList: [],
-    //       uploading: false,
-    //     });
-    //     message.success('upload successfully.');
-    //   },
-    //   error: () => {
-    //     this.setState({
-    //       uploading: false,
-    //     });
-    //     message.error('upload failed.');
-    //   },
-    // });
+    request({
+      url: 'http://localhost:8000/media/reports/pds/reports/pdfs/',
+      method: 'post',
+      processData: false,
+      data: formData,
+      headers: headers,
+      success: () => {
+        this.setState({
+          fileList: [],
+          uploading: false,
+        });
+        message.success('upload successfully.');
+      },
+      error: () => {
+        this.setState({
+          uploading: false,
+        });
+        message.error('upload failed.');
+      },
+    });
   };
 
 
@@ -376,8 +387,12 @@ class ReportForm extends Component {
             <strong>Upload a Report</strong>
           </h2>
           <br />
-          <Form {...formItemLayout} onSubmit={this.handleSubmit}>
 
+
+
+
+
+          <Form {...formItemLayout} onSubmit={this.handleUpload}>
             <FormItem label="Select a user">
               {isStaff ? <Select
                 showSearch

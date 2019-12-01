@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
 from patients.models import Chat, Contact, Scheduler, Uploader
 from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import csrf_exempt
+
 
 User = get_user_model()
 
@@ -26,6 +28,7 @@ def get_user_uploader(username):
 def get_current_chat(chatId):
     return get_object_or_404(Chat, chat_id=chatId) 
 
+@csrf_exempt 
 def upload(request):
     print ("UPLOAD REUQEST VIEW___________: ", request)
     context = {}

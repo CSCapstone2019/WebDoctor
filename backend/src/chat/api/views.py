@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework import viewsets
+from django.views.decorators.csrf import csrf_exempt
+
 
 from django.core.files.storage import FileSystemStorage
 
@@ -96,6 +98,7 @@ class ScheduleDeleteView(DestroyAPIView):
 
 # UPLOAD
 
+ 
 class ReportListView(ListAPIView):
     serializer_class = ReportSerializer
     permission_classes = (permissions.AllowAny, )
@@ -113,7 +116,6 @@ class ReportDetailView(RetrieveAPIView):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
     permission_classes = (permissions.AllowAny, )
-
 
 class ReportCreateView(CreateAPIView):
     queryset = Report.objects.all()

@@ -26,7 +26,7 @@ class Chat extends React.Component {
   
   initialiseChat() {
     const component = this;
-    this.waitForSocketConnection(() => {
+    component.waitForSocketConnection(() => {
       WebSocketInstance.fetchMessages(
         component.props.auth.user.username,
         this.props.match.params.chatID
