@@ -29,14 +29,13 @@ class Profile extends React.Component {
             />
 
             <p>
-              <strong>Welcome to your messaging center, </strong>
               <strong style={{ textTransform: "capitalize" }}>
-                {user ? ` ${user.username}!` : ""}
-              </strong>{" "}
-              <small style={{ color: "#95a5a6" }}>
+                {user ? ` ${user.username}` : ""}
+              </strong>
+              {/* <small style={{ color: "#95a5a6" }}>
                 To start, select the chatroom in the side panel, or start a new
                 chatroom.
-              </small>
+              </small> */}
             </p>
           </Hoc>
         ) : null}

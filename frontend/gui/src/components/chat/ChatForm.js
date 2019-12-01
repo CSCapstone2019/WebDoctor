@@ -86,7 +86,7 @@ class HorizontalAddChatForm extends Component {
     const { usernames, appointment_date, appointment_time, message } = this.state;
     let patientOptions = this.props.staff.map(p => {
       return (
-        <Option value={p.username}>
+        <Option value={p.username} key={p.id}>
           {p.username}
         </Option>
       );
@@ -94,7 +94,7 @@ class HorizontalAddChatForm extends Component {
 
     let doctorOptions = this.props.all_patients.map(p => {
       return (
-        <Option value={p.username}>
+        <Option value={p.username} key={p.id}>
           {p.username}
         </Option>
       );
@@ -157,7 +157,7 @@ class HorizontalAddChatForm extends Component {
 
           {isStaff ? <Select
             showSearch
-            style={{ width: '100%' }}
+            style={{ width: '70%' }}
             placeholder="Select a patient"
             optionFilterProp="children"
             onChange={this.handleChange}
@@ -170,7 +170,7 @@ class HorizontalAddChatForm extends Component {
             {doctorOptions}
           </Select> : <Select
             showSearch
-            style={{ width: '100%' }}
+            style={{ width: '70%' }}
             placeholder="Select a doctor"
             optionFilterProp="children"
             onChange={this.handleChange}

@@ -54,19 +54,19 @@ class Appointment(models.Model):
         return 'appointment for %s on %s at %s' % (self.patient.full_name(), self.appointment_date, self.appointment_time)
 
 
-class Report(models.Model):
-    report_id = models.AutoField(primary_key=True)
-    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
-    physician_name = models.CharField(max_length=100)
-    visit_start_time = models.TimeField()
-    visit_end_time = models.TimeField()
-    message = models.TextField()
-    visit_total_charge = models.FloatField()
-    visit_total_paid = models.FloatField()
-    report_date = models.DateTimeField(auto_now_add=True)
+# class Report(models.Model):
+#     report_id = models.AutoField(primary_key=True)
+#     appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+#     physician_name = models.CharField(max_length=100)
+#     visit_start_time = models.TimeField()
+#     visit_end_time = models.TimeField()
+#     message = models.TextField()
+#     visit_total_charge = models.FloatField()
+#     visit_total_paid = models.FloatField()
+#     report_date = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return 'report for %s' % (self.appointment)
+#     def __str__(self):
+#         return 'report for %s' % (self.appointment)
 
 
 # CHAT MODELS
@@ -117,4 +117,19 @@ class Schedule(models.Model):
         return "{}".format(self.pk)
 
 
+class Uploader(models.Model):
+    uploader_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, related_name='uploader', on_delete=models.CASCADE)
+    uploader = models.ManyToManyField('self', blank=True)
 
+    def __str__(self):
+        return self.user.username
+        
+class Report(models.Model):
+    report_id = models.AutoField(primary_key=True)
+    participants = models.ManyToManyField(Uploader, related_name='report', blank=True)
+    title = models.TextField()
+    pdf = models.FileField(upload_to="reports/pdfs/")
+
+    def __str__(self):
+        return "{}".format(self.pk)

@@ -7,7 +7,7 @@ import auth from './auth';
 import message from './message';
 import nav from './nav';
 import schedule from './schedule';
-
+import report from './report';
 
 export default combineReducers({
   patients,
@@ -18,4 +18,5 @@ export default combineReducers({
   message,
   nav,
   schedule,
+  report,
 });

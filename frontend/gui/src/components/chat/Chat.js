@@ -99,7 +99,7 @@ class Chat extends React.Component {
         style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
         className={message.author === currentUser ? "replies" : "sent"}
       >
-        <img src="http://emilcarlsson.se/assets/mikeross.png" />
+        <img src="https://pngimage.net/wp-content/uploads/2018/06/no-avatar-png-8.png" />
         <p>
           {message.content}
           <br />

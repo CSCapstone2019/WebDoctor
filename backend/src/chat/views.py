@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
-from patients.models import Chat, Contact, Scheduler
+from patients.models import Chat, Contact, Scheduler, Uploader
+from django.core.files.storage import FileSystemStorage
 
 User = get_user_model()
 
@@ -18,5 +19,19 @@ def get_user_scheduler(username):
     user = get_object_or_404(User, username=username)
     return get_object_or_404(Scheduler, user=user)
 
+def get_user_uploader(username):
+    user = get_object_or_404(User, username=username)
+    return get_object_or_404(Uploader, user=user)
+
 def get_current_chat(chatId):
     return get_object_or_404(Chat, chat_id=chatId) 
+
+def upload(request):
+    context = {}
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        fs = FileSystemStorage()
+        name = fs.save(uploaded_file.name, uploaded_file)
+        context['url'] = fs.url(name)
+        print("-----------VIEWS CONTEXT FOR UPLOAD:", context)
+    return context

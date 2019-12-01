@@ -52,11 +52,11 @@ class Header extends Component {
 
     const authLinks = (
       <Nav className="ml-auto" navbar>
-        {isStaff ? <NavItem>
+        {/* {isStaff ? <NavItem>
           <NavLink href="/patient/">Patients</NavLink>
         </NavItem> : <NavItem>
             <NavLink href="/patient/">Profile</NavLink>
-          </NavItem>}
+          </NavItem>} */}
         <NavItem>
           <NavLink href="/appointments/">Appointments</NavLink>
         </NavItem>

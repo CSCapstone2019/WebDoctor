@@ -9,6 +9,10 @@ export const GET_CHATS_SUCCESS = 'GET_CHATS_SUCCESS';
 export const GET_SCHEDULE_SUCCESS = 'GET_SCHEDULE_SUCCESS';
 export const ADD_SCHEDULE = 'ADD_SCHEDULE';
 
+// report
+export const GET_REPORT_SUCCESS = 'GET_REPORT_SUCCESS';
+export const ADD_REPORT = 'ADD_REPORT';
+
 // patients
 export const GET_PATIENTS = 'GET_PATIENTS';
 export const DELETE_PATIENT = 'DELETE_PATIENT';
