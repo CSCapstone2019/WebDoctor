@@ -23,8 +23,20 @@ class Profile extends React.Component {
       <div className="contact-profile">
         {this.props.username !== null ? (
           <Hoc>
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-            <strong>{user ? `${user.username}` : ''}</strong>
+            <img
+              src="https://pngimage.net/wp-content/uploads/2018/06/no-avatar-png-8.png"
+              alt=""
+            />
+
+            <p>
+              <strong style={{ textTransform: "capitalize" }}>
+                {user ? ` ${user.username}` : ""}
+              </strong>
+              {/* <small style={{ color: "#95a5a6" }}>
+                To start, select the chatroom in the side panel, or start a new
+                chatroom.
+              </small> */}
+            </p>
           </Hoc>
         ) : null}
       </div>

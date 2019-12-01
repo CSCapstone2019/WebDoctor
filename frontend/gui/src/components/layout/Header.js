@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
@@ -17,8 +18,15 @@ import {
 } from 'reactstrap';
 
 class Header extends Component {
+
+ 
+
+  // constuctor() {
+  //   this.routeChange = this.routeChange.bind(this);
+  // }
+
   state = {
-    isOpen: false,
+    isOpen: false
   };
 
   static propTypes = {
@@ -32,19 +40,28 @@ class Header extends Component {
     });
   };
 
- 
+  handleLogout() {
+    console.log("LOGOUT");
+    this.props.logout();
+    this.props.history.push("/");
+  }
 
   render() {
     const { isAuthenticated, isStaff, user } = this.props.auth;
-    console.log("USER --------------", user);
+    console.log('USER --------------', user);
 
     const authLinks = (
       <Nav className="ml-auto" navbar>
-        <NavItem>
+        {/* {isStaff ? <NavItem>
           <NavLink href="/patient/">Patients</NavLink>
-        </NavItem>
+        </NavItem> : <NavItem>
+            <NavLink href="/patient/">Profile</NavLink>
+          </NavItem>} */}
         <NavItem>
           <NavLink href="/appointments/">Appointments</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/reports/">Reports</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/chat/">Messages</NavLink>
@@ -53,19 +70,51 @@ class Header extends Component {
           <NavLink href="/about-us/">About Us</NavLink>
         </NavItem>
         <NavItem className="pl-2">
-          <Button onClick={this.props.logout} color="info" size="md">
+          <Button onClick={this.handleLogout.bind(this)}  color="light" size="md">
             Logout
           </Button>
         </NavItem>
         <span className="navbar-text ml-3">
           <strong>Welcome </strong>
           <strong>{isStaff ? `Doctor ` : ''}</strong>
-          <strong
-            style ={{textTransform:"capitalize"}}
-          >{user ? ` ${user.username}` : ''}</strong>
+          <strong style={{ textTransform: 'capitalize' }}>
+            {user ? ` ${user.username}` : ''}
+          </strong>
         </span>
       </Nav>
     );
+
+    // const patientLinks = (
+    //   <Nav className="ml-auto" navbar>
+    //     {/* <NavItem>
+    //       <NavLink href="/patient/">Patients</NavLink>
+    //     </NavItem> */}
+    //     <NavItem>
+    //       <NavLink href="/appointments/">Appointments</NavLink>
+    //     </NavItem>
+    //     <NavItem>
+    //       <NavLink href="/reports/">Reports</NavLink>
+    //     </NavItem>
+    //     <NavItem>
+    //       <NavLink href="/chat/">Messages</NavLink>
+    //     </NavItem>
+    //     <NavItem>
+    //       <NavLink href="/about-us/">About Us</NavLink>
+    //     </NavItem>
+    //     <NavItem className="pl-2">
+    //       <Button onClick={this.props.logout} color="info" size="md">
+    //         Logout
+    //       </Button>
+    //     </NavItem>
+    //     <span className="navbar-text ml-3">
+    //       <strong>Welcome </strong>
+    //       <strong>{isStaff ? `Doctor ` : ""}</strong>
+    //       <strong style={{ textTransform: "capitalize" }}>
+    //         {user ? ` ${user.username}` : ""}
+    //       </strong>
+    //     </span>
+    //   </Nav>
+    // );
 
     const guestLinks = (
       <Nav className="ml-auto" navbar>
@@ -86,10 +135,12 @@ class Header extends Component {
           <Container>
             <FontAwesomeIcon
               icon={faBriefcaseMedical}
-              style={{ color: 'white' }}
+              style={{ color: "white" }}
               className="fa-2x pr-2"
             />
-            <NavbarBrand href="/">WebDoctor</NavbarBrand>
+            <NavbarBrand href={isAuthenticated ? "/dashboard/" : "/"}>
+              WebDoctor
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               {isAuthenticated ? authLinks : guestLinks}
@@ -105,4 +156,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logout })(Header);
+export default withRouter(
+  connect(mapStateToProps, { logout })(Header)
+);

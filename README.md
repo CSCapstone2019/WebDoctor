@@ -1,10 +1,11 @@
 # CSCapstone2019 - WebDoctor
 
-This is the project for the CS Senior Project course at Kennesaw State University. It serves as a project for a local physician. The project builds a web portal that can store messages/chat, reports, requests for appts, and host video recordings. A list of project members and contributors can be found below.
+This is the project for the CS Senior Project course at Kennesaw State University. It serves as a project for a local physician. The project builds a web portal that can store messages/chat, reports, and requests for appts. A list of project members and contributors can be found below.
 
 ## Getting Started
 
 This project assumes you have at least Python 3.6 or later and NodeJS/npm installed on your system.
+
 - [Python](https://www.python.org/downloads/) - I have the latest version (3.7.4)
 - [NodeJS](https://nodejs.org/en/) - I'd recommend installing the LTS version for your OS
 - [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/) - Virtual environment package recommended for this project
@@ -48,29 +49,39 @@ Upon running the Django server, navigate to `http://localhost:8000/api/patient` 
 ## Making Pull Requests
 
 If you would like to commit a change to the codebase, make sure you submit a pull request first. To do this, make your own branch (not 'master' of course) with this command:
+
 ```
 git branch your-branch-name-here
 ```
+
 To switch from master to your new branch:
+
 ```
 git checkout your-branch-name-here
 ```
+
 After making your necessary changes, you would just add and commit your changes to the new branch just like you would normally:
+
 ```
 git add .
 git commit -m 'this is a commit message'
 git push origin your-branch-name-here
 ```
+
 ## Syncing Dependencies
 
 Navigate to /backend and run
+
 ```
 pipenv install
 ```
+
 Then navigate to /frontend/gui and run
+
 ```
 npm install
 ```
+
 ### `npm start`
 
 Runs the client in the development mode.<br>
@@ -78,8 +89,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
-
-
 
 ## Built With
 
@@ -90,13 +99,13 @@ You will also see any lint errors in the console.
 - [Fontawesome](https://fontawesome.com/) - Icons
 - [Reactstrap](https://reactstrap.github.io/) - Bootstrap turned into React components
 - [Axios](https://github.com/axios/axios) - Used for front/back end communication
-- [Redis](https://redis.io/) -  An in-memory data structure store, used as backing store for the chat 
+- [Redis](https://redis.io/) - An in-memory data structure store, used as backing store for the chat
+- [Syncfusion Schedule Component](https://ej2.syncfusion.com/demos/#/bootstrap/schedule/recurrence-editor-generate-rule.html)
 
 ## Authors
 
 - **Josh Arrants** - _Front-end/Back-end & Authentication_ - [joshdrumz](https://github.com/joshdrumz)
 - **Augustina Horlava** - _Front-end/Back-end & Chat Implementation_ - [augichii](https://github.com/Augichii)
-
 
 See the list of [contributors](https://github.com/CSCapstone2019/WebDoctor/contributors) who participated in this project.
 

@@ -14,7 +14,13 @@ const initialState = {
   isAuthenticated: null,
   isLoading: false,
   isStaff: false,
-  user: null
+  user: null,
+  a_username: null,
+  a_email: null,
+  a_first_name: null,
+  a_last_name: null,
+  a_user_id: null,
+
 };
 
 export default function(state = initialState, action) {
@@ -31,6 +37,11 @@ export default function(state = initialState, action) {
         isLoading: false,
         user: action.payload,
         isStaff: action.payload.is_staff,
+        a_username: action.payload.username,
+        a_email: action.payload.email,
+        a_first_name: action.payload.first_name,
+        a_last_name: action.payload.last_name,
+        a_user_id: action.payload.id,
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
@@ -41,6 +52,11 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         isLoading: false,
         isStaff: action.payload.is_staff,
+        a_username: action.payload.username,
+        a_email: action.payload.email,
+        a_first_name: action.payload.first_name,
+        a_last_name: action.payload.last_name,
+        a_user_id: action.payload.id,
       };
     case AUTH_ERROR:
     case LOGIN_FAIL:

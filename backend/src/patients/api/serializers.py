@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from ..models import Patient, Insurance, Appointment, Report
+from django.contrib.auth.models import User
 
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'is_staff', 'first_name', 'last_name']
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:

@@ -11,27 +11,24 @@ import PropTypes from "prop-types";
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 class Sidepanel extends React.Component {
-  
 
 
-  state = {
-    loginForm: true
-  };
   static propTypes = {
     auth: PropTypes.object.isRequired,
-    loading: PropTypes.bool.isRequired,
+    // loading: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     getUserChats: PropTypes.func.isRequired,
   };
 
   waitForAuthDetails() {
     const component = this;
     setTimeout(function () {
-      if (!(component.props.loading)) {
+      if (!(component.props.isLoading)) {
         component.props.getUserChats(component.props.auth.user.username);
         return;
       } else {
         console.log("waiting for authentication details...");
-        this.waitForAuthDetails();
+        component.waitForAuthDetails();
       }
     }, 100);
   }
@@ -103,6 +100,7 @@ const mapStateToProps = state => {
   return {
     auth: state.auth,
     loading: state.loading,
+    isLoading: state.auth.isLoading,
     chats: state.message.chats
   };
 };

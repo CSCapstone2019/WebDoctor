@@ -7,6 +7,7 @@ import { createMessage } from '../../store/actions/errorMsg';
 
 export class Register extends Component {
   state = {
+
     username: '',
     email: '',
     password: '',
@@ -20,24 +21,27 @@ export class Register extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { username, email, password, password2 } = this.state;
+    const {  username, email, password, password2 } = this.state;
     if (password !== password2) {
       this.props.createMessage({ passwordNotMatch: 'Passwords do not match' });
     } else {
       const newUser = {
+
         username,
         password,
         email
       };
       this.props.register(newUser);
     }
+
+    
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/patient" />;
+      return <Redirect to="/dashboard/" />;
     }
     const { username, email, password, password2 } = this.state;
     return (

@@ -18,6 +18,7 @@ class RegistrationForm extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.onAuth(
+          values.fist_name,
           values.username,
           values.email,
           values.password,
@@ -60,6 +61,21 @@ class RegistrationForm extends Component {
             style={{ padding: '0 50px', marginTop: '30px', width: '30%' }}
           >
             <Form onSubmit={this.handleSubmit}>
+              <Form.Item>
+                {getFieldDecorator('first_name', {
+                  rules: [
+                    { required: true, message: 'Please input your First Name!' }
+                  ]
+                })(
+                  <Input
+                    prefix={
+                      <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                    }
+                    placeholder="First Name"
+                  />
+                )}
+              </Form.Item>
+
               <Form.Item>
                 {getFieldDecorator('username', {
                   rules: [
