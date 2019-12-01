@@ -86,9 +86,8 @@ class ReportSerializer(serializers.ModelSerializer):
 
         report = Report()
         report.save()
-        report.appointment_date = date
-        report.appointment_time = time
-        report.message = message
+        report.title = title
+        report.pdf = pdf
         report.save()
         for username in participants:
             uploader = get_user_uploader(username)

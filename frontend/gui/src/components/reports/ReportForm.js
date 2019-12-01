@@ -25,11 +25,12 @@ function hasErrors(fieldsError) {
 
 class ReportForm extends Component {
   state = {
+    file: [],
     fileList: [],
     fileName: '',
     uploading: false,
     usernames: [],
-    message: '',
+    title: '',
     open: false,
     error: null,
   };
@@ -49,24 +50,38 @@ class ReportForm extends Component {
 
   }
 
+  
+
 
   // Value 
-  handleChange = value => {
+  handleChangeUser = value => {
     console.log("VALUE USER   ", value);
     this.setState({
       usernames: value
     });
   };
   // Value 
-  handleChangeMessage = value => {
+  handleChangeTitle = value => {
     console.log("VALUE MESSAGE  ", value);
     this.setState({
-      message: value
+      title: value
     });
   };
 
   handleSubmit = e => {
+    const getCsrfToken = () => {
+      const csrf = document.cookie.match('(^|;)\\s*csrftoken\\s*=\\s*([^;]+)');
+      return csrf ? csrf.pop() : '';
+    };
+    const csrf_cookie = getCsrfToken();
+    console.log("CSRF COOKIE:", csrf_cookie)
+
+
     const component = this;
+    let formData = new FormData();
+    formData.append('file', this.file);
+    console.log('>> formData >> ', formData);
+
     const { user } = this.props.auth;
     // const { usernames, appointment_date, appointment_time, message } = component.state;
     const { usernames } = component.state;
@@ -74,37 +89,33 @@ class ReportForm extends Component {
     console.log("COMBINED", combined);
     e.preventDefault();
 
-
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
+        this.handleUpload();
         console.log('Received values of form: ', fieldsValue);
         const values = {
           ...fieldsValue,
-          'timepicker': fieldsValue['time-picker'].format('HH:mm:ss'),
-          'datepicker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
         };
-        component.state.appointment_date = values.datepicker;
-        component.state.appointment_time = values.timepicker;
-        component.state.message = values.reason;
-
-
+        component.state.title = values.title;
         // console.log('Received values of form FORMATTED: ', values);
-        const { appointment_date, appointment_time, message } = component.state;
-        console.log('Received values of form FORMATTED: ', appointment_date, appointment_time, message);
-
-
+        const { fileName, title } = component.state;
+        console.log('Received values of form FORMATTED: ', fileName, title);
         axios.defaults.headers = {
-          "Content-Type": "application/json",
+          "Content-Type": 'multipart/form-data',
           Authorization: `Token ${this.props.auth.token}`
         };
-        axios
-          .post('http://127.0.0.1:8000/chat/report/create/', {
-            appointment_date: appointment_date,
-            appointment_time: appointment_time,
-            message: message,
-            participants: combined
-          })
-          .then(res => {
+
+
+        
+        axios.post('http://127.0.0.1:8000/chat/upload/',
+          formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Token ${this.props.auth.token}`,
+              "X-CSRFToken": `${csrf_cookie}` 
+            }
+          }
+          ).then(res => {
             console.log("DATA ONS SCHEDULE SUBMIT: ", res.data);
             // this.props.history.push(`/appointments/`);
             this.props.getUserSchedule(component.props.auth.user.username);
@@ -116,6 +127,42 @@ class ReportForm extends Component {
             });
           });
       }
+
+
+    // this.props.form.validateFields((err, fieldsValue) => {
+    //   if (!err) {
+    //     this.handleUpload();
+    //     console.log('Received values of form: ', fieldsValue);
+    //     const values = {
+    //       ...fieldsValue,
+    //     };
+    //     component.state.title = values.title;
+    //     // console.log('Received values of form FORMATTED: ', values);
+    //     const { fileName, title } = component.state;
+    //     console.log('Received values of form FORMATTED: ', fileName, title);
+    //     axios.defaults.headers = {
+    //       "Content-Type": "application/json",
+    //       // "Content-Type": 'multipart/form-data',
+    //       Authorization: `Token ${this.props.auth.token}`
+    //     };
+    //     axios
+    //       .post('http://127.0.0.1:8000/chat/report/create/', {
+    //         title: title,
+    //         pdf: fileName,
+    //         participants: combined
+    //       })
+    //       .then(res => {
+    //         console.log("DATA ONS SCHEDULE SUBMIT: ", res.data);
+    //         // this.props.history.push(`/appointments/`);
+    //         this.props.getUserSchedule(component.props.auth.user.username);
+    //       })
+    //       .catch(err => {
+    //         console.error(err);
+    //         this.setState({
+    //           error: err
+    //         });
+    //       });
+    //   }
 
 
 
@@ -189,13 +236,6 @@ class ReportForm extends Component {
 
 
   handleUpload = () => {
-    const { fileList } = this.state;
-    const formData = new FormData();
-    fileList.forEach(file => {
-      formData.append('files[]', file);
-    });
-
-    console.log("UPLOAD DATA ON UPLOAD:------------", formData )
     this.setState({
       uploading: true,
     });
@@ -223,13 +263,18 @@ class ReportForm extends Component {
   };
 
 
-
+  onUploadChange = file => {
+    console.log(" FILE  ", file);
+    this.setState({
+      file: file
+    });
+  };
 
 
 
 
   render() {
-    const { uploading, fileList } = this.state;
+    const { uploading, fileList, fileName } = this.state;
     const props = {
       onRemove: file => {
         this.setState(state => {
@@ -241,15 +286,45 @@ class ReportForm extends Component {
           };
         });
       },
+
       beforeUpload: file => {
+        console.log(" FILE  ", file);
         this.setState(state => ({
           fileList: [...state.fileList, file],
+          file: file,
+          fileName: file.name,        
         }));
-        console.log("BEFORE UPLOAD FILELIST------------:", fileList)
+        console.log(" THE FILEEEEEEEE  ", file);
+        console.log(" THE FILEEEEEEEE NAMEEEE  ", file.name);
+
         return false;
       },
+
       fileList,
     };
+
+    //   beforeUpload: file => {
+    //     this.setState(state => ({
+    //       fileList: [...state.fileList, file],
+    //     }));
+    //     console.log("BEFORE UPLOAD FILELIST------------:", fileList)
+    //     console.log("BEFORE UPLOAD FILE------------:", file)
+    //     return false;
+    //   },
+    //   fileList,
+    // };
+
+
+    //   beforeUpload: file => {
+    //     this.setState(state => ({
+    //       file: this.state.file,
+    //     }));
+    //     console.log("BEFORE UPLOAD FILELIST------------:", fileList)
+    //     console.log("BEFORE UPLOAD FILE------------:", file)
+    //     return false;
+    //   },
+    //   fileList,
+    // };
 
 
     //--------------------------
@@ -304,13 +379,12 @@ class ReportForm extends Component {
           <Form {...formItemLayout} onSubmit={this.handleSubmit}>
 
             <FormItem label="Select a user">
-
               {isStaff ? <Select
                 showSearch
                 style={{ width: '50%' }}
                 placeholder="Select a patient"
                 optionFilterProp="children"
-                onChange={this.handleChange}
+                onChange={this.handleChangeUser}
                 filterOption={(input, option) =>
                   option.props.children
                     .toLowerCase()
@@ -323,7 +397,7 @@ class ReportForm extends Component {
                 style={{ width: '50%' }}
                 placeholder="Select a doctor"
                 optionFilterProp="children"
-                onChange={this.handleChange}
+                onChange={this.handleChangeUser}
                 filterOption={(input, option) =>
                   option.props.children
                     .toLowerCase()
@@ -333,10 +407,8 @@ class ReportForm extends Component {
                   {patientOptions}
                 </Select>}
             </FormItem>
-            
-
-            <Form.Item label="Reason:">
-              {getFieldDecorator('reason', {
+            <Form.Item label="Title:">
+              {getFieldDecorator('title', {
                 rules: [
                   {
                     required: true,
@@ -371,9 +443,10 @@ class ReportForm extends Component {
               <Button 
                 type="primary" 
                 htmlType="submit" 
-                onClick={this.handleUpload}
+                // onClick={this.handleUpload}
                 disabled={fileList.length === 0}
-                loading={uploading}>
+                // loading={uploading}
+                >
                 Upload
               </Button>
             </Form.Item>

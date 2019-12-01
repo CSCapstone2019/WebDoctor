@@ -27,6 +27,7 @@ def get_current_chat(chatId):
     return get_object_or_404(Chat, chat_id=chatId) 
 
 def upload(request):
+    print ("UPLOAD REUQEST VIEW___________: ", request)
     context = {}
     if request.method == 'POST':
         uploaded_file = request.FILES['document']

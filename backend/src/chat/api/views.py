@@ -101,7 +101,7 @@ class ReportListView(ListAPIView):
     permission_classes = (permissions.AllowAny, )
 
     def get_queryset(self):
-        queryset = Schedule.objects.all()
+        queryset = Report.objects.all()
         username = self.request.query_params.get('username', None)
         if username is not None:
             uploader = get_user_uploader(username)
